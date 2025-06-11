@@ -1,0 +1,252 @@
+body {
+    display: grid;
+    grid-template-rows: 1fr 10fr 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-template-areas:
+        "header header"
+        "aside main"
+        "footer footer";
+    margin: 5px 20px;
+    height: 100vh;
+
+
+}
+
+.header {
+    grid-area: header;
+    margin:5px;
+    margin-bottom: 0px;
+}
+
+.header-container {
+    display: grid;
+    grid-template-areas:
+        "header-col-1 header-col-2 header-col-3";
+    grid-template-columns: 2fr 6fr 1fr;
+}
+
+.header-col-1 {
+    grid-area: header-col-1;
+}
+
+.header-col-1 input[type="checkbox"] {
+  display:none;
+}
+
+#close-icon {
+    display:none;
+    margin: 0px 3px;
+}
+
+
+.header-col-1 input:checked~#close-icon{
+    display: inline-block;
+}
+
+.header-col-1 input:checked~#burger-menu{
+    display: none;
+}
+
+#logo {
+    display: inline;
+    margin-left: 10px;
+}
+
+#logo>svg {
+    position: relative;
+    top: 10px;
+}
+
+.header h1 {
+    display: inline;
+    font-family: "Lora", serif;
+    position: relative;
+    top: 5px;
+}
+
+.header-col-2 {
+    grid-area: header-col-2;
+}
+
+.header-col-2 form {
+    display: inline;
+    position: relative;
+    top: 11px;
+}
+
+.header-col-2 input {
+    width: 60%;
+    height: 40%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 0.2rem;
+}
+
+.header-col-3 {
+    grid-area: header-col-3;
+}
+
+.header-col-3 svg {
+    float: right;
+    padding-left: 10px;
+}
+
+.header-col-3 label:nth-last-of-type(1){
+ position: relative;
+ top: 10px;
+}
+
+.header-col-3 label:nth-last-of-type(2){
+ position: relative;
+ top: 14px;
+}
+.header-col-3 label input[type="checkbox"]{
+  display:none;  
+}
+
+#list-view{
+    display:none
+}
+
+.header-col-3 label:nth-of-type(2) input:checked~#column-view{
+    display:none
+}
+
+.header-col-3 label:nth-of-type(2) input:checked~#list-view{
+    display:block
+}
+
+#dark-theme {
+    display:none;
+    margin: 0px 5px;
+}
+
+
+.header-col-3 label:nth-of-type(1) input:checked~#light-theme{
+    display:none
+}
+
+.header-col-3 label:nth-of-type(1) input:checked~#dark-theme{
+    display:block
+}
+
+.aside {
+    grid-area: aside;
+    border: 2px solid black;
+    margin: 5px;
+}
+
+.aside .status-filter a {
+    display: block;
+}
+
+.main {
+    grid-area: main;
+    display: grid;
+    grid-template-areas:
+        "main-heading main-heading main-heading "
+        "col-1 col-2 col-3";
+    grid-template-rows: 2fr 10fr;
+}
+
+.main-heading {
+    grid-area: main-heading;
+    border: 2px solid black;
+    margin: 5px;
+}
+.col-1 {
+    grid-area: col-1;
+    border: 2px solid black;
+    margin: 5px;
+
+}
+
+.col-2 {
+    grid-area: col-2;
+    border: 2px solid black;
+    margin: 5px;
+
+}
+
+.col-3 {
+    grid-area: col-3;
+    border: 2px solid black;
+    margin: 5px;
+
+}
+
+.footer {
+    grid-area: footer;
+}
+
+
+@media only screen and (min-width: 725px) {
+
+    .header svg:hover,
+    input,
+    h1 {
+        cursor: pointer;
+    }
+
+    .header-col-1 svg:hover {
+        transform: scale(1.08);
+    }
+
+    .header-col-1 label:hover path {
+        stroke: #000000
+    }
+
+    #logo:hover path:nth-child(4) {
+        fill: #000000;
+    }
+
+    #logo:hover path:nth-child(3) {
+        fill: #999999;
+    }
+
+    #logo:hover h1{
+        color: rgb(111, 111, 111);
+        transform: scale(1.01);
+    }
+
+    .header-col-3 svg:hover {
+        transform: scale(1.08)
+    }
+
+
+    .header-col-3 label:nth-of-type(2):hover path:nth-of-type(1) {
+        fill: #000000;
+    }
+
+    .header-col-3 label:nth-of-type(2):hover path:nth-child(2) {
+        fill: #999999;
+    }
+
+    .header-col-3 label:nth-of-type(2):hover path:nth-of-type(1) {
+        fill: #000000;
+    }
+
+    .header-col-3 label:nth-of-type(2):hover path:nth-of-type(2) {
+        fill: #999999;
+    }
+
+    .header-col-3 label:nth-of-type(2):hover path:nth-of-type(3) {
+        fill: #999999;
+
+    }
+
+    .header-col-3 label:nth-of-type(2):hover path:nth-of-type(4) {
+        fill: #000000;
+    }
+
+
+    .header-col-3 label:nth-of-type(1):hover svg:nth-of-type(1) path {
+       stroke: #000000;
+    }
+
+    .header-col-3 label:nth-of-type(1):hover svg:nth-of-type(2) path{
+        fill: #000000;
+        stroke:#000000;
+    }
+
+}
