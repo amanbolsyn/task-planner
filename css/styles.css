@@ -5,24 +5,23 @@ body {
     grid-template-areas:
         "header header"
         "aside main"
-        "footer footer";
-    margin: 5px 20px;
+        "aside footer";
     height: 100vh;
-
-
+    margin: 0px;
 }
 
 .header {
     grid-area: header;
-    margin:5px;
+    padding: 10px 20px 20px;
     margin-bottom: 0px;
+    border-bottom: 1px rgb(202, 202, 202) solid;
 }
 
 .header-container {
     display: grid;
     grid-template-areas:
         "header-col-1 header-col-2 header-col-3";
-    grid-template-columns: 2fr 6fr 1fr;
+    grid-template-columns: 2fr 5fr 1fr;
 }
 
 .header-col-1 {
@@ -30,20 +29,20 @@ body {
 }
 
 .header-col-1 input[type="checkbox"] {
-  display:none;
+    display: none;
 }
 
 #close-icon {
-    display:none;
+    display: none;
     margin: 0px 3px;
 }
 
 
-.header-col-1 input:checked~#close-icon{
+.header-col-1 input:checked~#close-icon {
     display: inline-block;
 }
 
-.header-col-1 input:checked~#burger-menu{
+.header-col-1 input:checked~#burger-menu {
     display: none;
 }
 
@@ -64,8 +63,29 @@ body {
     top: 5px;
 }
 
+.tooltip-text {
+    opacity: 0;
+    transition: opacity 0s ease 0s;
+    position: absolute;
+    /* top: 60px;
+    left: 20px; */
+    background-color: #999999;
+    padding: 0.1em 0.3em;
+    border-radius: 0.2rem;
+    z-index: 1;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .header-col-2 {
     grid-area: header-col-2;
+}
+
+#search {
+    background-image: url('/assets/header-images/search-icon.svg');
+    background-repeat: no-repeat;
+    background-position-y: center;
+    padding-left:30px;
+
 }
 
 .header-col-2 form {
@@ -77,9 +97,12 @@ body {
 .header-col-2 input {
     width: 60%;
     height: 40%;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 0.2rem;
+    padding: 0.7rem;
+    font-size: 1.1em;
+    border-radius: 0.4rem;
+    outline: none;
+    border: none;
+    background-color: #e2e2e2;
 }
 
 .header-col-3 {
@@ -91,92 +114,168 @@ body {
     padding-left: 10px;
 }
 
-.header-col-3 label:nth-last-of-type(1){
- position: relative;
- top: 10px;
+.header-col-3 label:nth-last-of-type(1) {
+    position: relative;
+    top: 10px;
 }
 
-.header-col-3 label:nth-last-of-type(2){
- position: relative;
- top: 14px;
-}
-.header-col-3 label input[type="checkbox"]{
-  display:none;  
+.header-col-3 label:nth-last-of-type(2) {
+    position: relative;
+    top: 14px;
 }
 
-#list-view{
-    display:none
+.header-col-3 label input[type="checkbox"] {
+    display: none;
 }
 
-.header-col-3 label:nth-of-type(2) input:checked~#column-view{
-    display:none
+#column-view {
+    display: none
 }
 
-.header-col-3 label:nth-of-type(2) input:checked~#list-view{
-    display:block
+.header-col-3 label:nth-of-type(2) input:checked~#column-view {
+    display: block
+}
+
+.header-col-3 label:nth-of-type(2) input:checked~#list-view {
+    display: none
+}
+
+#light-theme {
+    display: none;
 }
 
 #dark-theme {
-    display:none;
     margin: 0px 5px;
 }
 
 
-.header-col-3 label:nth-of-type(1) input:checked~#light-theme{
-    display:none
+.header-col-3 label:nth-of-type(1) input:checked~#light-theme {
+    display: block;
+
 }
 
-.header-col-3 label:nth-of-type(1) input:checked~#dark-theme{
-    display:block
+.header-col-3 label:nth-of-type(1) input:checked~#dark-theme {
+    display: none;
+    margin: 0px 5px;
 }
 
 .aside {
     grid-area: aside;
-    border: 2px solid black;
-    margin: 5px;
+    margin-top: 10px;
 }
 
-.aside .status-filter a {
+
+.aside label {
     display: block;
+    padding: 10px 0px 10px 20px;
+    font-size: 1.1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-radius: 0 100px 100px 0;
+}
+
+.aside .status-filter input[type="radio"] {
+    display: none;
+}
+
+.aside .alphabet-sort input[type="radio"] {
+    display: none;
+}
+
+.aside .date-sort input[type="radio"] {
+    display: none;
+}
+
+.aside input:checked+label {
+    background-color:rgb(251,235,196);
+}
+
+.aside .status-filter label>svg {
+    /* border-bottom: 1px black solid; */
+    position: relative;
+    top: 3px;
+    margin-right: 20px;
 }
 
 .main {
+
     grid-area: main;
     display: grid;
     grid-template-areas:
         "main-heading main-heading main-heading "
         "col-1 col-2 col-3";
     grid-template-rows: 2fr 10fr;
+    padding-right: 20px;
+
 }
 
 .main-heading {
     grid-area: main-heading;
-    border: 2px solid black;
+    text-align: center;
     margin: 5px;
+
 }
+
+.main-heading form {
+    display: inline-block;
+    margin: 50px;
+    border-radius: 0.4rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 20px;
+}
+
+.main-heading input {
+    border: none;
+    display: block;
+    outline: none;
+    width: 500px;
+    height: inherit;
+    padding: 10px;
+    border-radius: 0.4rem;
+    font-size: 1.1em;
+}
+
+
+#note-tittle {
+    display: none;
+}
+
+#note-description {
+  background-image: url('/assets/header-images/pencil-icon.svg');
+  background-position: 5px;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  padding-left: 30px;
+}
+
 .col-1 {
     grid-area: col-1;
-    border: 2px solid black;
-    margin: 5px;
+    /* border: 2px solid black;
+    margin: 5px; */
 
 }
 
 .col-2 {
     grid-area: col-2;
-    border: 2px solid black;
-    margin: 5px;
-
+    /* border: 2px solid black;
+    margin: 5px; */
 }
 
 .col-3 {
     grid-area: col-3;
-    border: 2px solid black;
-    margin: 5px;
-
+    /* border: 2px solid black;
+    margin: 5px; */
 }
 
 .footer {
     grid-area: footer;
+}
+
+.footer p {
+    text-align: center;
+}
+
+.footer p a {
+        color:black;
+        font-style: italic;
 }
 
 
@@ -204,9 +303,13 @@ body {
         fill: #999999;
     }
 
-    #logo:hover h1{
+    #logo:hover h1 {
         color: rgb(111, 111, 111);
         transform: scale(1.01);
+    }
+
+    .header-col-2 input {
+        cursor: text;
     }
 
     .header-col-3 svg:hover {
@@ -241,12 +344,27 @@ body {
 
 
     .header-col-3 label:nth-of-type(1):hover svg:nth-of-type(1) path {
-       stroke: #000000;
+        stroke: #000000;
     }
 
-    .header-col-3 label:nth-of-type(1):hover svg:nth-of-type(2) path{
+    .header-col-3 label:nth-of-type(1):hover svg:nth-of-type(2) path {
         fill: #000000;
-        stroke:#000000;
+        stroke: #000000;
+    }
+
+    .aside label:hover {
+        cursor: pointer;
+        background-color: rgb(219, 219, 219)
+    }
+
+    .main-heading
+    input {
+        cursor: text;
+    }
+
+    .tooltip svg:hover+.tooltip-text{
+        opacity: 1;
+        transition: opacity 0s ease 0.7s;
     }
 
 }
