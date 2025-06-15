@@ -34,6 +34,7 @@
     --new-task-form-background: #ffffff;
     --new-task-form-text-color: #000000;
     --new-task-form-shadow-color: #0000003d;
+    --new-task-form-border-width: 0px;
 
     /* FOOTER COLORS */
     --footer-text-color: #000000;
@@ -78,6 +79,7 @@
     --new-task-form-background: #202124;
     --new-task-form-text-color: white;
     --new-task-form-shadow-color: #0f0e0ee4;
+    --new-task-form-border-width: 1px;
 
     /* FOOTER COLORS */
     --footer-text-color: #FFFFFF;
@@ -297,7 +299,7 @@ body {
 
 .aside label {
     display: block;
-    padding: 10px 0px 10px 30px;
+    padding: 7px 0px 15px 30px;
     font-size: 1.1em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-radius: 0 100px 100px 0;
@@ -320,11 +322,11 @@ body {
     background-color: var(--aside-checked-label-background);
 }
 
-.aside .status-filter label>svg {
+.aside label>svg {
     /* border-bottom: 1px black solid; */
     position: relative;
-    top: 3px;
-    margin-right: 20px;
+    top: 5px;
+    margin-right: 10px;
 }
 
 .main {
@@ -350,8 +352,10 @@ body {
     margin: 50px;
     border-radius: 0.4rem;
     box-shadow: var(--new-task-form-shadow-color) 0px 3px 20px;
-    border: 1px var(--border-color) solid;
+    border: var(--new-task-form-border-width) var(--border-color) solid;
+
 }
+
 
 .main-heading input {
     border: none;
@@ -365,8 +369,6 @@ body {
     background-color: var(--new-task-form-background);
     color: var(--new-task-form-text-color)
 }
-
-.main-heading input::placeholder {}
 
 
 #note-tittle {
