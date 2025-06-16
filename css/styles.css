@@ -51,7 +51,8 @@
     --border-color: #7a7a7a;
 
     /* HEADER COLORS */
-    --header-backgound: #202124;;
+    --header-backgound: #202124;
+    ;
     --burger-menu-hover-background: #ffffff;
 
     --h1-color: #f1f1f1;
@@ -74,7 +75,7 @@
 
     /* ASIDE COLORS */
     --aside-text-color: #ffffff;
-    --aside-hover-label-background: #b7b7b7;
+    --aside-hover-label-background: #414040;
     --aside-checked-label-background: #41331c;
 
     /* NEW TASK FORM COLORS */
@@ -94,7 +95,7 @@
 body {
     display: grid;
     grid-template-rows: 1fr 10fr 1fr;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: auto 1fr;
     grid-template-areas:
         "header header"
         "aside main"
@@ -309,7 +310,7 @@ aside {
 
 .aside label {
     display: block;
-    padding: 7px 0px 15px 30px;
+    padding: 12px 0px 20px 30px;
     font-size: 1.1em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-radius: 0 100px 100px 0;
@@ -338,6 +339,28 @@ aside {
     top: 5px;
     margin-right: 10px;
 }
+
+.aside label>p {
+    padding-right: 25px;
+}
+
+/* BURGER MENU STYLE */
+
+.burger-menu-active {}
+
+.burger-menu-active p {
+    display: inline;
+}
+
+.burger-menu-inactive label {
+    width: fit-content;
+    padding-right: 15px;
+}
+
+.burger-menu-inactive p {
+    display: none
+}
+
 
 .main {
     grid-area: main;
@@ -491,8 +514,6 @@ aside {
     #light-theme:hover path {
         stroke: white;
     }
-
-
 
     .aside label:hover {
         cursor: pointer;
