@@ -1,8 +1,9 @@
 import { ThemeToggle } from "./utils/utils.js";
-import { ViewToggle } from "./utils/utils.js";
+import { ViewTasksToggle } from "./utils/utils.js";
 import { BurgerMenu } from "./utils/utils.js";
-
+import { DisplayView } from "./utils/utils.js";
 import { CreateTaskForm } from "./utils/utils.js";
+
 
 
 document.addEventListener("DOMContentLoaded", ({
@@ -17,6 +18,8 @@ ThemeToggle();
 BurgerMenu();
 
 //View selection functionality 
-ViewToggle();
+ViewTasksToggle();
 
 CreateTaskForm();
+
+DisplayView();

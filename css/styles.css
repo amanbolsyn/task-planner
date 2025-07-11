@@ -443,14 +443,20 @@ aside {
 }
 
 
-/* 
-.col {
-    grid-area: col-1;
+
+.column-view .column {
     border: 2px solid black;
     margin: 5px;
-
 }
-*/
+
+.list-view .column {
+    width: 50%;
+    max-width: 800px;
+    border: 2px solid black;
+    margin: auto;
+    height: 100%;
+}
+
 
 
 .footer {

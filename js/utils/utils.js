@@ -1,4 +1,6 @@
 
+const viewToggleChkBx = document.getElementById("view-toggle");
+
 //Theme selection functionality 
 function ThemeToggle() {
 
@@ -21,53 +23,64 @@ function ThemeToggle() {
 }
 
 //Task view(column or list) functionality
-function ViewToggle() {
+function ViewTasksToggle() {
 
-    const viewToggleChkBx = document.getElementById("view-toggle");
     const viewPref = localStorage.getItem("view-preference");
- 
+
     const taskWindow = document.querySelector(".main-task-cards");
 
-    if (viewPref === "false") {
+    if (viewPref === "true") {
+        viewToggleChkBx.checked = true;
+        taskWindow.classList.add("list-view")
+    } else {
         viewToggleChkBx.checked = false;
         taskWindow.classList.add("column-view")
-        DisplayView();
-     } else {
-        viewToggleChkBx.checked = true;
-         taskWindow.classList.add("list-view")
-     }
+    }
+
+    DisplayView(viewToggleChkBx.checked)
 
     viewToggleChkBx.addEventListener("change", function () {
 
-        if(viewToggleChkBx.checked){
-           taskWindow.classList.add("column-view")
-           taskWindow.classList.remove("list-view")
-           DisplayView(); 
-        } else {
-            taskWindow.classList.add("list-view")
+        if (viewToggleChkBx.checked) {
             taskWindow.classList.remove("column-view")
+            taskWindow.classList.add("list-view")
+        } else {
+            taskWindow.classList.remove("list-view")
+            taskWindow.classList.add("column-view")
         }
+
         localStorage.setItem("view-preference", viewToggleChkBx.checked);
+
+        DisplayView(viewToggleChkBx.checked)
     });
+
 }
 
-function DisplayView() {
+window.addEventListener("resize", ()=> DisplayView(viewToggleChkBx.checked));
+window.addEventListener("load", ()=> DisplayView(viewToggleChkBx.checked));
 
-   const taskWindow = document.querySelector(".main-task-cards");
+function DisplayView(viewPref) {
 
-   const windowWidth = taskWindow.offsetWidth;
-   let numOfColumnns = Math.floor(windowWidth/300);
+    const taskWindow = document.querySelector(".main-task-cards");
+    let numOfColumnns;
 
-   taskWindow.style.setProperty('--columns', numOfColumnns)
+    if (viewPref === true) {
+        numOfColumnns = 1;
+    } else {
+        const windowWidth = taskWindow.offsetWidth;
+        numOfColumnns = Math.floor(windowWidth / 300);
+    }
 
-   taskWindow.innerHTML = "";
+    taskWindow.style.setProperty('--columns', numOfColumnns)
 
-   for(let i = 0; i<numOfColumnns; i++ ){
-    const div = document.createElement("div");
-    div.className = "column";
-    div.innerText = `column ${i+1}`;
-    taskWindow.appendChild(div)
-   }
+    taskWindow.innerHTML = "";
+
+    for (let i = 0; i < numOfColumnns; i++) {
+        const div = document.createElement("div");
+        div.className = "column";
+        div.innerText = `column ${i + 1}`;
+        taskWindow.appendChild(div)
+    }
 
 }
 
@@ -117,9 +130,9 @@ function CreateTaskForm() {
 
     })
 
-     taskTitle.addEventListener("focus", function () {
+    taskTitle.addEventListener("focus", function () {
 
     })
 }
 
-export { ThemeToggle, ViewToggle, BurgerMenu, CreateTaskForm};
+export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView};
