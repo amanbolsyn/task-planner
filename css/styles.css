@@ -22,7 +22,7 @@
     --column-view-hover-background: #000000;
 
 
-    --search-background: #e2e2e2;
+    --search-background: hsl(0, 0%, 89%);
     --search-placehoder-color: #999999;
     --search-text-color: #000000;
 
@@ -114,7 +114,7 @@ body {
     background-color: var(--header-backgound);
     position: sticky;
     top: 0;
-
+    height: fit-content;
 }
 
 .header-container {
@@ -225,6 +225,7 @@ body {
     background-position-y: center;
     background-position-x: 5px;
     padding-left: 40px;
+    max-width: 800px;
 }
 
 .header-col-2 form {
@@ -277,7 +278,6 @@ body {
     display: none
 }
 
-
 .header-col-3 label:nth-of-type(1) input:checked~#column-view {
     display: inline-block;
 }
@@ -304,9 +304,10 @@ aside {
     top: 80px;
 }
 
-.aside {
+aside {
     grid-area: aside;
 }
+
 
 .aside label {
     display: block;
@@ -333,24 +334,22 @@ aside {
     background-color: var(--aside-checked-label-background);
 }
 
+.aside label {
+    margin-right: 5px;
+}
+
 .aside label>svg {
-    /* border-bottom: 1px black solid; */
     position: relative;
     top: 5px;
     margin-right: 10px;
 }
 
-.aside label>p {
+.aside p {
+    display: inline;
     padding-right: 25px;
 }
 
 /* BURGER MENU STYLE */
-
-.burger-menu-active {}
-
-.burger-menu-active p {
-    display: inline;
-}
 
 .burger-menu-inactive label {
     width: fit-content;
@@ -358,19 +357,17 @@ aside {
 }
 
 .burger-menu-inactive p {
-    display: none
+    display: none;
 }
-
 
 .main {
     grid-area: main;
     display: grid;
     grid-template-areas:
-        "main-heading main-heading main-heading main-heading "
-        "col-1 col-2 col-3 col-4";
-    grid-template-rows: 2fr 10fr;
+        "main-heading"
+        "main-task-cards";
+    grid-template-rows: 2fr 15fr;
     padding-right: 30px;
-
 }
 
 .main-heading {
@@ -379,66 +376,81 @@ aside {
     margin: 5px;
 }
 
+
+.main-heading input,
+.main-heading textarea {
+    border: none;
+    display: block;
+    outline: none;
+    width: 100%;
+    height: inherit;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 0.4rem;
+    font-size: 1.1em;
+    background-color: var(--new-task-form-background);
+    color: var(--new-task-form-text-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.main-task-cards {
+  grid-area: main-task-cards;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  gap: 10px;
+}
+
+.column-view {
+
+}
+
+.list-view {
+}
+
+
 #new-task-form {
     display: inline-block;
     margin: 50px;
     border-radius: 0.4rem;
     box-shadow: var(--new-task-form-shadow-color) 0px 3px 20px;
     border: var(--new-task-form-border-width) var(--border-color) solid;
-
+    width: 50%;
+    max-width: 800px;
 }
 
 
-.main-heading input {
-    border: none;
-    display: block;
-    outline: none;
-    width: 500px;
-    height: inherit;
-    padding: 10px;
-    border-radius: 0.4rem;
-    font-size: 1.1em;
-    background-color: var(--new-task-form-background);
-    color: var(--new-task-form-text-color)
-}
-
-
-#note-tittle {
+.task-form-inactive #task-tittle {
     display: none;
 }
 
-#note-description {
+.task-form-inactive #task-description {
     background-image: url('/assets/header-images/pencil-icon.svg');
-    background-position: 5px;
     background-repeat: no-repeat;
     background-position-y: center;
-    padding-left: 30px;
+    background-position-x: 10px;
+    padding-left: 35px;
 }
 
-.col-1 {
+.task-form-active #task-tittle {
+    display: block;
+    font-size: 1.5em;
+}
+
+.task-form-active #task-description {
+    height: 150px;
+    max-height: 150px;
+}
+
+
+/* 
+.col {
     grid-area: col-1;
     border: 2px solid black;
     margin: 5px;
 
 }
-
-.col-2 {
-    grid-area: col-2;
-    border: 2px solid black;
-    margin: 5px;
-}
-
-.col-3 {
-    grid-area: col-3;
-    border: 2px solid black;
-    margin: 5px;
-}
-
-.col-4 {
-    grid-area: col-4;
-    border: 2px solid black;
-    margin: 5px;
-}
+*/
 
 
 .footer {
