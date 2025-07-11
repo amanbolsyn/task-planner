@@ -21,5 +21,3 @@ BurgerMenu();
 ViewTasksToggle();
 
 CreateTaskForm();
-
-DisplayView();

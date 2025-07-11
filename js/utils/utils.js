@@ -56,8 +56,6 @@ function ViewTasksToggle() {
 
 }
 
-window.addEventListener("resize", ()=> DisplayView(viewToggleChkBx.checked));
-window.addEventListener("load", ()=> DisplayView(viewToggleChkBx.checked));
 
 function DisplayView(viewPref) {
 
@@ -114,6 +112,8 @@ function BurgerMenu() {
 
         //stores new value of burger menu checkbox when checkbox is triggered
         localStorage.setItem("burger-menu-preference", burgerMenuChkBox.checked);
+
+         DisplayView(viewToggleChkBx.checked);
     })
 }
 
@@ -124,15 +124,25 @@ function CreateTaskForm() {
     const taskDescription = document.getElementById("task-description");
     const taskTitle = document.getElementById("task-tittle")
 
-    taskDescription.addEventListener("focus", function () {
+    taskForm.addEventListener("focusin", function () {
         taskForm.classList.add("task-form-active");
         taskForm.classList.remove("task-form-inactive");
 
+        // console.log(taskDescription.contains(document.activeElement) , taskTitle.contains(document.activeElement));
     })
 
-    taskTitle.addEventListener("focus", function () {
+    taskForm.addEventListener("focusout", function () {
+        setTimeout(() => {
+            if (!taskForm.contains(document.activeElement)) {
+                taskForm.classList.remove("task-form-active");
+                taskForm.classList.add("task-form-inactive");
 
+            }
+        }, 0);
     })
 }
 
-export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView};
+window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
+window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
+
+export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView };
