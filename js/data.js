@@ -100,9 +100,10 @@ function iterateCursor() {
                 taskCardContainer.appendChild(taskCard);
                 
 
-                const taskTitile = document.createElement("h3");
-                taskTitile.innerText = cursor.value.title;
-                taskCard.appendChild(taskTitile);
+                const taskTitle = document.createElement("h3");
+                taskTitle.innerText = cursor.value.title;
+                taskTitle.classList.add("task-title");
+                taskCard.appendChild(taskTitle);
 
                 const taskDescription = document.createElement("p");
                 taskDescription.innerText = cursor.value.body;
