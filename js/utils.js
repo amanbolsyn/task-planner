@@ -1,3 +1,5 @@
+import { DisplayData } from "./data.js";
+
 
 const viewToggleChkBx = document.getElementById("view-toggle");
 
@@ -56,32 +58,6 @@ function ViewTasksToggle() {
 
 }
 
-
-function DisplayView(viewPref) {
-
-    const taskWindow = document.querySelector(".main-task-cards");
-    let numOfColumnns;
-
-    if (viewPref === true) {
-        numOfColumnns = 1;
-    } else {
-        const windowWidth = taskWindow.offsetWidth;
-        numOfColumnns = Math.floor(windowWidth / 300);
-    }
-
-    taskWindow.style.setProperty('--columns', numOfColumnns)
-
-    taskWindow.innerHTML = "";
-
-    for (let i = 0; i < numOfColumnns; i++) {
-        const div = document.createElement("div");
-        div.className = "column";
-        div.innerText = `column ${i + 1}`;
-        taskWindow.appendChild(div)
-    }
-
-}
-
 function BurgerMenu() {
 
     const burgerMenuChkBox = document.getElementById("burger-menu-toggle");
@@ -121,14 +97,10 @@ function BurgerMenu() {
 function CreateTaskForm() {
 
     const taskForm = document.getElementById("new-task-form")
-    const taskDescription = document.getElementById("task-description");
-    const taskTitle = document.getElementById("task-tittle")
 
     taskForm.addEventListener("focusin", function () {
         taskForm.classList.add("task-form-active");
         taskForm.classList.remove("task-form-inactive");
-
-        // console.log(taskDescription.contains(document.activeElement) , taskTitle.contains(document.activeElement));
     })
 
     taskForm.addEventListener("focusout", function () {
@@ -136,10 +108,29 @@ function CreateTaskForm() {
             if (!taskForm.contains(document.activeElement)) {
                 taskForm.classList.remove("task-form-active");
                 taskForm.classList.add("task-form-inactive");
-
             }
         }, 0);
     })
+}
+
+
+
+function DisplayView(viewPref) {
+
+    const taskWindow = document.querySelector(".main-task-cards");
+    let numOfColumnns;
+
+    if (viewPref === true) {
+        numOfColumnns = 1;
+    } else {
+        const windowWidth = taskWindow.offsetWidth;
+        numOfColumnns = Math.floor(windowWidth / 300);
+    }
+
+    taskWindow.style.setProperty('--columns', numOfColumnns)
+
+    DisplayData();
+    
 }
 
 window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));

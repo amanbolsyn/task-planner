@@ -257,12 +257,21 @@
   </nav>
   <main class="main">
     <section class="main-heading">
-      <form id="new-task-form" class = "task-form-inactive">
-        <input type="text" placeholder="Title" id="task-tittle" autocomplete="off">
-        <textarea  rows = "1" type="text" placeholder="Take a task..." id="task-description" autocomplete="off"></textarea>
+      <form id="new-task-form" class="task-form-inactive">
+        <input type="text" placeholder="Title" id="new-task-title" autocomplete="off">
+        <textarea rows="1" type="text" placeholder="Take a task..." id="new-task-description"
+          autocomplete="off"></textarea>
+
+        <select id="new-task-status" name="new-task-status" autofocus="off">
+          <option value="Completed">Completed</option>
+          <option value="In progress">In progress</option>
+          <option value="Not started">Not started</option>
+          <option value="On hold">On hold</option>
+        </select>
+        <button type="button" id="close-form-button">close</button>
       </form>
     </section>
-    <section class = "main-task-cards">
+    <section class="main-task-cards">
 
     </section>
   </main>
