@@ -48,7 +48,7 @@
 
 
     /* TASK CARD COLORS */
-    --task-card-color: black ;
+    --task-card-color: black;
     --task-card-background: white;
     --task-card-shadow: #0000003d;
 
@@ -112,7 +112,7 @@
 
     /* TASK CARD COLORS */
     --task-card-color: #d8d8d8;
-    --task-card-background:#202124 ;
+    --task-card-background: #202124;
     --task-card-shadow: #0f0e0ee4;
 
     --task-status-completed: #426a42;
@@ -149,7 +149,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
 .header-container {
@@ -409,10 +409,22 @@ aside {
     text-align: center;
     margin: 5px;
 }
+/* ********************* */
+/* NEW TASK FORM STYLING */
+/* ********************* */
 
+#new-task-form {
+    display: inline-block;
+    margin: 50px;
+    border-radius: 0.4rem;
+    box-shadow: var(--new-task-form-shadow-color) 0px 3px 20px;
+    border: var(--new-task-form-border-width) var(--border-color) solid;
+    width: 50%;
+    max-width: 800px;
+}
 
-.main-heading input,
-.main-heading textarea {
+#new-task-form input,
+#new-task-form textarea {
     border: none;
     display: block;
     outline: none;
@@ -427,28 +439,41 @@ aside {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#new-task-form {
-    display: inline-block;
-    margin: 50px;
-    border-radius: 0.4rem;
-    box-shadow: var(--new-task-form-shadow-color) 0px 3px 20px;
-    border: var(--new-task-form-border-width) var(--border-color) solid;
-    width: 50%;
-    max-width: 800px;
+.button-form {
+    border: none;
+    float: right;
+    margin: 0.7em;
+    font-size: 1em;
+    padding: 0.4em 0.8em;
+    border-radius: 0.2rem;
+    background-color: var(--new-task-button-background);
+    color: var(--new-task-button-color);
 }
 
-.task-form-active #new-task-tittle {
+.new-task-form-active #new-task-tittle {
     display: block;
     font-size: 1.5em;
 }
 
-.task-form-active #new-task-description {
+.new-task-form-inactive #new-task-title {
+    display: none;
+}
+
+.new-task-form-active #new-task-description {
     height: 100px;
-    max-height: 100px;
     resize: none;
 }
 
-.task-form-active #new-task-status {
+.new-task-form-inactive #new-task-description {
+    background-image: url('/assets/header-images/pencil-icon.svg');
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: 10px;
+    padding-left: 35px;
+    resize: none;
+}
+
+.new-task-form-active #new-task-status {
     float: left;
     padding: 0.4em 0.8em;
     margin: 0.7em;
@@ -461,42 +486,86 @@ aside {
     color: var(--new-task-status-color);
 }
 
-.task-form-active #new-task-status::after {
+.new-task-form-active #new-task-status::after {
     content: "";
 }
 
-.task-form-active #close-form-button {
-    border: none;
-    float: right;
-    margin: 0.7em;
-    font-size: 1em;
-    padding: 0.4em 0.8em;
-    border-radius: 0.2rem;
-    background-color: var(--new-task-button-background);
-    color: var(--new-task-button-color);
-}
-
-.task-form-inactive #new-task-title {
+.new-task-form-inactive #new-task-status {
     display: none;
 }
 
-.task-form-inactive #new-task-description {
-    background-image: url('/assets/header-images/pencil-icon.svg');
-    background-repeat: no-repeat;
-    background-position-y: center;
-    background-position-x: 10px;
-    padding-left: 35px;
+.new-task-form-inactive .button-form {
+    display: none;
+}
+/* ********************** */
+/* EDIT TASK FORM STYLING */
+/* ********************** */
+
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(1.5px);
+    position: fixed;
+    top:0 ;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Dim background */
+    z-index: 2;
+}
+
+.hidden {
+    display:none;
+}
+
+#edit-task-form {
+    position: fixed;
+    left: 27.5%;
+    top: 35%;
+    width: 45%;
+    max-width: 800px;
+    height: fit-content;
+    max-height: 300px;
+    border-radius: 0.4rem;
+    z-index: 3;
+    background-color: var(--page-background);
+}
+
+#edit-task-title,
+#edit-task-description {
+    border: none;
+    display: block;
+    outline: none;
+    width: 100%;
+    height: inherit;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 1.1em;
+    background-color: var(--new-task-form-background);
+    color: var(--new-task-form-text-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#edit-task-title {
+    border-radius: 0.4rem 0.4em 0rem 0rem;
+}
+
+
+#edit-task-description {
+    height: 100px;
     resize: none;
 }
 
-.task-form-inactive #new-task-status {
-    display: none;
+ #edit-task-status{
+    float: left;
+    padding: 0.4em 0.8em;
+    margin: 0.7em;
+    font-size: 1em;
+    border-radius: 0.2rem;
+    appearance: none;
+    outline: none;
+    border: none;
+    background-color: var(--new-task-status-background);
+    color: var(--new-task-status-color);
 }
-
-.task-form-inactive #close-form-button {
-    display: none;
-}
-
 
 .main-task-cards {
     grid-area: main-task-cards;
@@ -507,17 +576,6 @@ aside {
     column-gap: 15px;
 }
 
-
-/* .column-view .column {
-    margin: 5px;
-}
-
-.list-view .column {
-    width: 50%;
-    max-width: 800px;
-    margin: auto;
-    height: 100%;
-} */
 
 .task-card-container {
     border: 0.05rem #999999 solid;
@@ -542,9 +600,9 @@ aside {
 .list-view .task-card-container {
     width: 50%;
     max-width: 800px;
-    margin:auto;
+    margin: auto;
     margin-bottom: 15px;
- }
+}
 
 .task-title {
     margin-top: 0px;
@@ -552,7 +610,7 @@ aside {
     font-weight: 700;
 }
 
-.task-body {}
+.task-description {}
 
 .task-status {}
 
@@ -592,19 +650,6 @@ aside {
     .header-col-1 label:hover path {
         stroke: var(--burger-menu-hover-background)
     }
-
-    /* #logo:hover path:nth-child(4) {
-        fill: var(--logo-hover-background-1);
-    }
-
-    #logo:hover path:nth-child(3) {
-        fill: var(--logo-hover-background-2);
-    } */
-
-    /* #logo:hover h1 {
-        color: var(--h1-hover-color);
-        transform: scale(1.01);
-    } */
 
     .header-col-2 input {
         cursor: text;
@@ -653,17 +698,26 @@ aside {
     }
 
 
-    .task-form-active #close-form-button:hover {
+    .button-form:hover {
         cursor: pointer;
         background-color: var(--new-task-button-background-hover);
     }
 
-    .task-form-active #new-task-status:hover {
+    #new-task-status:hover{
         cursor: pointer;
         background-color: var(--new-task-status-background-hover);
     }
 
-    .task-card-container:hover {
+    #edit-task-status:hover {
+        cursor: pointer;
+        background-color: var(--new-task-status-background-hover);
+    }
+
+    #edit-task-card:hover {
+        background-color: pink;
+    }
+
+    .task-card-container:hover{
         cursor: pointer;
         transform: scale(1.02);
         border-width: 0.5px;

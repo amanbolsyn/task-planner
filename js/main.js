@@ -4,10 +4,16 @@ import { BurgerMenu } from "./utils.js";
 import { CreateTaskForm } from "./utils.js";
 
 import { CreateDB } from "./data.js";
-import { ReadData } from "./data.js";
+import { CloseNewTaskForm } from "./data.js";
+import { ClearNewTaskForm } from "./data.js";
 
-    
-const closeFormBttn = document.getElementById("close-form-button");
+import { CloseEditTaskForm } from "./data.js";
+import { DeleteTask } from "./data.js";
+
+const clearNewFormBttn = document.getElementById("new-task-clear-button");
+const closeNewFormBttn = document.getElementById("new-task-close-button");
+const closeEditFormBttn = document.getElementById("edit-task-close-button");
+const deleteTaskBttn = document.getElementById("delete-task-button")
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -16,14 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
     //View selection functionality 
     ViewTasksToggle();
 
+    closeNewFormBttn.addEventListener("click", CloseNewTaskForm);
+    clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
 
-    closeFormBttn.addEventListener("click", function () {
+    closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
+    deleteTaskBttn.addEventListener("click", DeleteTask );
 
-        ReadData();
-
-    })
-
-
+    CloseEditTaskForm();
 });
 
 //Theme selection functionality 

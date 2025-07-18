@@ -257,7 +257,7 @@
   </nav>
   <main class="main">
     <section class="main-heading">
-      <form id="new-task-form" class="task-form-inactive">
+      <form id="new-task-form" class="new-task-form-inactive">
         <input type="text" placeholder="Title" id="new-task-title" autocomplete="off">
         <textarea rows="1" type="text" placeholder="Take a task..." id="new-task-description"
           autocomplete="off"></textarea>
@@ -268,13 +268,30 @@
           <option value="Not started">Not started</option>
           <option value="On hold">On hold</option>
         </select>
-        <button type="button" id="close-form-button">close</button>
+        <button type="button" id="new-task-close-button" class = "button-form">close</button>
+        <button type="button" id="new-task-clear-button" class = "button-form">clear</button>
       </form>
     </section>
     <section class="main-task-cards">
 
     </section>
   </main>
+  <div  id = "screen-overlay" class = "overlay hidden"></div>
+    <div style = "display:none" id="edit-task-form" >
+     <form>
+        <input type="text" placeholder="Title" id="edit-task-title" autocomplete="off">
+        <textarea rows="1" type="text" placeholder="Take a task..." id="edit-task-description"
+          autocomplete="off"></textarea>
+        <select id="edit-task-status" name="edit-task-status" autofocus="off">
+          <option value="Completed">Completed</option>
+          <option value="In progress">In progress</option>
+          <option value="Not started">Not started</option>
+          <option value="On hold">On hold</option>
+        </select>
+        <button type="button" id="edit-task-close-button" class = "button-form">close</button>
+        <button type="button" id="delete-task-button" class = "button-form">delete</button>
+      </form>
+    </div>
   <footer class="footer">
     <p>Aman Bolsyn Ltd. All right reserved &copy; 2025 <br><br> Designed and Implemented by <a
         href="https://github.com/amanbolsyn" target="_blank">Aman Nurgozhiyev </a>(Aman Bolsyn)</p>

@@ -99,15 +99,15 @@ function CreateTaskForm() {
     const taskForm = document.getElementById("new-task-form")
 
     taskForm.addEventListener("focusin", function () {
-        taskForm.classList.add("task-form-active");
-        taskForm.classList.remove("task-form-inactive");
+        taskForm.classList.add("new-task-form-active");
+        taskForm.classList.remove("new-task-form-inactive");
     })
 
     taskForm.addEventListener("focusout", function () {
         setTimeout(() => {
             if (!taskForm.contains(document.activeElement)) {
-                taskForm.classList.remove("task-form-active");
-                taskForm.classList.add("task-form-inactive");
+                taskForm.classList.remove("new-task-form-active");
+                taskForm.classList.add("new-task-form-inactive");
             }
         }, 0);
     })

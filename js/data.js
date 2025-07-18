@@ -1,7 +1,12 @@
 let db;
 const tasksFragment = document.createDocumentFragment();
 const tasksContainer = document.querySelector(".main-task-cards");
+const screenOverlay = document.getElementById("screen-overlay")
+const editTaskForm = document.getElementById("edit-task-form");
 
+const taskTitleInput = document.getElementById("new-task-title");
+const taskDescriptionInput = document.getElementById("new-task-description");
+const taskStatusInput = document.getElementById("new-task-status");
 
 function CreateDB() {
 
@@ -41,14 +46,11 @@ function CreateDB() {
 
 function ReadData(e) {
 
-    let taskTitleInput = document.getElementById("new-task-title");
-    let taskDescriptionInput = document.getElementById("new-task-description");
-    let taskStatusInput = document.getElementById("new-task-status");
     let taskCreationDate = new Date();
 
 
-    if(taskTitleInput.value.trim() === ""){
-        console.log("title cannot be empty");
+    if (taskTitleInput.value.trim() === "") {
+        console.log("Title cannot be empty");
         return;
     }
 
@@ -62,15 +64,14 @@ function ReadData(e) {
 
     addRequest.addEventListener("success", function () {
 
-        taskTitleInput.value = "";
-        taskDescriptionInput.value = "";
-        taskStatusInput.selectedIndex = 0;
+        ClearNewTaskForm();
 
     })
 
     transaction.addEventListener("complete", function () {
         console.log("Transaction completed: database modification finished.");
     })
+
     tasksContainer.innerHTML = "";
     CreateTaskCards();
 }
@@ -79,6 +80,7 @@ function ReadData(e) {
 async function CreateTaskCards() {
     await iterateCursor();
     DisplayData();
+    OpenEditTaskForm();
 }
 
 function iterateCursor() {
@@ -98,7 +100,7 @@ function iterateCursor() {
                 const taskCard = document.createElement("article");
                 taskCard.classList.add("task-card")
                 taskCardContainer.appendChild(taskCard);
-                
+
 
                 const taskTitle = document.createElement("h3");
                 taskTitle.innerText = cursor.value.title;
@@ -107,13 +109,15 @@ function iterateCursor() {
 
                 const taskDescription = document.createElement("p");
                 taskDescription.innerText = cursor.value.body;
+                taskDescription.classList.add("task-description");
                 taskCard.appendChild(taskDescription);
 
                 const taskStatus = document.createElement("a");
                 taskStatus.innerText = cursor.value.status;
+                taskStatus.classList.add("task-status");
                 taskCard.appendChild(taskStatus);
 
-                if(taskStatus.innerText === "Completed") {
+                if (taskStatus.innerText === "Completed") {
                     taskCardContainer.classList.add("completed")
                 }
 
@@ -121,7 +125,6 @@ function iterateCursor() {
                 taskCreated.innerText = cursor.value.created;
                 taskCreated.style.display = "none";
                 taskCard.appendChild(taskCreated);
-
 
                 tasksFragment.appendChild(taskCardContainer);
 
@@ -143,4 +146,50 @@ function DisplayData() {
     tasksContainer.appendChild(tasksFragment);
 }
 
-export { CreateDB, ReadData, DisplayData }
+function CloseNewTaskForm() {
+
+    ReadData();
+
+}
+
+function ClearNewTaskForm() {
+
+    taskTitleInput.value = "";
+    taskDescriptionInput.value = "";
+    taskStatusInput.selectedIndex = 0;
+}
+
+
+function OpenEditTaskForm() {
+
+    const tasks = document.querySelectorAll(".task-card-container");
+    const editTitleInput = document.getElementById("edit-task-title");
+    const editDescriptionInput = document.getElementById("edit-task-description");
+    const editStatusInput = document.getElementById("edit-task-status");
+
+    tasks.forEach((task) => {
+        task.addEventListener("click", function () {
+            editTaskForm.style.display = "block";
+
+            editTitleInput.value = task.querySelector(".task-title").innerText;
+            editDescriptionInput.value = task.querySelector(".task-description").innerText;
+            editStatusInput.value = task.querySelector(".task-status").innerText;
+
+            screenOverlay.classList.remove("hidden");
+        })
+    })
+
+}
+
+function CloseEditTaskForm() {
+
+    editTaskForm.style.display = "none"
+    screenOverlay.classList.add("hidden")
+
+}
+
+function DeleteTask() {
+
+}
+
+export { CreateDB, ReadData, DisplayData, CloseNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask }
