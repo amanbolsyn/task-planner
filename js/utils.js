@@ -133,7 +133,32 @@ function DisplayView(viewPref) {
     
 }
 
+
+function ConvertDate(date){
+
+    let days = date.getDate();
+    let year = date.getFullYear().toString().slice(2);
+    let month = date.toLocaleString("en-US", {month: "long"});
+
+
+    function GetOrdinal(day) {
+        if(day>9) {
+            day = day.toString().slice(1);
+            console.log(day)
+        }
+
+        switch(day){
+            case "1": return "st";
+            case "2": return "nd";
+            case "3": return "rd";
+            default: return "th";
+        }
+    }
+
+    return `${month} ${days}${GetOrdinal(days)}, ${year}`
+}
+
 window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
-export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView };
+export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate };

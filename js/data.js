@@ -1,3 +1,5 @@
+import { ConvertDate } from "./utils.js";
+
 let db;
 const tasksFragment = document.createDocumentFragment();
 const tasksContainer = document.querySelector(".main-task-cards");
@@ -122,9 +124,15 @@ function iterateCursor() {
                 }
 
                 const taskCreated = document.createElement("a")
-                taskCreated.innerText = cursor.value.created;
-                taskCreated.style.display = "none";
+                taskCreated.innerText = ConvertDate(cursor.value.created)
+                taskCreated.classList.add("task-date");
                 taskCard.appendChild(taskCreated);
+
+
+                const taskDeleteBttn = document.createElement("button");
+                taskDeleteBttn.innerText = "delete";
+                taskDeleteBttn.classList.add("task-delete-button");
+                taskCard.appendChild(taskDeleteBttn);
 
                 tasksFragment.appendChild(taskCardContainer);
 
@@ -189,6 +197,10 @@ function CloseEditTaskForm() {
 }
 
 function DeleteTask() {
+
+}
+
+function EditTask(){
 
 }
 

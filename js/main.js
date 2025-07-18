@@ -13,28 +13,29 @@ import { DeleteTask } from "./data.js";
 const clearNewFormBttn = document.getElementById("new-task-clear-button");
 const closeNewFormBttn = document.getElementById("new-task-close-button");
 const closeEditFormBttn = document.getElementById("edit-task-close-button");
-const deleteTaskBttn = document.getElementById("delete-task-button")
+const deleteTaskBttn = document.getElementById("delete-task-button");
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    CreateDB();
+  CreateDB();
 
-    //View selection functionality 
-    ViewTasksToggle();
+  //View selection functionality 
+  ViewTasksToggle();
 
-    closeNewFormBttn.addEventListener("click", CloseNewTaskForm);
-    clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
+  closeNewFormBttn.addEventListener("click", CloseNewTaskForm);
+  clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
 
-    closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
-    deleteTaskBttn.addEventListener("click", DeleteTask );
+  closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
+  deleteTaskBttn.addEventListener("click", DeleteTask);
 
-    CloseEditTaskForm();
+
+  //Theme selection functionality 
+  ThemeToggle();
+
+  //Burger menu functionality for large window sizes
+  BurgerMenu();
+
+  CreateTaskForm();
 });
 
-//Theme selection functionality 
-ThemeToggle();
-
-//Burger menu functionality for large window sizes
-BurgerMenu();
-
-CreateTaskForm();

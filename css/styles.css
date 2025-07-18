@@ -527,6 +527,7 @@ aside {
     border-radius: 0.4rem;
     z-index: 3;
     background-color: var(--page-background);
+     border: 0.09rem #454545 solid;
 }
 
 #edit-task-title,
@@ -592,7 +593,6 @@ aside {
     padding: 15px;
     box-sizing: border-box;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
 }
 
 .column-view .task-card {}
@@ -618,7 +618,21 @@ aside {
     background-color: var(--task-status-completed);
 }
 
-.task-date {}
+.task-date {
+    float: right;
+    font-style:italic;
+    font-size: 0.8em;
+    transform: translate( 0%, 20%);
+}
+
+.task-delete-button {
+    border: none;
+    display: none;
+    float: right;
+    font-size: 1em;
+    border-radius: 0.2rem;
+    color: var(--new-task-button-color);
+}
 
 .footer {
     grid-area: footer;
@@ -723,5 +737,15 @@ aside {
         border-width: 0.5px;
         box-shadow: var(--task-card-shadow) 0px 1px 10px;
     }
+
+    .task-card-container:hover button {
+        display: block;
+    }
+   
+    .task-card-container:hover .task-date {
+        display:none;
+    }
+
+
 
 }
