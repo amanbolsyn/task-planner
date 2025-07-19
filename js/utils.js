@@ -137,14 +137,13 @@ function DisplayView(viewPref) {
 function ConvertDate(date){
 
     let days = date.getDate();
-    let year = date.getFullYear().toString().slice(2);
+    // let year = date.getFullYear().toString().slice(2);
     let month = date.toLocaleString("en-US", {month: "long"});
 
 
     function GetOrdinal(day) {
         if(day>9) {
             day = day.toString().slice(1);
-            console.log(day)
         }
 
         switch(day){
@@ -155,7 +154,7 @@ function ConvertDate(date){
         }
     }
 
-    return `${month} ${days}${GetOrdinal(days)}, ${year}`
+    return `${month} ${days}${GetOrdinal(days)}`
 }
 
 window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));

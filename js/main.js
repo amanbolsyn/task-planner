@@ -9,11 +9,15 @@ import { ClearNewTaskForm } from "./data.js";
 
 import { CloseEditTaskForm } from "./data.js";
 import { DeleteTask } from "./data.js";
+import { ClearEditTaskForm } from "./data.js";
 
 const clearNewFormBttn = document.getElementById("new-task-clear-button");
 const closeNewFormBttn = document.getElementById("new-task-close-button");
+
 const closeEditFormBttn = document.getElementById("edit-task-close-button");
 const deleteTaskBttn = document.getElementById("delete-task-button");
+const clearEditFormBttn = document.getElementById("edit-task-clear-button");
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
   deleteTaskBttn.addEventListener("click", DeleteTask);
+  clearEditFormBttn.addEventListener("click", ClearEditTaskForm);
 
 
   //Theme selection functionality 

@@ -6,6 +6,7 @@ UI:
 -adding remaining icons DONE
 -adding view toggle functionality DONE 
 -note card styling DONE
+-Big window notes DONE
 
 
 -adding animation for nav bar apperence FAILED
@@ -17,7 +18,7 @@ Functionality
 
 Deleteing notes
 Editing notes 
-Big window notes 
+
 Limit for descrtiption
 Drag and drop 
 Multiple selection 

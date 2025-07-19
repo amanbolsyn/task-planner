@@ -36,6 +36,8 @@
     --new-task-form-text-color: #000000;
     --new-task-form-shadow-color: #0000003d;
 
+    --edit-form-border-color: #999999;
+
     --new-task-button-color: #5b5b5b;
     --new-task-button-background: #ffffff;
     --new-task-button-background-hover: #e1e1e1;
@@ -53,6 +55,7 @@
     --task-card-shadow: #0000003d;
 
     --task-status-completed: #acdfac;
+    --complete-card-button-hover: #8fcd8f;
 
     /* FOOTER COLORS */
     --footer-text-color: #000000;
@@ -69,7 +72,7 @@
 
     /* HEADER COLORS */
     --header-backgound: #202124;
-    ;
+    
     --burger-menu-hover-background: #ffffff;
 
     --h1-color: #f1f1f1;
@@ -100,6 +103,8 @@
     --new-task-form-text-color: white;
     --new-task-form-shadow-color: #0f0e0ee4;
 
+    --edit-form-border-color: #454545;
+
     --new-task-button-color: #999999;
     --new-task-button-background: #202124;
     --new-task-button-background-hover: #494a4d;
@@ -116,6 +121,7 @@
     --task-card-shadow: #0f0e0ee4;
 
     --task-status-completed: #426a42;
+    --complete-card-button-hover: #4d754d;
 
     /* FOOTER COLORS */
     --footer-text-color: #FFFFFF;
@@ -409,6 +415,7 @@ aside {
     text-align: center;
     margin: 5px;
 }
+
 /* ********************* */
 /* NEW TASK FORM STYLING */
 /* ********************* */
@@ -442,12 +449,17 @@ aside {
 .button-form {
     border: none;
     float: right;
-    margin: 0.7em;
+    margin: 0.7em 0em;
+    padding: 0.4em 0.8em; 
     font-size: 1em;
-    padding: 0.4em 0.8em;
-    border-radius: 0.2rem;
+    border-radius: 0.4rem;
     background-color: var(--new-task-button-background);
     color: var(--new-task-button-color);
+}
+
+.button-form:first-of-type{
+    margin-right: 0.7em;
+    margin-left: 0.7em;
 }
 
 .new-task-form-active #new-task-tittle {
@@ -497,6 +509,7 @@ aside {
 .new-task-form-inactive .button-form {
     display: none;
 }
+
 /* ********************** */
 /* EDIT TASK FORM STYLING */
 /* ********************** */
@@ -506,14 +519,15 @@ aside {
     height: 100vh;
     backdrop-filter: blur(1.5px);
     position: fixed;
-    top:0 ;
+    top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.4); /* Dim background */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Dim background */
     z-index: 2;
 }
 
 .hidden {
-    display:none;
+    display: none;
 }
 
 #edit-task-form {
@@ -524,10 +538,11 @@ aside {
     max-width: 800px;
     height: fit-content;
     max-height: 300px;
-    border-radius: 0.4rem;
+    border-radius: 1rem;
     z-index: 3;
     background-color: var(--page-background);
-     border: 0.09rem #454545 solid;
+    border: 0.1rem var(--edit-form-border-color) solid;
+    padding: 5px;
 }
 
 #edit-task-title,
@@ -555,12 +570,12 @@ aside {
     resize: none;
 }
 
- #edit-task-status{
+#edit-task-status {
     float: left;
     padding: 0.4em 0.8em;
     margin: 0.7em;
     font-size: 1em;
-    border-radius: 0.2rem;
+    border-radius: 0.4rem;
     appearance: none;
     outline: none;
     border: none;
@@ -585,6 +600,7 @@ aside {
     display: block;
     margin-bottom: 15px;
     color: var(--task-card-color);
+
 }
 
 .task-card {
@@ -620,18 +636,24 @@ aside {
 
 .task-date {
     float: right;
-    font-style:italic;
+    font-style: italic;
     font-size: 0.8em;
-    transform: translate( 0%, 20%);
+    transform: translate(0%, 20%);
 }
 
-.task-delete-button {
+.card-delete-button {
     border: none;
     display: none;
     float: right;
+    padding: 0.2em 0.4em;
     font-size: 1em;
-    border-radius: 0.2rem;
+    border-radius: 0.3rem;
     color: var(--new-task-button-color);
+    background-color: var(--new-task-button-background);
+}
+
+.completed .card-delete-button {
+    background-color: var(--task-status-completed);
 }
 
 .footer {
@@ -717,7 +739,7 @@ aside {
         background-color: var(--new-task-button-background-hover);
     }
 
-    #new-task-status:hover{
+    #new-task-status:hover {
         cursor: pointer;
         background-color: var(--new-task-status-background-hover);
     }
@@ -731,7 +753,7 @@ aside {
         background-color: pink;
     }
 
-    .task-card-container:hover{
+    .task-card-container:hover {
         cursor: pointer;
         transform: scale(1.02);
         border-width: 0.5px;
@@ -741,11 +763,19 @@ aside {
     .task-card-container:hover button {
         display: block;
     }
-   
+
     .task-card-container:hover .task-date {
-        display:none;
+        display: none;
     }
 
+   .card-delete-button:hover {
+        background-color: var(--new-task-button-background-hover);
+        cursor: pointer;
+    }
 
+    .completed .card-delete-button:hover {
+       background-color: var(--complete-card-button-hover);
+       box-sizing: border-box;
+    }
 
 }

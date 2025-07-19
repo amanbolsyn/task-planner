@@ -10,6 +10,10 @@ const taskTitleInput = document.getElementById("new-task-title");
 const taskDescriptionInput = document.getElementById("new-task-description");
 const taskStatusInput = document.getElementById("new-task-status");
 
+const editTitleInput = document.getElementById("edit-task-title");
+const editDescriptionInput = document.getElementById("edit-task-description");
+const editStatusInput = document.getElementById("edit-task-status");
+
 function CreateDB() {
 
     const openRequest = window.indexedDB.open("tasks_db", 4);
@@ -83,6 +87,7 @@ async function CreateTaskCards() {
     await iterateCursor();
     DisplayData();
     OpenEditTaskForm();
+    DeleteButton();
 }
 
 function iterateCursor() {
@@ -131,7 +136,7 @@ function iterateCursor() {
 
                 const taskDeleteBttn = document.createElement("button");
                 taskDeleteBttn.innerText = "delete";
-                taskDeleteBttn.classList.add("task-delete-button");
+                taskDeleteBttn.classList.add("card-delete-button");
                 taskCard.appendChild(taskDeleteBttn);
 
                 tasksFragment.appendChild(taskCardContainer);
@@ -165,6 +170,7 @@ function ClearNewTaskForm() {
     taskTitleInput.value = "";
     taskDescriptionInput.value = "";
     taskStatusInput.selectedIndex = 0;
+
 }
 
 
@@ -189,6 +195,27 @@ function OpenEditTaskForm() {
 
 }
 
+function DeleteButton(){
+    const deletes = document.querySelectorAll(".card-delete-button");
+    
+
+    deletes.forEach((deletess)=> {
+        deletess.addEventListener("click", function(e){
+            e.stopPropagation();
+            console.log(deletess);
+        })
+    })
+}
+
+function ClearEditTaskForm() {
+
+    editTitleInput.value = "";
+    editDescriptionInput.value = "";
+    editStatusInput.selectedIndex = 0;
+    
+}
+
+
 function CloseEditTaskForm() {
 
     editTaskForm.style.display = "none"
@@ -204,4 +231,4 @@ function EditTask(){
 
 }
 
-export { CreateDB, ReadData, DisplayData, CloseNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask }
+export { CreateDB, ReadData, DisplayData, CloseNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm }
