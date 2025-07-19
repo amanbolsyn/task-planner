@@ -10,6 +10,7 @@ import { ClearNewTaskForm } from "./data.js";
 import { CloseEditTaskForm } from "./data.js";
 import { DeleteTask } from "./data.js";
 import { ClearEditTaskForm } from "./data.js";
+import { SaveEditTask } from "./data.js";
 
 const clearNewFormBttn = document.getElementById("new-task-clear-button");
 const closeNewFormBttn = document.getElementById("new-task-close-button");
@@ -17,6 +18,7 @@ const closeNewFormBttn = document.getElementById("new-task-close-button");
 const closeEditFormBttn = document.getElementById("edit-task-close-button");
 const deleteTaskBttn = document.getElementById("delete-task-button");
 const clearEditFormBttn = document.getElementById("edit-task-clear-button");
+const saveEditFormBttn = document.getElementById("edit-task-save-button");
 
 
 
@@ -31,8 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
   clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
 
   closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
-  deleteTaskBttn.addEventListener("click", DeleteTask); //Delete task from edit form
+  deleteTaskBttn.addEventListener("click", DeleteTask); //Delete task from edit 
   clearEditFormBttn.addEventListener("click", ClearEditTaskForm);
+  saveEditFormBttn.addEventListener("click", SaveEditTask);
 
 
   //Theme selection functionality 

@@ -237,15 +237,40 @@ function DeleteTask(e) {
 
     transaction.addEventListener("complete", () => {
         
-
         currentTask.remove();
         CloseEditTaskForm();
         console.log(`Task with id:${taskId} was succesfully deleted`)
     });
 }
 
-function EditTask() {
+function SaveEditTask(e) {
 
+    const taskId = Number(e.target.parentNode.parentNode.getAttribute("id"));
+      
+    const transaction = db.transaction(["tasks_os"], "readwrite");
+    const objectStore = transaction.objectStore("tasks_os");
+    const requestTask = objectStore.get(taskId);
+
+   requestTask.onsuccess = (e) => {
+       
+       const taskData = e.target.result;
+
+       taskData.title = editTitleInput.value.trim();
+       taskData.body = editDescriptionInput.value.trim();
+       taskData.status = editStatusInput.value.trim();
+
+
+       const updateTask = objectStore.put(taskData)
+
+       updateTask.onsuccess = (e) => {
+         console.log(`Task with id:${taskId} was succesfully updated`)
+          const currentTaskCard = document.getElementById(taskId);
+          currentTaskCard.querySelector(".task-title").innerText = taskData.title;
+          currentTaskCard.querySelector(".task-description").innerText = taskData.body;
+          currentTaskCard.querySelector(".task-status").innerText = taskData.status;
+          CloseEditTaskForm();
+       }
+   }
 }
 
-export { CreateDB, ReadData, DisplayData, CloseNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm }
+export { CreateDB, ReadData, DisplayData, CloseNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask }
