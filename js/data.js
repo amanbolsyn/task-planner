@@ -4,7 +4,7 @@ let db;
 const tasksFragment = document.createDocumentFragment();
 const tasksContainer = document.querySelector(".main-task-cards");
 const screenOverlay = document.getElementById("screen-overlay")
-const editTaskForm = document.getElementById("edit-task-form");
+const editTaskForm = document.querySelector(".edit-task-form");
 
 const taskTitleInput = document.getElementById("new-task-title");
 const taskDescriptionInput = document.getElementById("new-task-description");
@@ -87,7 +87,7 @@ async function CreateTaskCards() {
     await iterateCursor();
     DisplayData();
     OpenEditTaskForm();
-    DeleteButton();
+    DeleteBttnCard();
 }
 
 function iterateCursor() {
@@ -184,6 +184,7 @@ function OpenEditTaskForm() {
     tasks.forEach((task) => {
         task.addEventListener("click", function () {
             editTaskForm.style.display = "block";
+            editTaskForm.id = task.getAttribute("id")
 
             editTitleInput.value = task.querySelector(".task-title").innerText;
             editDescriptionInput.value = task.querySelector(".task-description").innerText;
@@ -195,14 +196,14 @@ function OpenEditTaskForm() {
 
 }
 
-function DeleteButton(){
-    const deletes = document.querySelectorAll(".card-delete-button");
-    
+function DeleteBttnCard() {
+    const deleteBttns = document.querySelectorAll(".card-delete-button");
 
-    deletes.forEach((deletess)=> {
-        deletess.addEventListener("click", function(e){
-            e.stopPropagation();
-            console.log(deletess);
+
+    deleteBttns.forEach((deleteBttn) => {
+        deleteBttn.addEventListener("click", function (e) {
+            e.stopPropagation();//Prevents event bubling to parent elements 
+            DeleteTask(e);
         })
     })
 }
@@ -212,7 +213,7 @@ function ClearEditTaskForm() {
     editTitleInput.value = "";
     editDescriptionInput.value = "";
     editStatusInput.selectedIndex = 0;
-    
+
 }
 
 
@@ -223,11 +224,27 @@ function CloseEditTaskForm() {
 
 }
 
-function DeleteTask() {
 
+function DeleteTask(e) {
+
+    let taskId = Number(e.target.parentNode.parentNode.getAttribute("id"));
+    const currentTask = document.getElementById(taskId)
+
+
+    const transaction = db.transaction(["tasks_os"], "readwrite");
+    const objectStore = transaction.objectStore("tasks_os");
+    const deleteRequest = objectStore.delete(taskId);
+
+    transaction.addEventListener("complete", () => {
+        
+
+        currentTask.remove();
+        CloseEditTaskForm();
+        console.log(`Task with id:${taskId} was succesfully deleted`)
+    });
 }
 
-function EditTask(){
+function EditTask() {
 
 }
 

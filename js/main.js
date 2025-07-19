@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
 
   closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
-  deleteTaskBttn.addEventListener("click", DeleteTask);
+  deleteTaskBttn.addEventListener("click", DeleteTask); //Delete task from edit form
   clearEditFormBttn.addEventListener("click", ClearEditTaskForm);
 
 

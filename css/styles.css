@@ -121,7 +121,7 @@
     --task-card-shadow: #0f0e0ee4;
 
     --task-status-completed: #426a42;
-    --complete-card-button-hover: #4d754d;
+    --complete-card-button-hover: .target.parentNode.parentNode.getAttribute("id")#4d754d;
 
     /* FOOTER COLORS */
     --footer-text-color: #FFFFFF;
@@ -530,7 +530,7 @@ aside {
     display: none;
 }
 
-#edit-task-form {
+.edit-task-form {
     position: fixed;
     left: 27.5%;
     top: 35%;
