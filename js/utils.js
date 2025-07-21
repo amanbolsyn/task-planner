@@ -133,7 +133,6 @@ function DisplayView(viewPref) {
     
 }
 
-
 function ConvertDate(date){
 
     let days = date.getDate();

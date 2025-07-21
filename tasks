@@ -7,22 +7,30 @@ UI:
 -adding view toggle functionality DONE 
 -note card styling DONE
 -Big window notes DONE
+-Deleteing notes DONE
+-Editing notes DONE
+-note big window styling DONE
 
 
 -adding animation for nav bar apperence FAILED
 
--note big window styling
+Styling 
+
 -responsive design
 
 Functionality 
 
-Deleteing notes
-Editing notes 
+Сейчаc:
 Sort and Filtering 
-URL state 
+Search by tittle 
+URL state
+Add error handling to IDB Requests
 Error handeling for forms
-Drag and drop 
+
+Завтра:
 Multiple selection 
+Drag and drop 
+
 
 
 

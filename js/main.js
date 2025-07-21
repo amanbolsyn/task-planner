@@ -22,6 +22,7 @@ const saveEditFormBttn = document.getElementById("edit-task-save-button");
 
 
 
+
 document.addEventListener("DOMContentLoaded", () => {
 
   CreateDB();
@@ -38,12 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
   saveEditFormBttn.addEventListener("click", SaveEditTask);
 
 
+  CreateTaskForm();
+
+});
+
+
   //Theme selection functionality 
   ThemeToggle();
 
   //Burger menu functionality for large window sizes
   BurgerMenu();
 
-  CreateTaskForm();
-});
 

@@ -119,10 +119,15 @@ function iterateCursor() {
                 taskDescription.classList.add("task-description");
                 taskCard.appendChild(taskDescription);
 
+
+                const cardBottomContainer = document.createElement("div");
+                cardBottomContainer.classList.add("card-bottom-container");
+                taskCard.appendChild(cardBottomContainer);
+
                 const taskStatus = document.createElement("a");
                 taskStatus.innerText = cursor.value.status;
                 taskStatus.classList.add("task-status");
-                taskCard.appendChild(taskStatus);
+               cardBottomContainer.appendChild(taskStatus);
 
                 if (taskStatus.innerText === "Completed") {
                     taskCardContainer.classList.add("completed")
@@ -131,13 +136,19 @@ function iterateCursor() {
                 const taskCreated = document.createElement("a")
                 taskCreated.innerText = ConvertDate(cursor.value.created)
                 taskCreated.classList.add("task-date");
-                taskCard.appendChild(taskCreated);
+                cardBottomContainer.appendChild(taskCreated);
 
 
-                const taskDeleteBttn = document.createElement("button");
-                taskDeleteBttn.innerText = "delete";
-                taskDeleteBttn.classList.add("card-delete-button");
-                taskCard.appendChild(taskDeleteBttn);
+                // const taskDeleteBttn = document.createElement("button");
+                // taskDeleteBttn.innerText = "delete";
+                // taskDeleteBttn.classList.add("card-delete-button");
+                // taskCard.appendChild(taskDeleteBttn);
+
+               cardBottomContainer.insertAdjacentHTML("beforeend",
+                    `<svg  class = "card-delete-button" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.15" d="M18 18V6H6V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18Z" fill="#999999"/>
+<path d="M10 10V16M14 10V16M18 6V18C18 19.1046 17.1046 20 16 20H8C6.89543 20 6 19.1046 6 18V6M4 6H20M15 6V5C15 3.89543 14.1046 3 13 3H11C9.89543 3 9 3.89543 9 5V6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`)
 
                 tasksFragment.appendChild(taskCardContainer);
 
@@ -227,50 +238,61 @@ function CloseEditTaskForm() {
 
 function DeleteTask(e) {
 
-    let taskId = Number(e.target.parentNode.parentNode.getAttribute("id"));
+    let taskIdElement = e.target.closest("section[id], div[id]");
+    let taskId = Number(taskIdElement.id);
+   
     const currentTask = document.getElementById(taskId)
-
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
     const objectStore = transaction.objectStore("tasks_os");
     const deleteRequest = objectStore.delete(taskId);
 
     transaction.addEventListener("complete", () => {
-        
+
         currentTask.remove();
         CloseEditTaskForm();
         console.log(`Task with id:${taskId} was succesfully deleted`)
+
     });
 }
 
 function SaveEditTask(e) {
 
     const taskId = Number(e.target.parentNode.parentNode.getAttribute("id"));
-      
+
     const transaction = db.transaction(["tasks_os"], "readwrite");
     const objectStore = transaction.objectStore("tasks_os");
     const requestTask = objectStore.get(taskId);
 
-   requestTask.onsuccess = (e) => {
-       
-       const taskData = e.target.result;
+    requestTask.onsuccess = (e) => {
 
-       taskData.title = editTitleInput.value.trim();
-       taskData.body = editDescriptionInput.value.trim();
-       taskData.status = editStatusInput.value.trim();
+        const taskData = e.target.result;
+
+        taskData.title = editTitleInput.value.trim();
+        taskData.body = editDescriptionInput.value.trim();
+        taskData.status = editStatusInput.value.trim();
 
 
-       const updateTask = objectStore.put(taskData)
+        const updateTask = objectStore.put(taskData)
 
-       updateTask.onsuccess = (e) => {
-         console.log(`Task with id:${taskId} was succesfully updated`)
-          const currentTaskCard = document.getElementById(taskId);
-          currentTaskCard.querySelector(".task-title").innerText = taskData.title;
-          currentTaskCard.querySelector(".task-description").innerText = taskData.body;
-          currentTaskCard.querySelector(".task-status").innerText = taskData.status;
-          CloseEditTaskForm();
-       }
-   }
+        updateTask.onsuccess = (e) => {
+            console.log(`Task with id:${taskId} was succesfully updated`)
+            const currentTaskCard = document.getElementById(taskId);
+            currentTaskCard.querySelector(".task-title").innerText = taskData.title;
+            currentTaskCard.querySelector(".task-description").innerText = taskData.body;
+            currentTaskCard.querySelector(".task-status").innerText = taskData.status;
+
+
+            if (taskData.status === "Completed") {
+                console.log(taskData.status)
+                currentTaskCard.classList.add("completed")
+            } else {
+                currentTaskCard.classList.remove("completed")
+            }
+
+            CloseEditTaskForm();
+        }
+    }
 }
 
 export { CreateDB, ReadData, DisplayData, CloseNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask }

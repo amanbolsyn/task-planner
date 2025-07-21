@@ -375,7 +375,7 @@ aside {
 }
 
 .aside label {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .aside label>svg {
@@ -566,7 +566,7 @@ aside {
 
 
 #edit-task-description {
-    height: 100px;
+    height:150px;
     resize: none;
 }
 
@@ -628,6 +628,13 @@ aside {
 
 .task-description {}
 
+
+.card-bottom-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .task-status {}
 
 .completed {
@@ -635,13 +642,11 @@ aside {
 }
 
 .task-date {
-    float: right;
     font-style: italic;
     font-size: 0.8em;
-    transform: translate(0%, 20%);
 }
 
-.card-delete-button {
+/* .card-delete-button {
     border: none;
     display: none;
     float: right;
@@ -650,7 +655,15 @@ aside {
     border-radius: 0.3rem;
     color: var(--new-task-button-color);
     background-color: var(--new-task-button-background);
+} */
+
+.card-delete-button {
+    float:right;
+    display:none;
+    padding:0.3em;
+    border-radius: 1em;
 }
+
 
 .completed .card-delete-button {
     background-color: var(--task-status-completed);
@@ -760,9 +773,14 @@ aside {
         box-shadow: var(--task-card-shadow) 0px 1px 10px;
     }
 
-    .task-card-container:hover button {
+    .task-card-container:hover .task-status {
+        display: inline-block;
+    }
+
+    .task-card-container:hover .card-delete-button {
         display: block;
     }
+
 
     .task-card-container:hover .task-date {
         display: none;
@@ -775,7 +793,9 @@ aside {
 
     .completed .card-delete-button:hover {
        background-color: var(--complete-card-button-hover);
-       box-sizing: border-box;
+
     }
+
+
 
 }
