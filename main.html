@@ -10,7 +10,7 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
 
   <title>Task Planner</title>
   <link rel="icon" type="image/x-icon" href="assets/favicon/calendar-icon.svg">
@@ -268,6 +268,7 @@
           <option value="Not started">Not started</option>
           <option value="On hold">On hold</option>
         </select>
+        <a  id = "new-task-form-error" class = "error hidden"></a>
         <button type="button" id="new-task-close-button" class = "button-form">close</button>
         <button type="button" id="new-task-clear-button" class = "button-form">clear</button>
       </form>
@@ -288,6 +289,7 @@
           <option value="Not started">Not started</option>
           <option value="On hold">On hold</option>
         </select>
+        <a  id = "edit-task-form-error" class = "error hidden"></a>
         <button type="button" id="edit-task-close-button" class = "button-form">close</button>
         <button type="button" id="edit-task-save-button" class = "button-form">save</button>
         <button type="button" id="edit-task-clear-button" class = "button-form">clear</button>

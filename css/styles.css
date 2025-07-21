@@ -72,7 +72,7 @@
 
     /* HEADER COLORS */
     --header-backgound: #202124;
-    
+
     --burger-menu-hover-background: #ffffff;
 
     --h1-color: #f1f1f1;
@@ -450,14 +450,14 @@ aside {
     border: none;
     float: right;
     margin: 0.7em 0em;
-    padding: 0.4em 0.8em; 
+    padding: 0.4em 0.8em;
     font-size: 1em;
     border-radius: 0.4rem;
     background-color: var(--new-task-button-background);
     color: var(--new-task-button-color);
 }
 
-.button-form:first-of-type{
+.button-form:first-of-type {
     margin-right: 0.7em;
     margin-left: 0.7em;
 }
@@ -566,7 +566,7 @@ aside {
 
 
 #edit-task-description {
-    height:150px;
+    height: 150px;
     resize: none;
 }
 
@@ -581,6 +581,16 @@ aside {
     border: none;
     background-color: var(--new-task-status-background);
     color: var(--new-task-status-color);
+}
+
+.error {
+    float: left;
+    padding: 0.4em 0.8em;
+    margin: 0.7em;
+    margin-left: 0em;
+    padding-left: 0em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
 }
 
 .main-task-cards {
@@ -630,9 +640,9 @@ aside {
 
 
 .card-bottom-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .task-status {}
@@ -658,9 +668,9 @@ aside {
 } */
 
 .card-delete-button {
-    float:right;
-    display:none;
-    padding:0.3em;
+    float: right;
+    display: none;
+    padding: 0.3em;
     border-radius: 1em;
 }
 
@@ -786,13 +796,13 @@ aside {
         display: none;
     }
 
-   .card-delete-button:hover {
+    .card-delete-button:hover {
         background-color: var(--new-task-button-background-hover);
         cursor: pointer;
     }
 
     .completed .card-delete-button:hover {
-       background-color: var(--complete-card-button-hover);
+        background-color: var(--complete-card-button-hover);
 
     }
 
