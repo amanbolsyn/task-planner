@@ -16,7 +16,7 @@ const editStatusInput = document.getElementById("edit-task-status");
 
 function CreateDB() {
 
-    const openRequest = window.indexedDB.open("tasks_db", 4);
+    const openRequest = window.indexedDB.open("tasks_db", 5);
 
     openRequest.addEventListener("error", () => {
         console.log("Database failed to open");
@@ -34,6 +34,7 @@ function CreateDB() {
 
     openRequest.addEventListener("upgradeneeded", (e) => {
 
+
         db = e.target.result;
 
         const objectStore = db.createObjectStore("tasks_os", {
@@ -45,6 +46,7 @@ function CreateDB() {
         objectStore.createIndex("body", "body", { unique: false });
         objectStore.createIndex("status", "status", { unique: false });
         objectStore.createIndex("created", "created", { unique: true });
+        objectStore.createIndex("edited", "edited", { unique: false });
 
         console.log("Database setup complete")
     })
@@ -60,7 +62,13 @@ function ReadData(e) {
         return;
     }
 
-    const newTask = { "title": taskTitleInput.value.trim(), "body": taskDescriptionInput.value.trim(), "status": taskStatusInput.value.trim(), "created": taskCreationDate };
+    const newTask = {
+        "title": taskTitleInput.value.trim(),
+        "body": taskDescriptionInput.value.trim(),
+        "status": taskStatusInput.value.trim(),
+        "created": taskCreationDate,
+        "edited": false,
+    };
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
 
@@ -127,14 +135,21 @@ function iterateCursor() {
                 const taskStatus = document.createElement("a");
                 taskStatus.innerText = cursor.value.status;
                 taskStatus.classList.add("task-status");
-               cardBottomContainer.appendChild(taskStatus);
+                cardBottomContainer.appendChild(taskStatus);
 
                 if (taskStatus.innerText === "Completed") {
                     taskCardContainer.classList.add("completed")
                 }
 
                 const taskCreated = document.createElement("a")
-                taskCreated.innerText = ConvertDate(cursor.value.created)
+
+                if(cursor.value.edited === true) {
+                    taskCreated.innerText = "Edited "
+                }
+
+                taskCreated.innerText += ConvertDate(cursor.value.created);
+                
+
                 taskCreated.classList.add("task-date");
                 cardBottomContainer.appendChild(taskCreated);
 
@@ -144,7 +159,7 @@ function iterateCursor() {
                 // taskDeleteBttn.classList.add("card-delete-button");
                 // taskCard.appendChild(taskDeleteBttn);
 
-               cardBottomContainer.insertAdjacentHTML("beforeend",
+                cardBottomContainer.insertAdjacentHTML("beforeend",
                     `<svg  class = "card-delete-button" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path opacity="0.15" d="M18 18V6H6V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18Z" fill="#999999"/>
 <path d="M10 10V16M14 10V16M18 6V18C18 19.1046 17.1046 20 16 20H8C6.89543 20 6 19.1046 6 18V6M4 6H20M15 6V5C15 3.89543 14.1046 3 13 3H11C9.89543 3 9 3.89543 9 5V6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -240,7 +255,7 @@ function DeleteTask(e) {
 
     let taskIdElement = e.target.closest("section[id], div[id]");
     let taskId = Number(taskIdElement.id);
-   
+
     const currentTask = document.getElementById(taskId)
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
@@ -271,6 +286,8 @@ function SaveEditTask(e) {
         taskData.title = editTitleInput.value.trim();
         taskData.body = editDescriptionInput.value.trim();
         taskData.status = editStatusInput.value.trim();
+        taskData.created = new Date();
+        taskData.edited = true;
 
 
         const updateTask = objectStore.put(taskData)
@@ -281,6 +298,7 @@ function SaveEditTask(e) {
             currentTaskCard.querySelector(".task-title").innerText = taskData.title;
             currentTaskCard.querySelector(".task-description").innerText = taskData.body;
             currentTaskCard.querySelector(".task-status").innerText = taskData.status;
+            currentTaskCard.querySelector(".task-date").innerText = `Edited ${ConvertDate(taskData.created)}`;
 
 
             if (taskData.status === "Completed") {
