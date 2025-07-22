@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //View selection functionality 
   ViewTasksToggle();
-
+  
   saveNewFormBttn.addEventListener("click", SaveNewTaskForm);
   clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
- 
+
   closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
   deleteTaskBttn.addEventListener("click", DeleteTask); //Delete task from edit 
   clearEditFormBttn.addEventListener("click", ClearEditTaskForm);

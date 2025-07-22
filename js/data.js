@@ -57,16 +57,21 @@ function CreateDB() {
     })
 }
 
-function ReadData(e) {
+function ReadData() {
 
     let taskCreationDate = new Date();
 
 
     if (taskTitleInput.value.trim() === "") {
-
         errorMessageNewForm.innerText = "Tittle cannot be empty";
         errorMessageNewForm.classList.remove("hidden");
         return;
+    }
+
+    if (taskDescriptionInput.value.trim().split("\n").length > 4) {
+        errorMessageNewForm.innerText = "Line limit exceeded";
+        errorMessageNewForm.classList.remove("hidden");
+        return
     }
 
     const newTask = {
@@ -199,9 +204,7 @@ function DisplayData() {
 }
 
 function SaveNewTaskForm() {
-
     ReadData();
-
 }
 
 function ClearNewTaskForm() {
@@ -211,6 +214,27 @@ function ClearNewTaskForm() {
     taskStatusInput.selectedIndex = 0;
 
 }
+
+
+//Dynamically check textarea input
+// function CheckDescriptionLimit(e){
+
+//     let isValid;
+//     let descriptionIinput =  e.target.value
+//     let form = e.target.closest("form");
+//     let errorMessage = form.querySelector(".error");
+//     let numOfLines = descriptionIinput.split('\n');
+
+//     if(numOfLines.length > 4) {
+//         errorMessage.innerText = "Line limit excedeed";
+//         errorMessage.classList.remove("hidden");
+//         return isValid = false
+//     } else {
+//         errorMessage.innerText = "";
+//         errorMessage.classList.add("hidden");
+//         return isValid = true;
+//     }
+// }
 
 function OpenEditTaskForm() {
 
@@ -315,6 +339,13 @@ function SaveEditTask(e) {
         }
 
         taskData.body = editDescriptionInput.value.trim();
+
+        if (taskData.body.split("\n").length > 4) {
+            errorMessageEditForm.innerText = "Line limit exceeded";
+            errorMessageEditForm.classList.remove("hidden");
+            return
+        }
+        
         taskData.status = editStatusInput.value.trim();
         taskData.created = new Date();
         taskData.edited = true;

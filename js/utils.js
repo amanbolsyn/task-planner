@@ -102,6 +102,7 @@ function CreateTaskForm() {
     taskForm.addEventListener("focusin", function () {
         taskForm.classList.add("new-task-form-active");
         taskForm.classList.remove("new-task-form-inactive");
+        
     })
 
     taskForm.addEventListener("focusout", function () {
@@ -161,4 +162,4 @@ function ConvertDate(date){
 window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
-export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate };
+export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate};
