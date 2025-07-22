@@ -123,7 +123,7 @@
     --task-card-shadow: #0f0e0ee4;
 
     --trash-can-color: #d8d8d8;
- 
+
     --task-status-completed: #426a42;
     --complete-card-button-hover: #5a995a;
 
@@ -242,8 +242,8 @@ body {
 }
 
 .task-card-container .tooltip-text {
-    top: 84%;
-    right: 4%
+    top: 90%;
+    right: 3%
 }
 
 .header-col-1 .tooltip-text:nth-of-type(1),
@@ -480,8 +480,8 @@ aside {
 }
 
 .new-task-form-active #new-task-description {
-    height: 100px;
     resize: none;
+    height: 100px;
 }
 
 .new-task-form-inactive #new-task-description {
@@ -574,7 +574,7 @@ aside {
 
 
 #edit-task-description {
-    height: 150px;
+    height: 100px;
     resize: none;
 }
 
@@ -624,7 +624,6 @@ aside {
 .task-card {
     display: inline-block;
     width: 100%;
-    position: relative;
     padding: 15px;
     box-sizing: border-box;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -646,7 +645,7 @@ aside {
 }
 
 .task-description {
-
+    word-wrap: break-word;
 }
 
 
@@ -654,6 +653,7 @@ aside {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .task-status {}
@@ -765,14 +765,14 @@ aside {
         cursor: text;
     }
 
-    .tooltip svg:hover + .tooltip-text {
+    .tooltip svg:hover+.tooltip-text {
         opacity: 1;
         visibility: visible;
         transition: opacity 0s ease 0.7s;
     }
 
-    .tooltip:hover + .tooltip-text {
-         opacity: 1;
+    .tooltip:hover+.tooltip-text {
+        opacity: 1;
         visibility: visible;
         transition: opacity 0s ease 0.7s;
     }

@@ -12,9 +12,10 @@ UI:
 -note big window styling DONE
 -fix color for svg file for trash can???  DONE
 -fix hidden error message for new task form DONE
--Removed close button and added save button insteas in new task form
-
+-removed close button and added save button insteas in new task form DONE
+-Error handeling for forms(Title is not empty and body limit) DONE
 -adding animation for nav bar apperence FAILED
+-add tooltips to icons DONE
 
 Styling 
 
@@ -23,17 +24,14 @@ Styling
 Functionality 
 
 Сейчаc:
+Add error handling to IDB Requests
+Scroll to top button
 Sort and Filtering 
 Search by tittle 
-URL state
-Add error handling to IDB Requests
-Error handeling for forms(Title is not empty and body limit)
-Scroll to top button
-Add tooltips to icons 
-Fix edit form textarea hieght 
 
 
 Завтра:
+URL state
 Multiple selection 
 Drag and drop 
 

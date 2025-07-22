@@ -12,6 +12,13 @@ import { DeleteTask } from "./data.js";
 import { ClearEditTaskForm } from "./data.js";
 import { SaveEditTask } from "./data.js";
 
+import { RetreiveTasks } from "./data.js";
+
+const searchInput = document.getElementById("search");
+const statusFilter = document.querySelector(".status-filter");
+const alphabetSort = document.querySelector(".alphabet-sort");
+const dateSort = document.querySelector(".date-sort");
+
 const clearNewFormBttn = document.getElementById("new-task-clear-button");
 const saveNewFormBttn = document.getElementById("new-task-save-button");
 
@@ -30,7 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //View selection functionality 
   ViewTasksToggle();
-  
+
+  searchInput.addEventListener("input", RetreiveTasks);
+  statusFilter.addEventListener("change", RetreiveTasks);
+  alphabetSort.addEventListener("change", RetreiveTasks);
+  dateSort.addEventListener("change", RetreiveTasks);
+
+
   saveNewFormBttn.addEventListener("click", SaveNewTaskForm);
   clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
 
@@ -42,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
   screenOverlay.addEventListener("click", CloseEditTaskForm)
 
   CreateTaskForm();
-
 });
 
 
