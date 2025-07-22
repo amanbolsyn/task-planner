@@ -97,6 +97,7 @@ function BurgerMenu() {
 function CreateTaskForm() {
 
     const taskForm = document.getElementById("new-task-form")
+    const errorMessageNewForm = document.getElementById("new-task-form-error");
 
     taskForm.addEventListener("focusin", function () {
         taskForm.classList.add("new-task-form-active");
@@ -108,6 +109,7 @@ function CreateTaskForm() {
             if (!taskForm.contains(document.activeElement)) {
                 taskForm.classList.remove("new-task-form-active");
                 taskForm.classList.add("new-task-form-inactive");
+                errorMessageNewForm.classList.add("hidden");
             }
         }, 0);
     })

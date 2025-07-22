@@ -54,6 +54,8 @@
     --task-card-background: white;
     --task-card-shadow: #0000003d;
 
+    --trash-can-color: #000000;
+
     --task-status-completed: #acdfac;
     --complete-card-button-hover: #8fcd8f;
 
@@ -120,14 +122,16 @@
     --task-card-background: #202124;
     --task-card-shadow: #0f0e0ee4;
 
+    --trash-can-color: #d8d8d8;
+ 
     --task-status-completed: #426a42;
-    --complete-card-button-hover: #4d754d;
+    --complete-card-button-hover: #5a995a;
 
     /* FOOTER COLORS */
     --footer-text-color: #FFFFFF;
 
     /* IMAGE URLS */
-    --search-image-url: url("/assets/header-images/search-icon-dark-theme.svg");
+    --search-image-url: url("../assets/header-images/search-icon-dark-theme.svg");
 
 }
 
@@ -237,6 +241,11 @@ body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+.task-card-container .tooltip-text {
+    top: 84%;
+    right: 4%
+}
+
 .header-col-1 .tooltip-text:nth-of-type(1),
 .header-col-1 .tooltip-text:nth-of-type(2) {
     top: 120%;
@@ -248,7 +257,6 @@ body {
     top: 90%;
     left: -70%
 }
-
 
 .header-col-3 .tooltip:nth-of-type(2) span:nth-of-type(1),
 .header-col-3 .tooltip:nth-of-type(2) span:nth-of-type(2) {
@@ -477,7 +485,7 @@ aside {
 }
 
 .new-task-form-inactive #new-task-description {
-    background-image: url('/assets/header-images/pencil-icon.svg');
+    background-image: url('../assets/header-images/pencil-icon.svg');
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 10px;
@@ -606,9 +614,9 @@ aside {
 .task-card-container {
     border: 0.05rem #999999 solid;
     border-radius: 1rem;
-    height: max-content;
     display: block;
     margin-bottom: 15px;
+    height: fit-content;
     color: var(--task-card-color);
 
 }
@@ -616,6 +624,7 @@ aside {
 .task-card {
     display: inline-block;
     width: 100%;
+    position: relative;
     padding: 15px;
     box-sizing: border-box;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -636,7 +645,9 @@ aside {
     font-weight: 700;
 }
 
-.task-description {}
+.task-description {
+
+}
 
 
 .card-bottom-container {
@@ -672,6 +683,10 @@ aside {
     display: none;
     padding: 0.3em;
     border-radius: 1em;
+}
+
+.card-delete-button path {
+    stroke: var(--trash-can-color);
 }
 
 
@@ -750,8 +765,14 @@ aside {
         cursor: text;
     }
 
-    .tooltip svg:hover+.tooltip-text {
+    .tooltip svg:hover + .tooltip-text {
         opacity: 1;
+        visibility: visible;
+        transition: opacity 0s ease 0.7s;
+    }
+
+    .tooltip:hover + .tooltip-text {
+         opacity: 1;
         visibility: visible;
         transition: opacity 0s ease 0.7s;
     }

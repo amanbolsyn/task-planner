@@ -4,7 +4,9 @@ let db;
 const tasksFragment = document.createDocumentFragment();
 const tasksContainer = document.querySelector(".main-task-cards");
 const screenOverlay = document.getElementById("screen-overlay")
+
 const editTaskForm = document.querySelector(".edit-task-form");
+const newTaskForm = document.getElementById("new-task-form");
 
 const taskTitleInput = document.getElementById("new-task-title");
 const taskDescriptionInput = document.getElementById("new-task-description");
@@ -13,6 +15,9 @@ const taskStatusInput = document.getElementById("new-task-status");
 const editTitleInput = document.getElementById("edit-task-title");
 const editDescriptionInput = document.getElementById("edit-task-description");
 const editStatusInput = document.getElementById("edit-task-status");
+
+const errorMessageEditForm = document.getElementById("edit-task-form-error");
+const errorMessageNewForm = document.getElementById("new-task-form-error");
 
 function CreateDB() {
 
@@ -58,7 +63,9 @@ function ReadData(e) {
 
 
     if (taskTitleInput.value.trim() === "") {
-        console.log("Title cannot be empty");
+
+        errorMessageNewForm.innerText = "Tittle cannot be empty";
+        errorMessageNewForm.classList.remove("hidden");
         return;
     }
 
@@ -87,6 +94,7 @@ function ReadData(e) {
     })
 
     tasksContainer.innerHTML = "";
+    errorMessageNewForm.classList.add("hidden");
     CreateTaskCards();
 }
 
@@ -143,12 +151,12 @@ function iterateCursor() {
 
                 const taskCreated = document.createElement("a")
 
-                if(cursor.value.edited === true) {
+                if (cursor.value.edited === true) {
                     taskCreated.innerText = "Edited "
                 }
 
                 taskCreated.innerText += ConvertDate(cursor.value.created);
-                
+
 
                 taskCreated.classList.add("task-date");
                 cardBottomContainer.appendChild(taskCreated);
@@ -160,10 +168,15 @@ function iterateCursor() {
                 // taskCard.appendChild(taskDeleteBttn);
 
                 cardBottomContainer.insertAdjacentHTML("beforeend",
-                    `<svg  class = "card-delete-button" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    `<svg  class = "card-delete-button tooltip" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path opacity="0.15" d="M18 18V6H6V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18Z" fill="#999999"/>
 <path d="M10 10V16M14 10V16M18 6V18C18 19.1046 17.1046 20 16 20H8C6.89543 20 6 19.1046 6 18V6M4 6H20M15 6V5C15 3.89543 14.1046 3 13 3H11C9.89543 3 9 3.89543 9 5V6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`)
+
+                const deleteToolTip = document.createElement("span");
+                deleteToolTip.innerText = "Delete";
+                deleteToolTip.classList.add("tooltip-text")
+                cardBottomContainer.appendChild(deleteToolTip);
 
                 tasksFragment.appendChild(taskCardContainer);
 
@@ -185,7 +198,7 @@ function DisplayData() {
     tasksContainer.appendChild(tasksFragment);
 }
 
-function CloseNewTaskForm() {
+function SaveNewTaskForm() {
 
     ReadData();
 
@@ -199,7 +212,6 @@ function ClearNewTaskForm() {
 
 }
 
-
 function OpenEditTaskForm() {
 
     const tasks = document.querySelectorAll(".task-card-container");
@@ -207,8 +219,10 @@ function OpenEditTaskForm() {
     const editDescriptionInput = document.getElementById("edit-task-description");
     const editStatusInput = document.getElementById("edit-task-status");
 
+
     tasks.forEach((task) => {
         task.addEventListener("click", function () {
+
             editTaskForm.style.display = "block";
             editTaskForm.id = task.getAttribute("id")
 
@@ -240,13 +254,16 @@ function ClearEditTaskForm() {
     editDescriptionInput.value = "";
     editStatusInput.selectedIndex = 0;
 
+    errorMessageEditForm.classList.add("hidden");
+
 }
 
 
 function CloseEditTaskForm() {
 
-    editTaskForm.style.display = "none"
-    screenOverlay.classList.add("hidden")
+    editTaskForm.style.display = "none";
+    screenOverlay.classList.add("hidden");
+    errorMessageEditForm.classList.add("hidden");
 
 }
 
@@ -283,7 +300,20 @@ function SaveEditTask(e) {
 
         const taskData = e.target.result;
 
+
+        if (taskData.title === editTitleInput.value.trim() && taskData.body === editDescriptionInput.value.trim() && taskData.status === editStatusInput.value.trim()) {
+            CloseEditTaskForm();
+            return
+        }
+
         taskData.title = editTitleInput.value.trim();
+
+        if (taskData.title === "") {
+            errorMessageEditForm.innerText = "Tittle cannot be empty";
+            errorMessageEditForm.classList.remove("hidden");
+            return
+        }
+
         taskData.body = editDescriptionInput.value.trim();
         taskData.status = editStatusInput.value.trim();
         taskData.created = new Date();
@@ -313,4 +343,4 @@ function SaveEditTask(e) {
     }
 }
 
-export { CreateDB, ReadData, DisplayData, CloseNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask }
+export { CreateDB, ReadData, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask }

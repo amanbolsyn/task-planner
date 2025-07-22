@@ -10,7 +10,9 @@ UI:
 -Deleteing notes DONE
 -Editing notes DONE
 -note big window styling DONE
-
+-fix color for svg file for trash can???  DONE
+-fix hidden error message for new task form DONE
+-Removed close button and added save button insteas in new task form
 
 -adding animation for nav bar apperence FAILED
 
@@ -25,7 +27,11 @@ Sort and Filtering
 Search by tittle 
 URL state
 Add error handling to IDB Requests
-Error handeling for forms
+Error handeling for forms(Title is not empty and body limit)
+Scroll to top button
+Add tooltips to icons 
+Fix edit form textarea hieght 
+
 
 Завтра:
 Multiple selection 

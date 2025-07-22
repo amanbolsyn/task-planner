@@ -268,34 +268,33 @@
           <option value="Not started">Not started</option>
           <option value="On hold">On hold</option>
         </select>
-        <a  id = "new-task-form-error" class = "error hidden"></a>
-        <button type="button" id="new-task-close-button" class = "button-form">close</button>
-        <button type="button" id="new-task-clear-button" class = "button-form">clear</button>
+        <a id="new-task-form-error" class="error hidden"></a>
+        <button type="button" id="new-task-save-button" class="button-form">save</button>
+        <button type="button" id="new-task-clear-button" class="button-form">clear</button>
       </form>
     </section>
     <section class="main-task-cards">
 
     </section>
   </main>
-  <div  id = "screen-overlay" class = "overlay hidden"></div>
-    <div style = "display:none" class="edit-task-form" >
-     <form>
-        <input type="text" placeholder="Title" id="edit-task-title" autocomplete="off">
-        <textarea rows="1" type="text" placeholder="Take a task..." id="edit-task-description"
-          autocomplete="off"></textarea>
-        <select id="edit-task-status" name="edit-task-status" autofocus="off">
-          <option value="Completed">Completed</option>
-          <option value="In progress">In progress</option>
-          <option value="Not started">Not started</option>
-          <option value="On hold">On hold</option>
-        </select>
-        <a  id = "edit-task-form-error" class = "error hidden"></a>
-        <button type="button" id="edit-task-close-button" class = "button-form">close</button>
-        <button type="button" id="edit-task-save-button" class = "button-form">save</button>
-        <button type="button" id="edit-task-clear-button" class = "button-form">clear</button>
-        <button type="button" id="delete-task-button" class = "button-form">delete</button
-      </form>
-    </div>
+  <div id="screen-overlay" class="overlay hidden"></div>
+  <div style="display:none" class="edit-task-form">
+    <form>
+      <input type="text" placeholder="Title" id="edit-task-title" autocomplete="off">
+      <textarea rows="1" type="text" placeholder="Take a task..." id="edit-task-description"
+        autocomplete="off"></textarea>
+      <select id="edit-task-status" name="edit-task-status" autofocus="off">
+        <option value="Completed">Completed</option>
+        <option value="In progress">In progress</option>
+        <option value="Not started">Not started</option>
+        <option value="On hold">On hold</option>
+      </select>
+      <a id="edit-task-form-error" class="error hidden"></a>
+      <button type="button" id="edit-task-close-button" class="button-form">close</button>
+      <button type="button" id="edit-task-save-button" class="button-form">save</button>
+      <button type="button" id="edit-task-clear-button" class="button-form">clear</button>
+      <button type="button" id="delete-task-button" class="button-form">delete</button </form>
+  </div>
   <footer class="footer">
     <p>Aman Bolsyn Ltd. All right reserved &copy; 2025 <br><br> Designed and Implemented by <a
         href="https://github.com/amanbolsyn" target="_blank">Aman Nurgozhiyev </a>(Aman Bolsyn)</p>
