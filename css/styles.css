@@ -607,7 +607,6 @@ aside {
     grid-template-columns: repeat(var(--columns), 1fr);
     gap: 10px;  */
     column-count: var(--columns);
-    column-gap: 15px;
 }
 
 
@@ -618,6 +617,7 @@ aside {
     margin-bottom: 15px;
     height: fit-content;
     color: var(--task-card-color);
+    background-color: var(--page-background);
 
 }
 

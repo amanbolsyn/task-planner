@@ -118,6 +118,7 @@ function CreateTaskCards(tasksData) {
     for (let i = 0; i < tasksData.length; i++) {
         const taskCardContainer = document.createElement("section");
         taskCardContainer.id = tasksData[i].id
+        taskCardContainer.draggable = true;
         taskCardContainer.classList.add("task-card-container");
 
         const taskCard = document.createElement("article");
@@ -185,7 +186,35 @@ function CreateTaskCards(tasksData) {
     DisplayData();
     OpenEditTaskForm();
     DeleteBttnCard();
+    ApplyDragEvent();
 }
+
+function ApplyDragEvent() {
+    const taskCards = document.querySelectorAll(".task-card-container");
+
+    taskCards.forEach((taskCard) => {
+        taskCard.addEventListener("dragstart", function (e) {
+            // Add the target element's id to the data transfer object
+            e.dataTransfer.setData("application/my-app", e.target.id);
+            e.dataTransfer.effectAllowed = "move";
+        })
+    })
+}
+
+tasksContainer.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move"
+})
+
+tasksContainer.addEventListener("drop", (e) => {
+    e.preventDefault();
+    // Get the id of the target and add the moved element to the target's DOM
+    const data = e.dataTransfer.getData("application/my-app");
+   
+    e.target.closest("section[id]").before(document.getElementById(data));
+
+});
+
 
 function iterateCursor() {
     dbTasks = [];
@@ -420,7 +449,6 @@ function RetriveTasks() {
         }
     }
 
-
     const selectedAlphabetOrder = document.querySelector('input[name="aplhabet-order"]:checked');
 
     if (selectedAlphabetOrder) {
@@ -431,7 +459,6 @@ function RetriveTasks() {
         }
     }
 
-
     const selectedDateOrder = document.querySelector('input[name="date-order"]:checked');
     if (selectedDateOrder) {
         if (selectedDateOrder.value === "newest") {
@@ -440,6 +467,8 @@ function RetriveTasks() {
             processedTasks.sort((a, b) => new Date(a.created) - new Date(b.created));
         }
     }
+
+
 
     CreateTaskCards(processedTasks);
 }

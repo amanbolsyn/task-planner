@@ -14,8 +14,9 @@ import { SaveEditTask } from "./data.js";
 
 import { RetriveTasks} from "./data.js";
 
+let lastSelectedFilter = null;
 const searchInput = document.getElementById("search");
-const statusFilter = document.querySelector(".status-filter");
+const statusFilter = document.querySelectorAll('input[name="task-status"]');
 const alphabetSort = document.querySelector(".alphabet-sort");
 const dateSort = document.querySelector(".date-sort");
 
@@ -39,7 +40,19 @@ document.addEventListener("DOMContentLoaded", () => {
   ViewTasksToggle();
 
   searchInput.addEventListener("input", RetriveTasks);
-  statusFilter.addEventListener("change", RetriveTasks);
+
+  statusFilter.forEach((status) => {
+     status.addEventListener( "click" , function(){
+        if (lastSelectedFilter === this) {
+            this.checked = false;
+            lastSelectedFilter = null;
+        } else {
+            lastSelectedFilter = this;
+        }
+        RetriveTasks();
+     })
+  })
+  
   alphabetSort.addEventListener("change", RetriveTasks);
   dateSort.addEventListener("change", RetriveTasks);
 
