@@ -16,6 +16,7 @@ UI:
 -Error handeling for forms(Title is not empty and body limit) DONE
 -adding animation for nav bar apperence FAILED
 -add tooltips to icons DONE
+-search by tittle DONE
 
 Styling 
 
@@ -27,7 +28,6 @@ Functionality
 Add error handling to IDB Requests
 Scroll to top button
 Sort and Filtering 
-Search by tittle 
 
 
 Завтра:

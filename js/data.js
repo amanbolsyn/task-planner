@@ -27,7 +27,7 @@ function CreateDB() {
         console.log("Database failed to open");
     })
 
- openRequest.addEventListener("success", async () => {
+    openRequest.addEventListener("success", async () => {
         console.log("Database successfully opened");
 
         db = openRequest.result;
@@ -104,7 +104,7 @@ async function ReadData() {
     transaction.addEventListener("complete", function () {
         console.log("Transaction completed: database modification finished.");
     })
-    
+
     await iterateCursor();
     errorMessageNewForm.classList.add("hidden");
     CreateTaskCards(dbTasks);
@@ -112,9 +112,9 @@ async function ReadData() {
 
 
 function CreateTaskCards(tasksData) {
-    
+
     tasksContainer.innerHTML = "";
-  
+
     for (let i = 0; i < tasksData.length; i++) {
         const taskCardContainer = document.createElement("section");
         taskCardContainer.id = tasksData[i].id
@@ -188,7 +188,7 @@ function CreateTaskCards(tasksData) {
 }
 
 function iterateCursor() {
-   dbTasks = [];
+    dbTasks = [];
     return new Promise((resolve, reject) => {
         const transaction = db.transaction("tasks_os");
         const objectStore = transaction.objectStore("tasks_os");
@@ -253,7 +253,7 @@ function ClearNewTaskForm() {
 
 
 function OpenEditTaskForm() {
-    
+
     const tasks = document.querySelectorAll(".task-card-container");
     const editTitleInput = document.getElementById("edit-task-title");
     const editDescriptionInput = document.getElementById("edit-task-description");
@@ -377,7 +377,7 @@ function SaveEditTask(e) {
         const updateTask = objectStore.put(taskData)
 
         updateTask.onsuccess = async (e) => {
-             await iterateCursor();
+            await iterateCursor();
             console.log(`Task with id:${taskId} was succesfully updated`)
             const currentTaskCard = document.getElementById(taskId);
             currentTaskCard.querySelector(".task-title").innerText = taskData.title;
@@ -398,23 +398,50 @@ function SaveEditTask(e) {
 }
 
 
-function RetreiveTasks() {
+function RetriveTasks() {
 
-    let processedTasks = [];
-
+    let processedTasks = [...dbTasks]
     const searchStr = document.getElementById("search").value.trim().toLowerCase();
 
     //search logic
     //finding matched article titles by searching from search input
-    for (let i = 0; i < dbTasks.length; i++) {
-        if (dbTasks[i].title.toLowerCase().search(searchStr) !== -1) {
-            processedTasks.push(dbTasks[i]);
+    for (let idx = processedTasks.length - 1; idx >= 0; idx--) {
+        if (processedTasks[idx].title.toLowerCase().search(searchStr) === -1) {
+            processedTasks.splice(idx, 1);
+        }
+    }
+
+    const selectedStatus = document.querySelector('input[name="task-status"]:checked');
+    if (selectedStatus) {
+        for (let idx = processedTasks.length - 1; idx >= 0; idx--) {
+            if (processedTasks[idx].status.toLowerCase() !== selectedStatus.value) {
+                processedTasks.splice(idx, 1);
+            }
         }
     }
 
 
+    const selectedAlphabetOrder = document.querySelector('input[name="aplhabet-order"]:checked');
+
+    if (selectedAlphabetOrder) {
+        if (selectedAlphabetOrder.value === "a-z") {
+            processedTasks.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (selectedAlphabetOrder.value === "z-a") {
+            processedTasks.sort((a, b) => b.title.localeCompare(a.title));
+        }
+    }
+
+
+    const selectedDateOrder = document.querySelector('input[name="date-order"]:checked');
+    if (selectedDateOrder) {
+        if (selectedDateOrder.value === "newest") {
+            processedTasks.sort((a, b) => new Date(b.created) - new Date(a.created));
+        } else if (selectedDateOrder.value === "oldest") {
+            processedTasks.sort((a, b) => new Date(a.created) - new Date(b.created));
+        }
+    }
 
     CreateTaskCards(processedTasks);
 }
 
-export { CreateDB, ReadData, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask, RetreiveTasks }
+export { CreateDB, ReadData, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask, RetriveTasks }

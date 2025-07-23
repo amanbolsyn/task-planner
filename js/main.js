@@ -12,7 +12,7 @@ import { DeleteTask } from "./data.js";
 import { ClearEditTaskForm } from "./data.js";
 import { SaveEditTask } from "./data.js";
 
-import { RetreiveTasks } from "./data.js";
+import { RetriveTasks} from "./data.js";
 
 const searchInput = document.getElementById("search");
 const statusFilter = document.querySelector(".status-filter");
@@ -38,11 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //View selection functionality 
   ViewTasksToggle();
 
-  searchInput.addEventListener("input", RetreiveTasks);
-  statusFilter.addEventListener("change", RetreiveTasks);
-  alphabetSort.addEventListener("change", RetreiveTasks);
-  dateSort.addEventListener("change", RetreiveTasks);
-
+  searchInput.addEventListener("input", RetriveTasks);
+  statusFilter.addEventListener("change", RetriveTasks);
+  alphabetSort.addEventListener("change", RetriveTasks);
+  dateSort.addEventListener("change", RetriveTasks);
 
   saveNewFormBttn.addEventListener("click", SaveNewTaskForm);
   clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
