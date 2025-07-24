@@ -102,7 +102,6 @@ function CreateTaskForm() {
     taskForm.addEventListener("focusin", function () {
         taskForm.classList.add("new-task-form-active");
         taskForm.classList.remove("new-task-form-inactive");
-        
     })
 
     taskForm.addEventListener("focusout", function () {

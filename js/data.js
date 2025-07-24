@@ -141,12 +141,21 @@ function CreateTaskCards(tasksData) {
         cardBottomContainer.classList.add("card-bottom-container");
         taskCard.appendChild(cardBottomContainer);
 
-        const taskStatus = document.createElement("a");
-        taskStatus.innerText = tasksData[i].status
-        taskStatus.classList.add("task-status");
-        cardBottomContainer.appendChild(taskStatus);
+        // const taskStatus = document.createElement("a");
+        // taskStatus.innerText = tasksData[i].status
+        // taskStatus.classList.add("task-status");
+        // cardBottomContainer.appendChild(taskStatus);
 
-        if (taskStatus.innerText === "Completed") {
+
+        cardBottomContainer.insertAdjacentHTML("beforeend", `      
+        <select class="task-status" name="task-status" autofocus="off">
+          <option value="Completed">Completed</option>
+          <option value="In progress">In progress</option>
+          <option value="Not started">Not started</option>
+          <option value="On hold">On hold</option>
+        </select>`)
+        cardBottomContainer.querySelector(".task-status").value = tasksData[i].status;
+        if (tasksData[i].status === "Completed") {
             taskCardContainer.classList.add("completed")
         }
 
@@ -186,6 +195,7 @@ function CreateTaskCards(tasksData) {
     DisplayData();
     OpenEditTaskForm();
     DeleteBttnCard();
+    StatusSelectCard();
     ApplyDragEvent();
 }
 
@@ -210,7 +220,7 @@ tasksContainer.addEventListener("drop", (e) => {
     e.preventDefault();
     // Get the id of the target and add the moved element to the target's DOM
     const data = e.dataTransfer.getData("application/my-app");
-   
+
     e.target.closest("section[id]").before(document.getElementById(data));
 
 });
@@ -297,7 +307,7 @@ function OpenEditTaskForm() {
 
             editTitleInput.value = task.querySelector(".task-title").innerText;
             editDescriptionInput.value = task.querySelector(".task-description").innerText;
-            editStatusInput.value = task.querySelector(".task-status").innerText;
+            editStatusInput.value = task.querySelector(".task-status").value;
 
             screenOverlay.classList.remove("hidden");
         })
@@ -315,6 +325,21 @@ function DeleteBttnCard() {
             DeleteTask(e);
         })
     })
+}
+
+function StatusSelectCard() {
+    const statusSelects = document.querySelectorAll(".task-status");
+
+    statusSelects.forEach((statusSelect) => {
+        statusSelect.addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevents event bubbling to parent elements
+        });
+
+        statusSelect.addEventListener("change", function(e){
+            SaveEditTask(e);
+        })
+    });
+
 }
 
 function ClearEditTaskForm() {
@@ -360,7 +385,9 @@ function DeleteTask(e) {
 
 function SaveEditTask(e) {
 
-    const taskId = Number(e.target.parentNode.parentNode.getAttribute("id"));
+
+    let taskIdElement = e.target.closest("section[id], div[id]");
+    let taskId = Number(taskIdElement.id);
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
     const objectStore = transaction.objectStore("tasks_os");
@@ -371,6 +398,7 @@ function SaveEditTask(e) {
         const taskData = e.target.result;
 
 
+      if(taskIdElement.tagName === "DIV"){
         if (taskData.title === editTitleInput.value.trim() && taskData.body === editDescriptionInput.value.trim() && taskData.status === editStatusInput.value.trim()) {
             CloseEditTaskForm();
             return
@@ -398,7 +426,14 @@ function SaveEditTask(e) {
             return
         }
 
-        taskData.status = editStatusInput.value.trim();
+        taskData.status = editStatusInput.value;
+
+    } else {
+
+        taskData.status = taskIdElement.querySelector(".task-status").value;
+    }
+
+
         taskData.created = new Date();
         taskData.edited = true;
 
@@ -411,7 +446,7 @@ function SaveEditTask(e) {
             const currentTaskCard = document.getElementById(taskId);
             currentTaskCard.querySelector(".task-title").innerText = taskData.title;
             currentTaskCard.querySelector(".task-description").innerText = taskData.body;
-            currentTaskCard.querySelector(".task-status").innerText = taskData.status;
+            currentTaskCard.querySelector(".task-status").value = taskData.status;
             currentTaskCard.querySelector(".task-date").innerText = `Edited ${ConvertDate(taskData.created)}`;
 
 

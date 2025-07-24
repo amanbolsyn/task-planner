@@ -17,6 +17,7 @@ UI:
 -adding animation for nav bar apperence FAILED
 -add tooltips to icons DONE
 -search by tittle DONE
+-Sort and Filtering DONE
 
 Styling 
 
@@ -25,15 +26,12 @@ Styling
 Functionality 
 
 Сейчаc:
-Add error handling to IDB Requests
-Scroll to top button
-Sort and Filtering 
+Add error handling to IDB Requests Сделаю в алеме
+Scroll to top button Сделаю в алеме
 
-
-Завтра:
-URL state
-Multiple selection 
-Drag and drop 
+URL state мб дома уже
+Multiple selection мб дома уже
+Drag and drop Сделаю в алеме
 
 
 

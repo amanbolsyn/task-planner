@@ -254,8 +254,8 @@
   <main class="main">
     <section class="main-heading">
       <form id="new-task-form" class="new-task-form-inactive">
-        <input type="text" placeholder="Title" id="new-task-title" autocomplete="off">
-        <textarea rows="1" col="30" wrap="hard" maxlength="200" type="text" placeholder="Write a task..."
+        <input type="text" placeholder="Title" maxlength="60" id="new-task-title" autocomplete="off">
+        <textarea rows="1" col="30" wrap="hard" type="text" placeholder="Write a task..."
           id="new-task-description" autocomplete="off"></textarea>
 
         <select id="new-task-status" name="new-task-status" autofocus="off">
@@ -276,8 +276,8 @@
   <div id="screen-overlay" class="overlay hidden"></div>
   <div style="display:none" class="edit-task-form">
     <form>
-      <input type="text" placeholder="Title" id="edit-task-title" autocomplete="off">
-      <textarea rows="1" col="30" wrap="hard" maxlength="200" type="text" placeholder="Take a task..."
+      <input type="text" placeholder="Title" maxlength="60" id="edit-task-title" autocomplete="off">
+      <textarea rows="1" col="30" wrap="hard"  type="text" placeholder="Take a task..."
         id="edit-task-description" autocomplete="off"></textarea>
       <select id="edit-task-status" name="edit-task-status" autofocus="off">
         <option value="Completed">Completed</option>
