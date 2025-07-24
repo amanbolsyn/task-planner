@@ -449,26 +449,19 @@ function RetriveTasks() {
         }
     }
 
-    const selectedAlphabetOrder = document.querySelector('input[name="aplhabet-order"]:checked');
+    const selectedOrder = document.querySelector('input[name="sort-order"]:checked');
 
-    if (selectedAlphabetOrder) {
-        if (selectedAlphabetOrder.value === "a-z") {
+    if (selectedOrder) {
+        if (selectedOrder.value === "a-z") {
             processedTasks.sort((a, b) => a.title.localeCompare(b.title));
-        } else if (selectedAlphabetOrder.value === "z-a") {
+        } else if (selectedOrder.value === "z-a") {
             processedTasks.sort((a, b) => b.title.localeCompare(a.title));
-        }
-    }
-
-    const selectedDateOrder = document.querySelector('input[name="date-order"]:checked');
-    if (selectedDateOrder) {
-        if (selectedDateOrder.value === "newest") {
+        } else if (selectedOrder.value === "newest") {
             processedTasks.sort((a, b) => new Date(b.created) - new Date(a.created));
-        } else if (selectedDateOrder.value === "oldest") {
+        } else if (selectedOrder.value === "oldest") {
             processedTasks.sort((a, b) => new Date(a.created) - new Date(b.created));
         }
     }
-
-
 
     CreateTaskCards(processedTasks);
 }

@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="header-col-2">
-        <form>
+        <form id="search-form">
           <input type="text" id="search" placeholder="Search by title..." autocomplete="off">
         </form>
       </div>
@@ -180,9 +180,9 @@
           </label>
         </form>
       </section><br>
-      <section class="alphabet-sort">
+      <section class="tasks-sort">
         <form>
-          <input type="radio" id="a-z" name="aplhabet-order" value="a-z">
+          <input type="radio" id="a-z" name="sort-order" value="a-z">
           <label for="a-z">
             <?xml version="1.0" encoding="utf-8"?>
             <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -204,10 +204,9 @@
             </svg>
             <p> Ascending: A to Z</p>
           </label>
-          <input type="radio" id="z-a" name="aplhabet-order" value="z-a">
+          <input type="radio" id="z-a" name="sort-order" value="z-a">
           <label for="z-a">
             <?xml version="1.0" encoding="utf-8"?>
-
             <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
             <svg width="26px" height="26px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
               <g id="Layer_2" data-name="Layer 2">
@@ -227,11 +226,8 @@
             </svg>
             <p> Descending: Z to A</p>
           </label>
-          </form>
-      </section>
-      <section class="date-sort"><br>
-        <form>
-          <input type="radio" id="newest" name="date-order" value="newest">
+          <br>
+          <input type="radio" id="newest" name="sort-order" value="newest">
           <label for="newest">
             <svg width="26px" hieght="26px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
               stroke="#999999" stroke-width="0.45600000000000007">
@@ -241,7 +237,7 @@
             </svg>
             <p>Newest</p>
           </label>
-          <input type="radio" id="oldest" name="date-order" value="oldest">
+          <input type="radio" id="oldest" name="sort-order" value="oldest">
           <label for="oldest">
             <svg width="26px" hieght="26px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
               stroke="#999999" stroke-width="0.45600000000000007" style="transform:rotate(180deg)">
@@ -259,8 +255,8 @@
     <section class="main-heading">
       <form id="new-task-form" class="new-task-form-inactive">
         <input type="text" placeholder="Title" id="new-task-title" autocomplete="off">
-        <textarea rows = "1"  col = "30" wrap = "hard" maxlength="200" type="text"  placeholder="Write a task..." id="new-task-description"
-          autocomplete="off" ></textarea>
+        <textarea rows="1" col="30" wrap="hard" maxlength="200" type="text" placeholder="Write a task..."
+          id="new-task-description" autocomplete="off"></textarea>
 
         <select id="new-task-status" name="new-task-status" autofocus="off">
           <option value="Completed">Completed</option>
@@ -281,8 +277,8 @@
   <div style="display:none" class="edit-task-form">
     <form>
       <input type="text" placeholder="Title" id="edit-task-title" autocomplete="off">
-      <textarea rows="1" col = "30" wrap = "hard" maxlength="200" type="text" placeholder="Take a task..." id="edit-task-description"
-        autocomplete="off"></textarea>
+      <textarea rows="1" col="30" wrap="hard" maxlength="200" type="text" placeholder="Take a task..."
+        id="edit-task-description" autocomplete="off"></textarea>
       <select id="edit-task-status" name="edit-task-status" autofocus="off">
         <option value="Completed">Completed</option>
         <option value="In progress">In progress</option>

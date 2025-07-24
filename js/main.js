@@ -12,13 +12,17 @@ import { DeleteTask } from "./data.js";
 import { ClearEditTaskForm } from "./data.js";
 import { SaveEditTask } from "./data.js";
 
-import { RetriveTasks} from "./data.js";
+import { RetriveTasks } from "./data.js";
 
 let lastSelectedFilter = null;
+let lastSelectedOrder = null;
+const searchForm = document.getElementById("search-form");
+const newTaskForm = document.getElementById("new-task-form");
+const editTaskForm = document.querySelector(".edit-task-form");
+
 const searchInput = document.getElementById("search");
-const statusFilter = document.querySelectorAll('input[name="task-status"]');
-const alphabetSort = document.querySelector(".alphabet-sort");
-const dateSort = document.querySelector(".date-sort");
+const statusOptions = document.querySelectorAll('input[name="task-status"]');
+const sortOptions = document.querySelectorAll('input[name="sort-order"]');
 
 const clearNewFormBttn = document.getElementById("new-task-clear-button");
 const saveNewFormBttn = document.getElementById("new-task-save-button");
@@ -39,22 +43,48 @@ document.addEventListener("DOMContentLoaded", () => {
   //View selection functionality 
   ViewTasksToggle();
 
+
+  //preventing forms from submitting and reloding page by default 
+  searchForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+  });
+
+  newTaskForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+  });
+
+  editTaskForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+  });
+
+
   searchInput.addEventListener("input", RetriveTasks);
 
-  statusFilter.forEach((status) => {
-     status.addEventListener( "click" , function(){
-        if (lastSelectedFilter === this) {
-            this.checked = false;
-            lastSelectedFilter = null;
-        } else {
-            lastSelectedFilter = this;
-        }
-        RetriveTasks();
-     })
+  statusOptions.forEach((option) => {
+    option.addEventListener("click", function() {
+      if (lastSelectedFilter === this) {
+        this.checked = false;
+        lastSelectedFilter = null;
+      } else {
+        lastSelectedFilter = this;
+      }
+      RetriveTasks();
+    })
+  });
+
+  sortOptions.forEach((option) => {
+
+    option.addEventListener("click", function() {
+      if (lastSelectedOrder === this) {
+        this.checked = false;
+        lastSelectedOrder = null;
+      } else {
+        lastSelectedOrder = this;
+      }
+
+      RetriveTasks();
+    })
   })
-  
-  alphabetSort.addEventListener("change", RetriveTasks);
-  dateSort.addEventListener("change", RetriveTasks);
 
   saveNewFormBttn.addEventListener("click", SaveNewTaskForm);
   clearNewFormBttn.addEventListener("click", ClearNewTaskForm);

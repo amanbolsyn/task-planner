@@ -370,13 +370,10 @@ aside {
     display: none;
 }
 
-.aside .alphabet-sort input[type="radio"] {
+.aside .tasks-sort input[type="radio"] {
     display: none;
 }
 
-.aside .date-sort input[type="radio"] {
-    display: none;
-}
 
 .aside input:checked+label {
     background-color: var(--aside-checked-label-background);
