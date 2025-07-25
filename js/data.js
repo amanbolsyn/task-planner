@@ -441,7 +441,7 @@ function SaveEditTask(e) {
         const updateTask = objectStore.put(taskData)
 
         updateTask.onsuccess = async (e) => {
-            await iterateCursor();
+
             console.log(`Task with id:${taskId} was succesfully updated`)
             const currentTaskCard = document.getElementById(taskId);
             currentTaskCard.querySelector(".task-title").innerText = taskData.title;

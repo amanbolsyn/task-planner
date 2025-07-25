@@ -2,6 +2,7 @@ import { ThemeToggle } from "./utils.js";
 import { ViewTasksToggle } from "./utils.js";
 import { BurgerMenu } from "./utils.js";
 import { CreateTaskForm } from "./utils.js";
+import { ScrollTop } from "./utils.js";
 
 import { CreateDB } from "./data.js";
 import { SaveNewTaskForm } from "./data.js";
@@ -105,5 +106,7 @@ ThemeToggle();
 
 //Burger menu functionality for large window sizes
 BurgerMenu();
+
+ScrollTop();
 
 

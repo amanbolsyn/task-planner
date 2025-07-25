@@ -158,7 +158,27 @@ function ConvertDate(date){
     return `${month} ${days}${GetOrdinal(days)}`
 }
 
+function ScrollTop(){
+  
+    const scrollTopBttn = document.getElementById("scroll-top");
+
+
+    window.addEventListener("scroll", function(){
+        if(document.documentElement.scrollTop > 300 ||
+           document.body.scrollTop > 300
+        ) {
+            scrollTopBttn.style.display = "block";
+        } else {
+            scrollTopBttn.style.display = "none";
+        }
+    });
+    
+    scrollTopBttn.addEventListener("click", function(){
+        scrollTo(0,0);
+    })
+}
+
 window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
-export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate};
+export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop};
