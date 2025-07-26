@@ -138,13 +138,14 @@
       <section class="status-filter">
         <form action="">
           <input type="radio" id="completed" name="task-status" value="completed">
-          <label for="completed">
+          <label for="completed" class="tooltip">
             <svg width="26px" height="26px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M20 12V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V19C4 20.1046 4.89543 21 6 21H8M15 3V7M9 3V7M4 11H20M19.8572 15L13.6573 21.1999L11.0001 18.5428"
                 stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </g>
             </svg>
+            <span class="tooltip-text">Completed</span>
             <p>completed</p>
           </label>
           <input type="radio" id="in-progress" name="task-status" value="in progress">
@@ -254,9 +255,9 @@
   <main class="main">
     <section class="main-heading">
       <form id="new-task-form" class="new-task-form-inactive">
-        <input type="text" placeholder="Title" maxlength="60" id="new-task-title" autocomplete="off">
-        <textarea rows="1" col="30" wrap="hard" type="text" placeholder="Write a task..."
-          id="new-task-description" autocomplete="off"></textarea>
+        <input type="text" placeholder="Title" maxlength="70" id="new-task-title" autocomplete="off">
+        <textarea rows="1" col="30" wrap="hard" type="text" placeholder="Write a task..." id="new-task-description"
+          autocomplete="off"></textarea>
 
         <select id="new-task-status" name="new-task-status" autofocus="off">
           <option value="Completed">Completed</option>
@@ -276,9 +277,9 @@
   <div id="screen-overlay" class="overlay hidden"></div>
   <div style="display:none" class="edit-task-form">
     <form>
-      <input type="text" placeholder="Title" maxlength="60" id="edit-task-title" autocomplete="off">
-      <textarea rows="1" col="30" wrap="hard"  type="text" placeholder="Take a task..."
-        id="edit-task-description" autocomplete="off"></textarea>
+      <input type="text" placeholder="Title" maxlength="70" id="edit-task-title" autocomplete="off">
+      <textarea rows="1" col="30" wrap="hard" type="text" placeholder="Take a task..." id="edit-task-description"
+        autocomplete="off"></textarea>
       <select id="edit-task-status" name="edit-task-status" autofocus="off">
         <option value="Completed">Completed</option>
         <option value="In progress">In progress</option>
@@ -291,6 +292,12 @@
       <button type="button" id="edit-task-clear-button" class="button-form">clear</button>
       <button type="button" id="delete-task-button" class="button-form">delete</button </form>
   </div>
+  <a id="scroll-top">
+    <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+    <svg width="36px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17 14L12 9L7 14" stroke="#999999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </a>
   <footer class="footer">
     <p>Aman Bolsyn Ltd. All right reserved &copy; 2025 <br><br> Designed and Implemented by <a
         href="https://github.com/amanbolsyn" target="_blank">Aman Nurgozhiyev </a>(Aman Bolsyn)</p>

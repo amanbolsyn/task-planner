@@ -17,23 +17,19 @@ UI:
 -adding animation for nav bar apperence FAILED
 -add tooltips to icons DONE
 -search by tittle DONE
--Sort and Filtering DONE
-
-Styling 
-
--responsive design
-
-Functionality 
-
-Сейчаc:
-Add error handling to IDB Requests Сделаю в алеме
-Scroll to top button Сделаю в алеме
-
-URL state мб дома уже
-Multiple selection мб дома уже
-Drag and drop Сделаю в алеме
+-sort and Filtering DONE
+-scroll to top button Сделаю в алеме DONE
 
 
+Надо сделать:
+Add error handling to IDB Requests 
+URL state 
+Drag and drop
+Multiple selection 
+
+После проверки добавлю: 
+add tooltips for filtering and sorting 
+responsive design
 
 
 

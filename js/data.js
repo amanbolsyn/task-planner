@@ -21,7 +21,7 @@ const errorMessageNewForm = document.getElementById("new-task-form-error");
 
 function CreateDB() {
 
-    const openRequest = window.indexedDB.open("tasks_db", 5);
+    const openRequest = window.indexedDB.open("tasks_db", 1);
 
     openRequest.addEventListener("error", () => {
         console.log("Database failed to open");
@@ -51,6 +51,7 @@ function CreateDB() {
         objectStore.createIndex("tittle", "title", { unique: false });
         objectStore.createIndex("body", "body", { unique: false });
         objectStore.createIndex("status", "status", { unique: false });
+        objectStore.createIndex("position", "position", { unique: false })
         objectStore.createIndex("created", "created", { unique: true });
         objectStore.createIndex("edited", "edited", { unique: false });
 
@@ -66,6 +67,7 @@ async function ReadData() {
         "title": taskTitleInput.value.trim(),
         "body": taskDescriptionInput.value.trim(),
         "status": taskStatusInput.value.trim(),
+        "position": 0,
         "created": taskCreationDate,
         "edited": false,
     };
@@ -90,16 +92,26 @@ async function ReadData() {
     }
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
-
     const objectStore = transaction.objectStore("tasks_os");
+    const countRequest = objectStore.count();
 
-    const addRequest = objectStore.add(newTask);
+    countRequest.onsuccess = () => {
+        newTask.position = Number(countRequest.result) + 1;
+        console.log("Total records in tasks_os: " + newTask.position)
 
-    addRequest.addEventListener("success", function () {
+        const addRequest = objectStore.add(newTask);
 
-        ClearNewTaskForm();
+        addRequest.addEventListener("success", function () {
+            ClearNewTaskForm();
+        })
 
-    })
+        //add error message. Crucial!
+    }
+
+    countRequest.onerror = () => {
+        console.log("Failed to count records: " + countRequest.error);
+    }
+
 
     transaction.addEventListener("complete", function () {
         console.log("Transaction completed: database modification finished.");
@@ -219,19 +231,97 @@ tasksContainer.addEventListener("dragover", (e) => {
 tasksContainer.addEventListener("drop", (e) => {
     e.preventDefault();
     // Get the id of the target and add the moved element to the target's DOM
-    const data = e.dataTransfer.getData("application/my-app");
+    const draggedTaskId = e.dataTransfer.getData("application/my-app");
 
-    e.target.closest("section[id]").before(document.getElementById(data));
+    let targetTask = e.target.closest("section[id]");
+    targetTask.before(document.getElementById(draggedTaskId));
+
+    ChangeTaskPositions();
 
 });
 
 
+function ChangeTaskPositions() {
+    const transaction = db.transaction(["tasks_os"], "readwrite");
+    const objectStore = transaction.objectStore("tasks_os");
+    const taskCards = document.querySelectorAll(".task-card-container");
+    let positionNum = taskCards.length;
+
+    for (let i = 0; i < taskCards.length; i++) {
+
+        const requestTask = objectStore.get(Number(taskCards[i].id));
+
+        requestTask.onsuccess = (e) => {
+
+            let taskData = e.target.result;
+            taskData.position = positionNum;
+            positionNum--;
+
+
+            const updatePosition = objectStore.put(taskData);
+
+            updatePosition.onsuccess = () => {
+              console.log("")
+            }
+
+        }
+    }
+
+}
+// const requestDraggedTask = objectStore.get(Number(draggedTaskId));
+// requestDraggedTask.onsuccess = (e) => {
+
+//     const draggedTaskData = e.target.result;
+//     console.log("Dragged task was fetched");
+
+//     const requestTargetTask = objectStore.get(Number(targetTaskId));
+//     requestTargetTask.onsuccess = (e) => {
+//         console.log("Target task was fetched");
+
+//         const targetTaskData = e.target.result;
+
+//         let temp = draggedTaskData.position;
+//         draggedTaskData.position = targetTaskData.position;
+//         targetTaskData.position = temp;
+
+
+//         console.log(draggedTaskData.position);
+//         console.log(targetTaskData.position);
+
+//         const updateA = objectStore.put(targetTaskData);
+//         updateA.onerror = (e) => {
+//             console.error("Failed to update target task:", e.target.error);
+//         };
+
+//         const updateB = objectStore.put(draggedTaskData);
+//         updateB.onerror = (e) => {
+//             console.error("Failed to update dragged task:", e.target.error);
+//         };
+
+//     };
+
+
+//     requestTargetTask.onerror = () => {
+//         console.error("Failed to fetch target task");
+//     };
+// };
+
+// requestDraggedTask.onerror = () => {
+//     console.error("Failed to fetch dragged task");
+// };
+
+
+
+
 function iterateCursor() {
     dbTasks = [];
+
     return new Promise((resolve, reject) => {
         const transaction = db.transaction("tasks_os");
         const objectStore = transaction.objectStore("tasks_os");
-        const request = objectStore.openCursor(null, "prev");
+        const positionIndex = objectStore.index("position");
+
+        const request = positionIndex.openCursor(null, "prev");
 
         request.addEventListener("success", (e) => {
             const cursor = e.target.result;
@@ -335,7 +425,7 @@ function StatusSelectCard() {
             e.stopPropagation(); // Prevents event bubbling to parent elements
         });
 
-        statusSelect.addEventListener("change", function(e){
+        statusSelect.addEventListener("change", function (e) {
             SaveEditTask(e);
         })
     });
@@ -382,7 +472,6 @@ function DeleteTask(e) {
 
     });
 }
-
 function SaveEditTask(e) {
 
 
@@ -398,40 +487,41 @@ function SaveEditTask(e) {
         const taskData = e.target.result;
 
 
-      if(taskIdElement.tagName === "DIV"){
-        if (taskData.title === editTitleInput.value.trim() && taskData.body === editDescriptionInput.value.trim() && taskData.status === editStatusInput.value.trim()) {
-            CloseEditTaskForm();
-            return
+
+        if (taskIdElement.tagName === "DIV") {
+            if (taskData.title === editTitleInput.value.trim() && taskData.body === editDescriptionInput.value.trim() && taskData.status === editStatusInput.value.trim()) {
+                CloseEditTaskForm();
+                return
+            }
+
+            taskData.title = editTitleInput.value.trim();
+
+            if (taskData.title === "") {
+                errorMessageEditForm.innerText = "Tittle cannot be empty";
+                errorMessageEditForm.classList.remove("hidden");
+                return
+            }
+
+            taskData.body = editDescriptionInput.value.trim();
+
+            if (taskData.body.length > 200) {
+                errorMessageEditForm.innerText = "Character limit exceeded";
+                errorMessageEditForm.classList.remove("hidden");
+                return
+            }
+
+            if (taskData.body.split("\n").length > 4) {
+                errorMessageEditForm.innerText = "Description line limit exceeded";
+                errorMessageEditForm.classList.remove("hidden");
+                return
+            }
+
+            taskData.status = editStatusInput.value;
+
+        } else {
+
+            taskData.status = taskIdElement.querySelector(".task-status").value;
         }
-
-        taskData.title = editTitleInput.value.trim();
-
-        if (taskData.title === "") {
-            errorMessageEditForm.innerText = "Tittle cannot be empty";
-            errorMessageEditForm.classList.remove("hidden");
-            return
-        }
-
-        taskData.body = editDescriptionInput.value.trim();
-
-        if (taskData.body.length > 200) {
-            errorMessageEditForm.innerText = "Character limit exceeded";
-            errorMessageEditForm.classList.remove("hidden");
-            return
-        }
-
-        if (taskData.body.split("\n").length > 4) {
-            errorMessageEditForm.innerText = "Description line limit exceeded";
-            errorMessageEditForm.classList.remove("hidden");
-            return
-        }
-
-        taskData.status = editStatusInput.value;
-
-    } else {
-
-        taskData.status = taskIdElement.querySelector(".task-status").value;
-    }
 
 
         taskData.created = new Date();
@@ -440,7 +530,7 @@ function SaveEditTask(e) {
 
         const updateTask = objectStore.put(taskData)
 
-        updateTask.onsuccess = async (e) => {
+        updateTask.onsuccess = (e) => {
 
             console.log(`Task with id:${taskId} was succesfully updated`)
             const currentTaskCard = document.getElementById(taskId);

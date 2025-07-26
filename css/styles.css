@@ -137,6 +137,10 @@
 
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -415,6 +419,7 @@ aside {
         "main-heading"
         "main-task-cards";
     padding-right: 30px;
+
 }
 
 .main-heading {
@@ -708,6 +713,17 @@ aside {
     background-color: var(--task-status-completed);
 }
 
+#scroll-top {
+    position: fixed;
+    display: none;
+    top: 91%;
+    left: 94.5%;
+    border-radius: 0.4rem;
+    padding: 0.2em;
+    background-color: var(--page-background);
+    border: 0.063rem #999999 solid;
+}
+
 .footer {
     grid-area: footer;
     color: var(--footer-text-color);
@@ -844,6 +860,13 @@ aside {
         background-color: var(--complete-card-button-hover);
     }
 
+
+    #scroll-top:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        border-width: 0.5px;
+        box-shadow: var(--task-card-shadow) 0px 1px 10px;
+    }
 
 
 }
