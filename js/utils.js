@@ -178,7 +178,23 @@ function ScrollTop(){
     })
 }
 
+function UpdateURLState() {
+
+  const searchValue = document.getElementById("search").value.trim();
+  const selectedStatus = document.querySelector('input[name="task-status"]:checked')?.value;
+  const sortValue = document.querySelector('input[name="sort-order"]:checked')?.value;
+
+  const params = new URLSearchParams();
+
+  if (searchValue) params.set("search", searchValue);
+  if (selectedStatus) params.set("status", selectedStatus);
+  if (sortValue) params.set("sort", sortValue);
+
+  history.replaceState(null, "", "?" + params.toString());
+
+}
+
 window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
-export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop};
+export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState};

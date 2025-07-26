@@ -3,6 +3,7 @@ import { ViewTasksToggle } from "./utils.js";
 import { BurgerMenu } from "./utils.js";
 import { CreateTaskForm } from "./utils.js";
 import { ScrollTop } from "./utils.js";
+import { UpdateURLState } from "./utils.js";
 
 import { CreateDB } from "./data.js";
 import { SaveNewTaskForm } from "./data.js";
@@ -37,13 +38,30 @@ const screenOverlay = document.getElementById("screen-overlay");
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
 
-  CreateDB();
+document.addEventListener("DOMContentLoaded", async () => {
+
+  await CreateDB();
 
   //View selection functionality 
   ViewTasksToggle();
 
+
+  function loadStateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    const search = params.get("search");
+    const status = params.get("status");
+    const sort = params.get("sort");
+
+    if (search) document.getElementById("search").value = search;
+    if (status)
+      document.querySelector(`input[name="task-status"][value="${status}"]`)?.click();
+    if (sort) document.querySelector(`input[name="sort-order"][value="${sort}"]`)?.click();
+
+    // You can call your display logic here:
+    RetriveTasks();
+  }
 
   //preventing forms from submitting and reloding page by default 
   searchForm.addEventListener("submit", function (e) {
@@ -59,23 +77,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  searchInput.addEventListener("input", RetriveTasks);
+  searchInput.addEventListener("input", function () {
+    UpdateURLState();
+    RetriveTasks();
+  });
 
   statusOptions.forEach((option) => {
-    option.addEventListener("click", function() {
+    option.addEventListener("click", function () {
       if (lastSelectedFilter === this) {
         this.checked = false;
         lastSelectedFilter = null;
       } else {
         lastSelectedFilter = this;
       }
+
+      UpdateURLState();
       RetriveTasks();
     })
   });
 
   sortOptions.forEach((option) => {
 
-    option.addEventListener("click", function() {
+    option.addEventListener("click", function () {
       if (lastSelectedOrder === this) {
         this.checked = false;
         lastSelectedOrder = null;
@@ -83,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lastSelectedOrder = this;
       }
 
+      UpdateURLState();
       RetriveTasks();
     })
   })
@@ -98,6 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
   screenOverlay.addEventListener("click", CloseEditTaskForm)
 
   CreateTaskForm();
+
+
+  loadStateFromURL();
 });
 
 

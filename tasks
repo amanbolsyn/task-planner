@@ -19,17 +19,17 @@ UI:
 -search by tittle DONE
 -sort and Filtering DONE
 -scroll to top button Сделаю в алеме DONE
+-drag and drop DONE
 
 
 Надо сделать:
-Add error handling to IDB Requests 
 URL state 
-Drag and drop
 Multiple selection 
 
 После проверки добавлю: 
 add tooltips for filtering and sorting 
 responsive design
+add error handling to IDB Requests 
 
 
 

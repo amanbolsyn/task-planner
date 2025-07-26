@@ -395,7 +395,7 @@ aside {
     margin-right: 10px;
 }
 
-.aside p {
+.aside span {
     display: inline;
     padding-right: 25px;
 }
@@ -407,7 +407,7 @@ aside {
     padding-right: 15px;
 }
 
-.burger-menu-inactive p {
+.burger-menu-inactive span {
     display: none;
 }
 
@@ -611,6 +611,7 @@ aside {
     grid-template-columns: repeat(var(--columns), 1fr);
     gap: 10px;  */
     column-count: var(--columns);
+    
 }
 
 
