@@ -6,7 +6,6 @@ const tasksContainer = document.querySelector(".main-task-cards");
 const screenOverlay = document.getElementById("screen-overlay")
 
 const editTaskForm = document.querySelector(".edit-task-form");
-const newTaskForm = document.getElementById("new-task-form");
 
 const taskTitleInput = document.getElementById("new-task-title");
 const taskDescriptionInput = document.getElementById("new-task-description");
@@ -461,7 +460,7 @@ function DeleteTask(e) {
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
     const objectStore = transaction.objectStore("tasks_os");
-    const deleteRequest = objectStore.delete(taskId);
+    objectStore.delete(taskId);
 
     transaction.addEventListener("complete", async () => {
 
@@ -530,7 +529,7 @@ function SaveEditTask(e) {
 
         const updateTask = objectStore.put(taskData)
 
-        updateTask.onsuccess = (e) => {
+        updateTask.onsuccess = () => {
 
             console.log(`Task with id:${taskId} was succesfully updated`)
             const currentTaskCard = document.getElementById(taskId);

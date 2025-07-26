@@ -164,15 +164,15 @@ function ScrollTop(){
 
 
     window.addEventListener("scroll", function(){
-        if(document.documentElement.scrollTop > 300 ||
-           document.body.scrollTop > 300
+        if(document.documentElement.scrollTop > 400 ||
+           document.body.scrollTop > 400
         ) {
             scrollTopBttn.style.display = "block";
         } else {
             scrollTopBttn.style.display = "none";
         }
     });
-    
+
     scrollTopBttn.addEventListener("click", function(){
         scrollTo(0,0);
     })
