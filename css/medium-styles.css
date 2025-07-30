@@ -2,11 +2,11 @@
 
     .header-col-1 label {
         position: relative;
-        /* top: 20px; */
+        top: 24px;
     }
 
     #logo {
-        /* display: none; */
+        display: none;
     }
 
     .header-col-2 input{

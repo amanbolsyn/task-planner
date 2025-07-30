@@ -9,6 +9,11 @@
         "footer";
     }
 
+    .header {
+        padding-right:15px;
+        padding-left: 15px;
+    }
+
     .aside {
         display: none;
     }
@@ -20,7 +25,7 @@
 
     .header-col-1 label {
         position: relative;
-        top: 20px;
+        top: 24px;
     }
 
     #logo {
@@ -28,7 +33,7 @@
     }
 
     .header-col-2 input {
-        width: 80%;
+        width: 82%;
     }
 
     #new-task-form {
@@ -52,8 +57,14 @@
         margin-right: 0px;
     }
 
+    .footer p{
+       padding-bottom: 25px;
+    }
+
     #scroll-top {
         left: 84.5%;
     }
+
+
 
 }
