@@ -67,11 +67,9 @@ function BurgerMenu() {
 
     if (prefState === "true") {
         burgerMenuChkBox.checked = true;
-        aside.classList.add("burger-menu-active");
         aside.classList.remove("burger-menu-inactive");
     } else {
         burgerMenuChkBox.checked = false;
-        aside.classList.remove("burger-menu-active");
         aside.classList.add("burger-menu-inactive");
 
     }
@@ -79,17 +77,15 @@ function BurgerMenu() {
     burgerMenuChkBox.addEventListener("change", function () {
 
         if (burgerMenuChkBox.checked) {
-            aside.classList.add("burger-menu-active");
             aside.classList.remove("burger-menu-inactive");
         } else {
-            aside.classList.remove("burger-menu-active");
             aside.classList.add("burger-menu-inactive");
         }
 
         //stores new value of burger menu checkbox when checkbox is triggered
         localStorage.setItem("burger-menu-preference", burgerMenuChkBox.checked);
 
-         DisplayView(viewToggleChkBx.checked);
+        DisplayView(viewToggleChkBx.checked);
     })
 }
 
@@ -131,8 +127,8 @@ function DisplayView(viewPref) {
 
     taskWindow.style.setProperty('--columns', numOfColumnns)
 
+
     DisplayData();
-    
 }
 
 function ConvertDate(date){
@@ -194,7 +190,7 @@ function UpdateURLState() {
 
 }
 
-window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
+window.addEventListener("resize", ()=> DisplayView(viewToggleChkBx.checked));
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
 export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState};
