@@ -313,6 +313,7 @@ body {
 
 .header-col-3 {
     grid-area: header-col-3;
+    margin-left: 10px;
 }
 
 .header-col-3 label:nth-of-type(1) {
@@ -367,6 +368,7 @@ aside {
 
 .aside label {
     display:block;
+    margin-right: 15px;
     padding: 12px 0px 20px 30px;
     font-size: 1.1em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -621,7 +623,7 @@ label p{
 .task-card {
     display: inline-block;
     position: relative;
-    width: inherit;
+    width: 100%;
     padding: 15px;
     box-sizing: border-box;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

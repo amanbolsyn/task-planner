@@ -1,6 +1,23 @@
 @media only screen and (min-width: 375px) and (max-width: 599px) {
 
 
+    body {
+        display: grid;
+        grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+    }
+
+    .aside {
+        display: none;
+    }
+
+    main {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
     .header-col-1 label {
         position: relative;
         top: 20px;
@@ -11,13 +28,32 @@
     }
 
     .header-col-2 input {
-        width: 83%;
+        width: 80%;
+    }
 
+    #new-task-form {
+        margin: 50px 0px;
+        width: 100%;
+    }
+
+    .edit-task-form{
+        width: 90%;
+        left: 3.5%;
+        margin: auto;
+        
+    }
+
+    #edit-task-status {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    #edit-task-close-button {
+        margin-right: 0px;
     }
 
     #scroll-top {
         left: 84.5%;
     }
-
 
 }
