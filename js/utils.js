@@ -86,7 +86,7 @@ function BurgerMenu() {
 
     }
 
-
+    
     burgerMenuChkBox.addEventListener("change", function () {
 
         if (burgerMenuChkBox.checked) {
