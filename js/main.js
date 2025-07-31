@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   saveEditFormBttn.addEventListener("click", SaveEditTask);
 
   editOverlay.addEventListener("click", CloseEditTaskForm);
-  burgerMenuOverlay.addEventListener("touchstart", CloseBurgerMenu);
+  burgerMenuOverlay.addEventListener("click", CloseBurgerMenu);
 
   CreateTaskForm();
 

@@ -86,7 +86,7 @@ function BurgerMenu() {
 
     }
 
-    
+
     burgerMenuChkBox.addEventListener("change", function () {
 
         if (burgerMenuChkBox.checked) {
@@ -148,8 +148,6 @@ function DisplayView(viewPref) {
 
     const taskWindow = document.querySelector(".main-task-cards");
     let numOfColumnns;
-
-
 
     if (viewPref === true) {
         numOfColumnns = 1;
