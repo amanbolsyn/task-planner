@@ -404,16 +404,26 @@ function StatusSelectEvent() {
     });
 }
 
-function SelectCardEvent(){
+function SelectCardEvent() {
+
     const selectCheckBoxes = document.querySelectorAll(".task-checkbox-label");
 
     selectCheckBoxes.forEach((selectCheckBox) => {
-        selectCheckBox.addEventListener("click", function(e){
-             e.stopPropagation();
+        selectCheckBox.addEventListener("click", function (e) {
+            e.stopPropagation();
         })
 
-        selectCheckBox.addEventListener("change", function(){
-            console.log("CheckBox changed")
+        selectCheckBox.addEventListener("change", function (e) {
+
+            const currentTaskCard = e.target.closest("section[id]")
+
+            if (e.target.checked === true) {
+                currentTaskCard.classList.add("selected-card");
+                selectCheckBox.style.display = "block";
+            } else {
+                currentTaskCard.classList.remove("selected-card");
+                selectCheckBox.removeAttribute("style");
+            }
         })
     })
 }

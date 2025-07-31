@@ -648,6 +648,10 @@ label p{
     display:none;
 }
 
+.task-checkbox:checked+svg path{
+    stroke: #111111;
+}
+
 .task-title {
     margin-top: 0px;
     font-size: 1.2em;
@@ -690,6 +694,10 @@ label p{
 .task-date {
     font-style: italic;
     font-size: 0.8em;
+}
+
+.selected-card {
+    border: 1.5px #111111 solid;
 }
 
 /* .card-delete-button {
@@ -840,6 +848,10 @@ label p{
         box-shadow: var(--task-card-shadow) 0px 1px 10px;
     }
 
+    .selected-card:hover {
+        border: 1.5px #111111 solid;
+    }
+
     .task-status:hover {
         background-color: var(--new-task-button-background-hover);
         cursor: pointer;
@@ -884,4 +896,11 @@ label p{
     }
 
 
+}
+
+@media only screen and (max-width: 374px){
+    
+    body{
+        display:none
+    }
 }

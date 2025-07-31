@@ -2,6 +2,9 @@ import { DisplayData } from "./data.js";
 
 
 const viewToggleChkBx = document.getElementById("view-toggle");
+let windowWidth = window.innerWidth;
+
+
 
 //Theme selection functionality 
 function ThemeToggle() {
@@ -65,18 +68,18 @@ function BurgerMenu() {
 
     const aside = document.querySelector(".aside")
 
-    if (prefState === "true") {
-        burgerMenuChkBox.checked = true;
-        aside.classList.remove("burger-menu-inactive");
-    } else {
-        burgerMenuChkBox.checked = false;
-        aside.classList.add("burger-menu-inactive");
+        if (prefState === "true") {
+            burgerMenuChkBox.checked = true;
+            aside.classList.remove("burger-menu-inactive");
+        } else {
+            burgerMenuChkBox.checked = false;
+            aside.classList.add("burger-menu-inactive");
+        }
 
-    }
 
     burgerMenuChkBox.addEventListener("change", function () {
 
-        if (burgerMenuChkBox.checked) {
+         if (burgerMenuChkBox.checked) {
             aside.classList.remove("burger-menu-inactive");
         } else {
             aside.classList.add("burger-menu-inactive");
@@ -115,14 +118,21 @@ function CreateTaskForm() {
 
 function DisplayView(viewPref) {
 
+
     const taskWindow = document.querySelector(".main-task-cards");
     let numOfColumnns;
+
+
 
     if (viewPref === true) {
         numOfColumnns = 1;
     } else {
-        const windowWidth = taskWindow.offsetWidth;
-        numOfColumnns = Math.floor(windowWidth / 300);
+        if (windowWidth >= 600) {
+            const windowWidth = taskWindow.offsetWidth;
+            numOfColumnns = Math.floor(windowWidth / 300);
+        } else {
+            numOfColumnns = 2; //2 columns for small screens
+        }
     }
 
     taskWindow.style.setProperty('--columns', numOfColumnns)
@@ -131,19 +141,19 @@ function DisplayView(viewPref) {
     DisplayData();
 }
 
-function ConvertDate(date){
+function ConvertDate(date) {
 
     let days = date.getDate();
     // let year = date.getFullYear().toString().slice(2);
-    let month = date.toLocaleString("en-US", {month: "long"});
+    let month = date.toLocaleString("en-US", { month: "long" });
 
 
     function GetOrdinal(day) {
-        if(day>9) {
+        if (day > 9) {
             day = day.toString().slice(1);
         }
 
-        switch(day){
+        switch (day) {
             case "1": return "st";
             case "2": return "nd";
             case "3": return "rd";
@@ -154,14 +164,14 @@ function ConvertDate(date){
     return `${month} ${days}${GetOrdinal(days)}`
 }
 
-function ScrollTop(){
-  
+function ScrollTop() {
+
     const scrollTopBttn = document.getElementById("scroll-top");
 
 
-    window.addEventListener("scroll", function(){
-        if(document.documentElement.scrollTop > 400 ||
-           document.body.scrollTop > 400
+    window.addEventListener("scroll", function () {
+        if (document.documentElement.scrollTop > 400 ||
+            document.body.scrollTop > 400
         ) {
             scrollTopBttn.style.display = "block";
         } else {
@@ -169,28 +179,28 @@ function ScrollTop(){
         }
     });
 
-    scrollTopBttn.addEventListener("click", function(){
-        scrollTo(0,0);
+    scrollTopBttn.addEventListener("click", function () {
+        scrollTo(0, 0);
     })
 }
 
 function UpdateURLState() {
 
-  const searchValue = document.getElementById("search").value.trim();
-  const selectedStatus = document.querySelector('input[name="task-status"]:checked')?.value;
-  const sortValue = document.querySelector('input[name="sort-order"]:checked')?.value;
+    const searchValue = document.getElementById("search").value.trim();
+    const selectedStatus = document.querySelector('input[name="task-status"]:checked')?.value;
+    const sortValue = document.querySelector('input[name="sort-order"]:checked')?.value;
 
-  const params = new URLSearchParams();
+    const params = new URLSearchParams();
 
-  if (searchValue) params.set("search", searchValue);
-  if (selectedStatus) params.set("status", selectedStatus);
-  if (sortValue) params.set("sort", sortValue);
+    if (searchValue) params.set("search", searchValue);
+    if (selectedStatus) params.set("status", selectedStatus);
+    if (sortValue) params.set("sort", sortValue);
 
-  history.replaceState(null, "", "?" + params.toString());
+    history.replaceState(null, "", "?" + params.toString());
 
 }
 
-window.addEventListener("resize", ()=> DisplayView(viewToggleChkBx.checked));
+window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
-export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState};
+export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState };

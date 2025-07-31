@@ -3,19 +3,23 @@
 
     body {
         display: grid;
-        grid-template-areas: 
-        "header"
-        "main"
-        "footer";
+        grid-template-areas:
+            "header"
+            "main"
+            "footer";
     }
 
     .header {
-        padding-right:15px;
+        padding-right: 15px;
         padding-left: 15px;
+        z-index: 3;
     }
 
     .aside {
-        display: none;
+      position: fixed;
+      background-color: white;
+      z-index: 2;
+      height: 100vh;
     }
 
     main {
@@ -36,16 +40,28 @@
         width: 82%;
     }
 
+
+    .burger-menu-inactive label {
+        display: none;
+    }
+
     #new-task-form {
         margin: 50px 0px;
         width: 100%;
     }
 
-    .edit-task-form{
+    .list-view .task-card-container {
+        width: 100%;
+        max-width: 800px;
+        margin: auto;
+        margin-bottom: 15px;
+    }
+
+    .edit-task-form {
         width: 90%;
         left: 3.5%;
         margin: auto;
-        
+
     }
 
     #edit-task-status {
@@ -57,8 +73,8 @@
         margin-right: 0px;
     }
 
-    .footer p{
-       padding-bottom: 25px;
+    .footer p {
+        padding-bottom: 25px;
     }
 
     #scroll-top {
