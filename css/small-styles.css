@@ -16,15 +16,15 @@
     }
 
     .aside {
-      position: fixed;
-      background-color: var(--page-background);
-      z-index: 3;
-      height: 100vh;
+        position: fixed;
+        background-color: var(--page-background);
+        z-index: 3;
+        height: 100vh;
     }
 
     main {
-        padding-right: 30px;
-        padding-left: 30px;
+        padding-right: 10px;
+        padding-left: 10px;
     }
 
     .header-col-1 label {
@@ -54,14 +54,13 @@
         width: 100%;
         max-width: 800px;
         margin: auto;
-        margin-bottom: 15px;
+        margin-bottom: 7px;
     }
 
     .edit-task-form {
         width: 90%;
         left: 3.5%;
         margin: auto;
-
     }
 
     #edit-task-status {
@@ -73,7 +72,21 @@
         margin-right: 0px;
     }
 
-    .footer p {
+    .task-card-container {
+        margin-bottom: 7px;
+    }
+
+    .task-status {
+      padding-left: 0px;
+    }
+
+
+    footer {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    footer p {
         padding-bottom: 25px;
     }
 
