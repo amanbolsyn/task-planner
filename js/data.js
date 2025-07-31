@@ -3,7 +3,7 @@ import { ConvertDate } from "./utils.js";
 let db, dbTasks = [];
 const tasksFragment = document.createDocumentFragment();
 const tasksContainer = document.querySelector(".main-task-cards");
-const screenOverlay = document.getElementById("screen-overlay")
+const editOverlay = document.getElementById("edit-screen-overlay")
 
 const editTaskForm = document.querySelector(".edit-task-form");
 
@@ -347,7 +347,7 @@ function ClearNewTaskForm() {
 //         errorMessage.classList.remove("hidden");
 //         return isValid = false
 //     } else {
-//         errorMessage.innerText = "";
+//         errorMessage.innerText = "";   
 //         errorMessage.classList.add("hidden");
 //         return isValid = true;
 //     }
@@ -372,7 +372,7 @@ function EditTaskFormEvent() {
             editDescriptionInput.value = task.querySelector(".task-description").innerText;
             editStatusInput.value = task.querySelector(".task-status").value;
 
-            screenOverlay.classList.remove("hidden");
+            editOverlay.classList.remove("hidden");
         })
     })
 
@@ -442,7 +442,7 @@ function ClearEditTaskForm() {
 function CloseEditTaskForm() {
 
     editTaskForm.style.display = "none";
-    screenOverlay.classList.add("hidden");
+    editOverlay.classList.add("hidden");
     errorMessageEditForm.classList.add("hidden");
 
 }

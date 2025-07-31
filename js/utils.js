@@ -2,6 +2,9 @@ import { DisplayData } from "./data.js";
 
 
 const viewToggleChkBx = document.getElementById("view-toggle");
+const aside = document.querySelector(".aside")
+const burgerMenuOverlay = document.getElementById("burger-menu-overlay");
+const burgerMenuChkBox = document.getElementById("burger-menu-toggle");
 let windowWidth = window.innerWidth;
 
 
@@ -63,26 +66,43 @@ function ViewTasksToggle() {
 
 function BurgerMenu() {
 
-    const burgerMenuChkBox = document.getElementById("burger-menu-toggle");
     const prefState = localStorage.getItem("burger-menu-preference");
 
-    const aside = document.querySelector(".aside")
+    if (prefState === "true") {
+        burgerMenuChkBox.checked = true;
+        aside.classList.remove("burger-menu-inactive");
 
-        if (prefState === "true") {
-            burgerMenuChkBox.checked = true;
-            aside.classList.remove("burger-menu-inactive");
-        } else {
-            burgerMenuChkBox.checked = false;
-            aside.classList.add("burger-menu-inactive");
+        if (windowWidth < 600) {
+            burgerMenuOverlay.classList.remove("hidden");
         }
+
+    } else {
+        burgerMenuChkBox.checked = false;
+        aside.classList.add("burger-menu-inactive");
+
+        if (windowWidth < 600) {
+            burgerMenuOverlay.classList.add("hidden");
+        }
+
+    }
 
 
     burgerMenuChkBox.addEventListener("change", function () {
 
-         if (burgerMenuChkBox.checked) {
+        if (burgerMenuChkBox.checked) {
             aside.classList.remove("burger-menu-inactive");
+
+            if (windowWidth < 600) {
+                burgerMenuOverlay.classList.remove("hidden");
+            }
+
         } else {
             aside.classList.add("burger-menu-inactive");
+
+            if (windowWidth < 600) {
+                burgerMenuOverlay.classList.add("hidden");
+            }
+
         }
 
         //stores new value of burger menu checkbox when checkbox is triggered
@@ -90,6 +110,13 @@ function BurgerMenu() {
 
         DisplayView(viewToggleChkBx.checked);
     })
+}
+
+function CloseBurgerMenu() {
+    burgerMenuChkBox.checked = false;
+    localStorage.setItem("burger-menu-preference", burgerMenuChkBox.checked);
+    aside.classList.add("burger-menu-inactive");// hide/close burger menu
+    burgerMenuOverlay.classList.add("hidden");
 }
 
 
@@ -203,4 +230,4 @@ function UpdateURLState() {
 window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
-export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState };
+export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState, CloseBurgerMenu };

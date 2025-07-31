@@ -12,13 +12,13 @@
     .header {
         padding-right: 15px;
         padding-left: 15px;
-        z-index: 3;
+        z-index: 4;
     }
 
     .aside {
       position: fixed;
-      background-color: white;
-      z-index: 2;
+      background-color: var(--page-background);
+      z-index: 3;
       height: 100vh;
     }
 

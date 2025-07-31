@@ -4,6 +4,7 @@ import { BurgerMenu } from "./utils.js";
 import { CreateTaskForm } from "./utils.js";
 import { ScrollTop } from "./utils.js";
 import { UpdateURLState } from "./utils.js";
+import { CloseBurgerMenu } from "./utils.js";
 
 import { CreateDB } from "./data.js";
 import { SaveNewTaskForm } from "./data.js";
@@ -34,7 +35,8 @@ const deleteTaskBttn = document.getElementById("delete-task-button");
 const clearEditFormBttn = document.getElementById("edit-task-clear-button");
 const saveEditFormBttn = document.getElementById("edit-task-save-button");
 
-const screenOverlay = document.getElementById("screen-overlay");
+const editOverlay = document.getElementById("edit-screen-overlay");
+const burgerMenuOverlay = document.getElementById("burger-menu-overlay");
 
 
 
@@ -119,10 +121,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   clearEditFormBttn.addEventListener("click", ClearEditTaskForm);
   saveEditFormBttn.addEventListener("click", SaveEditTask);
 
-  screenOverlay.addEventListener("click", CloseEditTaskForm)
+  editOverlay.addEventListener("click", CloseEditTaskForm);
+  burgerMenuOverlay.addEventListener("click", CloseBurgerMenu);
 
   CreateTaskForm();
-
 
   loadStateFromURL();
 });
