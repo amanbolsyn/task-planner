@@ -13,23 +13,24 @@ UI:
 -fix color for svg file for trash can???  DONE
 -fix hidden error message for new task form DONE
 -removed close button and added save button insteas in new task form DONE
--Error handeling for forms(Title is not empty and body limit) DONE
+-уrror handeling for forms(Title is not empty and body limit) DONE
 -adding animation for nav bar apperence FAILED
 -add tooltips to icons DONE
 -search by tittle DONE
 -sort and Filtering DONE
 -scroll to top button Сделаю в алеме DONE
 -drag and drop DONE
-
-
-Надо сделать:
-URL state 
-Multiple selection 
+-url state DONE
 
 После проверки добавлю: 
 add tooltips for filtering and sorting 
 responsive design
 add error handling to IDB Requests 
+multiple selection 
+add comments
+add README.md
+remove svg files from main html tree НЕ ЗНАЮ КАК ДЕЛАТЬ И НАВЕРНОЕ НЕ ПОЛУЧИТСЯ
+resolve issues with hover in mobile
 
 
 

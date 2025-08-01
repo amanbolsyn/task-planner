@@ -1,3 +1,10 @@
+
+// This file mainly contains:
+// 1)IDB func: CreateDB, 
+// 2)New task/edit forms func: 
+// 3)Search/Filter/Sort func: 
+
+
 import { ConvertDate } from "./utils.js";
 
 let db, dbTasks = [];
@@ -18,6 +25,7 @@ const editStatusInput = document.getElementById("edit-task-status");
 const errorMessageEditForm = document.getElementById("edit-task-form-error");
 const errorMessageNewForm = document.getElementById("new-task-form-error");
 
+// 
 function CreateDB() {
 
     return new Promise((resolve, reject) => {
@@ -304,6 +312,10 @@ function iterateCursor() {
 
                 cursor.continue()
             } else {
+
+                if(dbTasks.length === 0){
+                    console.log("No entries in db")
+                }
                 // No more entries — resolve the promise
                 resolve();
             }
@@ -331,6 +343,8 @@ function ClearNewTaskForm() {
     taskStatusInput.selectedIndex = 0;
 
 }
+
+
 
 
 //Dynamically check textarea input

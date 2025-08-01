@@ -1,10 +1,11 @@
 import { ThemeToggle } from "./utils.js";
 import { ViewTasksToggle } from "./utils.js";
-import { BurgerMenu } from "./utils.js";
+import { BurgerMenuToggle } from "./utils.js";
 import { CreateTaskForm } from "./utils.js";
 import { ScrollTop } from "./utils.js";
 import { UpdateURLState } from "./utils.js";
 import { CloseBurgerMenu } from "./utils.js";
+import { loadStateFromURL } from "./utils.js";
 
 import { CreateDB } from "./data.js";
 import { SaveNewTaskForm } from "./data.js";
@@ -40,7 +41,7 @@ const burgerMenuOverlay = document.getElementById("burger-menu-overlay");
 
 
 
-
+//Web Applicaiton starts here
 document.addEventListener("DOMContentLoaded", async () => {
 
   await CreateDB();
@@ -48,22 +49,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   //View selection functionality 
   ViewTasksToggle();
 
-
-  function loadStateFromURL() {
-    const params = new URLSearchParams(window.location.search);
-
-    const search = params.get("search");
-    const status = params.get("status");
-    const sort = params.get("sort");
-
-    if (search) document.getElementById("search").value = search;
-    if (status)
-      document.querySelector(`input[name="task-status"][value="${status}"]`)?.click();
-    if (sort) document.querySelector(`input[name="sort-order"][value="${sort}"]`)?.click();
-
-    // You can call your display logic here:
-    RetriveTasks();
-  }
 
   //preventing forms from submitting and reloding page by default 
   searchForm.addEventListener("submit", function (e) {
@@ -86,6 +71,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   statusOptions.forEach((option) => {
     option.addEventListener("click", function () {
+
+      // gives uncheck functionality for radio buttons
       if (lastSelectedFilter === this) {
         this.checked = false;
         lastSelectedFilter = null;
@@ -99,8 +86,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   sortOptions.forEach((option) => {
-
     option.addEventListener("click", function () {
+      // gives uncheck functionality for radio buttons
       if (lastSelectedOrder === this) {
         this.checked = false;
         lastSelectedOrder = null;
@@ -113,14 +100,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
   })
 
+  // new form buttons
   saveNewFormBttn.addEventListener("click", SaveNewTaskForm);
   clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
 
+  // edit form buttons
   closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
-  deleteTaskBttn.addEventListener("click", DeleteTask); //Delete task from edit 
+  deleteTaskBttn.addEventListener("click", DeleteTask);
   clearEditFormBttn.addEventListener("click", ClearEditTaskForm);
   saveEditFormBttn.addEventListener("click", SaveEditTask);
 
+  // overlay event listeners
   editOverlay.addEventListener("click", CloseEditTaskForm);
   burgerMenuOverlay.addEventListener("click", CloseBurgerMenu);
 
@@ -134,7 +124,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 ThemeToggle();
 
 //Burger menu functionality for large window sizes
-BurgerMenu();
+BurgerMenuToggle();
+
 
 ScrollTop();
 

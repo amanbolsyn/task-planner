@@ -1,5 +1,7 @@
+/* LIGHT THEME */
 :root {
 
+    /* MAIN COLORS */
     --page-background: white;
     --border-color: #cacaca;
 
@@ -60,16 +62,20 @@
     --task-status-completed-color: #5b5b5b;
     --complete-card-button-hover: #8fcd8f;
 
+    --selected-task-card: #111111;
+
     /* FOOTER COLORS */
     --footer-text-color: #000000;
 
     /* IMAGE URLS */
-    --search-image-url: url("/assets/header-images/search-icon-light-theme.svg");
+    --search-image-url: url("../assets/header-images/search-icon-light-theme.svg");
 
 }
 
+/* DARK THEME */
 :root:has(#theme-toggle:checked) {
 
+    /* MAIN COLORS */
     --page-background: #202124;
     --border-color: #7a7a7a;
 
@@ -129,6 +135,8 @@
     --task-status-completed-color: #d8d8d8;
     --complete-card-button-hover: #5a995a;
 
+       --selected-task-card: #ffffff;
+
     /* FOOTER COLORS */
     --footer-text-color: #FFFFFF;
 
@@ -136,6 +144,103 @@
     --search-image-url: url("../assets/header-images/search-icon-dark-theme.svg");
 
 }
+
+/* ******************************** */
+/* TOOLTIP AND TOOLTIP TEXT STYLING */
+/* ******************************** */
+
+.tooltip-text {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    transition: opacity 0s ease 0s;
+    width: max-content;
+    background-color: #999999;
+    color: white;
+    font-size: 0.9em;
+    padding: 0.4em 0.6em;
+    border-radius: 0.2rem;
+    z-index: 1;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.task-checkbox-label>.tooltip-text {
+    top:90%;
+    right: -110%;
+}
+
+.card-delete-button+.tooltip-text {
+    top: 90%;
+    right: -4%;
+}
+
+.header-col-1 .tooltip-text:nth-of-type(1),
+.header-col-1 .tooltip-text:nth-of-type(2) {
+    top: 65%;
+    left: 1%
+}
+
+.header-col-3 .tooltip:nth-of-type(1) span:nth-of-type(1),
+.header-col-3 .tooltip:nth-of-type(1) span:nth-of-type(2) {
+    top: 90%;
+    left: -70%
+}
+
+.header-col-3 .tooltip:nth-of-type(2) span:nth-of-type(1),
+.header-col-3 .tooltip:nth-of-type(2) span:nth-of-type(2) {
+    top: 140%;
+    left: -200%
+}
+
+/* ********************* */
+/* ERROR GENERAL STYLING */
+/* ********************* */
+
+.error {
+    float: left;
+    padding: 0.4em 0.8em;
+    margin: 0.7em;
+    margin-left: 0em;
+    padding-left: 0em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+}
+
+/* ************************ */
+ /* OVERLAY GENERAL STYLING */
+ /* ************************ */
+
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(1.5px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Dim background */
+    z-index: 2;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ********** */
+/* SCROLL TOP */
+/* ********** */
+
+#scroll-top {
+    position: fixed;
+    display: none;
+    top: 91%;
+    left: 94.5%;
+    border-radius: 0.4rem;
+    padding: 0.2em;
+    background-color: var(--page-background);
+    border: 0.063rem #999999 solid;
+}
+
 
 html {
     scroll-behavior: smooth;
@@ -153,6 +258,10 @@ body {
     height: 100vh;
     background-color: var(--page-background);
 }
+
+/* *************** */
+/* HEADER STYLING  */
+/* *************** */
 
 .header {
     grid-area: header;
@@ -189,8 +298,8 @@ body {
     margin: 0px 3px;
 }
 
-
-.header-col-1 input:checked~#close-icon {
+/* ~ selects next sibling */
+.header-col-1 input:checked~#close-icon { 
     display: inline-block;
 }
 
@@ -219,7 +328,6 @@ body {
 }
 
 
-
 .header h1 {
     display: inline;
     font-family: "Lora", serif;
@@ -227,49 +335,6 @@ body {
     position: relative;
     top: 5px;
 
-}
-
-.tooltip-text {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    transition: opacity 0s ease 0s;
-    width: max-content;
-    background-color: #999999;
-    color: white;
-    font-size: 0.9em;
-    padding: 0.4em 0.6em;
-    border-radius: 0.2rem;
-    z-index: 1;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-.task-checkbox-label>.tooltip-text {
-    top:90%;
-    right: -110%;
-}
-
-.card-delete-button+.tooltip-text {
-    top: 90%;
-    right: -4%;
-}
-
-.header-col-1 .tooltip-text:nth-of-type(1),
-.header-col-1 .tooltip-text:nth-of-type(2) {
-    top: 120%;
-    left: 30%
-}
-
-.header-col-3 .tooltip:nth-of-type(1) span:nth-of-type(1),
-.header-col-3 .tooltip:nth-of-type(1) span:nth-of-type(2) {
-    top: 90%;
-    left: -70%
-}
-
-.header-col-3 .tooltip:nth-of-type(2) span:nth-of-type(1),
-.header-col-3 .tooltip:nth-of-type(2) span:nth-of-type(2) {
-    top: 140%;
-    left: -200%
 }
 
 .header-col-2 {
@@ -307,13 +372,13 @@ body {
     color: var(--search-placehoder-color)
 }
 
-#nav-left {
-    float: right;
-}
-
 .header-col-3 {
     grid-area: header-col-3;
     margin-left: 10px;
+}
+
+#nav-left {
+    float: right;
 }
 
 .header-col-3 label:nth-of-type(1) {
@@ -326,7 +391,6 @@ body {
     position: relative;
     top: 9px;
 }
-
 
 .header-col-3 label input[type="checkbox"] {
     display: none;
@@ -357,13 +421,19 @@ body {
     display: none;
 }
 
-.aside {
-    grid-area: aside;
-}
+/* ************* */
+/* ASIDE STYLING */
+/* ************* */
 
+/* I could have put this inside .aside selecter, but it destroys everything */
+/* I don't why it works, don't touch it */
 aside {
     position: sticky;
     top: 80px;
+}
+
+.aside {
+    grid-area: aside;
 }
 
 .aside label {
@@ -396,8 +466,6 @@ label p{
     background-color: var(--aside-checked-label-background);
 }
 
-/* BURGER MENU STYLE */
-
 .burger-menu-inactive label {
     width: fit-content;
     padding-right: 15px;
@@ -406,6 +474,10 @@ label p{
 .burger-menu-inactive p{
     display: none;
 }
+
+/* ************ */
+/* MAIN STYLING */
+/* ************ */
 
 main {
     grid-area: main;
@@ -417,15 +489,16 @@ main {
     padding-right: 30px;
 }
 
+
+/* ********************* */
+/* NEW TASK FORM STYLING */
+/* ********************* */
+
 .main-heading {
     grid-area: main-heading;
     text-align: center;
     margin: 5px;
 }
-
-/* ********************* */
-/* NEW TASK FORM STYLING */
-/* ********************* */
 
 #new-task-form {
     display: inline-block;
@@ -517,12 +590,120 @@ main {
     display: none;
 }
 
+/* ***************** */
+/* TASK CARD STYLING */
+/* ***************** */
+
 .main-task-cards {
     grid-area: main-task-cards;
     /* display: grid;
     grid-template-columns: repeat(var(--columns), 1fr); */
-    gap: 7px; 
     column-count: var(--columns); 
+}
+
+.task-card-container {
+    border: 0.05rem #999999 solid;
+    border-radius: 1rem;
+    display: block;
+    margin-bottom: 15px;
+    height: fit-content;
+    color: var(--task-card-color);
+    background-color: var(--page-background);
+
+}
+
+.task-card {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+.list-view .task-card-container {
+    width: 50%;
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.task-checkbox-label{
+    display: none;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+}
+
+.task-checkbox{
+    display:none;
+}
+
+.task-checkbox-label svg {
+    fill: var(--page-background)
+}
+
+.task-checkbox:checked+svg path{
+    stroke:var(--selected-task-card);
+}
+
+.task-title {
+    margin-top: 0px;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.card-bottom-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.task-status {
+    float: left;
+    padding: 0.4em;
+    font-size: 1em;
+    border-radius: 0.4rem;
+    appearance: none;
+    outline: none;
+    border: none;
+    background-color: var(--new-task-status-background);
+    color: var(--new-task-status-color);
+}
+
+.completed .task-status {
+    background-color: var(--task-status-completed);
+    color: var(--task-status-completed-color)
+}
+
+.completed {
+    background-color: var(--task-status-completed);
+}
+
+.task-date {
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+.selected-card {
+    border: 1.2px var(--selected-task-card) solid;
+}
+
+.card-delete-button {
+    float: right;
+    display: none;
+    padding: 0.3em;
+    border-radius: 1em;
+}
+
+.card-delete-button path {
+    stroke: var(--trash-can-color);
+}
+
+.completed .card-delete-button {
+    background-color: var(--task-status-completed);
 }
 
 
@@ -530,21 +711,6 @@ main {
 /* EDIT TASK FORM STYLING */
 /* ********************** */
 
-.overlay {
-    width: 100vw;
-    height: 100vh;
-    backdrop-filter: blur(1.5px);
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Dim background */
-    z-index: 2;
-}
-
-.hidden {
-    display: none;
-}
 
 .edit-task-form {
     position: fixed;
@@ -599,144 +765,9 @@ main {
     color: var(--new-task-status-color);
 }
 
-.error {
-    float: left;
-    padding: 0.4em 0.8em;
-    margin: 0.7em;
-    margin-left: 0em;
-    padding-left: 0em;
-    font-family: Arial, Helvetica, sans-serif;
-    color: red;
-}
-
-.task-card-container {
-    border: 0.05rem #999999 solid;
-    border-radius: 1rem;
-    display: block;
-    margin-bottom: 15px;
-    height: fit-content;
-    color: var(--task-card-color);
-    background-color: var(--page-background);
-
-}
-
-.task-card {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    padding: 15px;
-    box-sizing: border-box;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-
-.list-view .task-card-container {
-    width: 50%;
-    max-width: 800px;
-    margin: auto;
-    margin-bottom: 15px;
-}
-
-.task-checkbox-label{
-    display: none;
-    position: absolute;
-    top: -10px;
-    left: -10px;
-}
-
-.task-checkbox{
-    display:none;
-}
-
-.task-checkbox:checked+svg path{
-    stroke: #111111;
-}
-
-.task-title {
-    margin-top: 0px;
-    font-size: 1.2em;
-    font-weight: 700;
-}
-
-.task-description {
-    word-wrap: break-word;
-}
-
-
-.card-bottom-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-}
-
-.task-status {
-    float: left;
-    padding: 0.4em;
-    font-size: 1em;
-    border-radius: 0.4rem;
-    appearance: none;
-    outline: none;
-    border: none;
-    background-color: var(--new-task-status-background);
-    color: var(--new-task-status-color);
-}
-
-.completed .task-status {
-    background-color: var(--task-status-completed);
-    color: var(--task-status-completed-color)
-}
-
-.completed {
-    background-color: var(--task-status-completed);
-}
-
-.task-date {
-    font-style: italic;
-    font-size: 0.8em;
-}
-
-.selected-card {
-    border: 1.5px #111111 solid;
-}
-
-/* .card-delete-button {
-    border: none;
-    display: none;
-    float: right;
-    padding: 0.2em 0.4em;
-    font-size: 1em;
-    border-radius: 0.3rem;
-    color: var(--new-task-button-color);
-    background-color: var(--new-task-button-background);
-} */
-
-.card-delete-button {
-    float: right;
-    display: none;
-    padding: 0.3em;
-    border-radius: 1em;
-}
-
-.card-delete-button path {
-    stroke: var(--trash-can-color);
-}
-
-
-.completed .card-delete-button {
-    background-color: var(--task-status-completed);
-}
-
-#scroll-top {
-    position: fixed;
-    display: none;
-    top: 91%;
-    left: 94.5%;
-    border-radius: 0.4rem;
-    padding: 0.2em;
-    background-color: var(--page-background);
-    border: 0.063rem #999999 solid;
-}
+/* ************** */
+/* FOOTER STYLING */
+/* ************** */
 
 .footer {
     grid-area: footer;
@@ -753,6 +784,9 @@ main {
     font-style: italic;
 }
 
+/* ***************** */
+/* ALL HOVER STYLING */
+/* ***************** */
 
 @media only screen and (min-width: 725px) {
 
@@ -805,7 +839,6 @@ main {
         background-color: var(--aside-hover-label-background)
     }
 
-
     .main-heading input {
         cursor: text;
     }
@@ -850,7 +883,7 @@ main {
     }
 
     .selected-card:hover {
-        border: 1.5px #111111 solid;
+        border: 1.5px var(--selected-task-card) solid;
     }
 
     .task-status:hover {
@@ -868,7 +901,7 @@ main {
 
     .task-checkbox-label svg:hover path{
         cursor: pointer;
-        stroke: #111111;
+        stroke: var(--selected-task-card);
     }
 
     .task-card-container:hover .card-delete-button {
@@ -899,6 +932,7 @@ main {
 
 }
 
+/* SHOW NOTHING IF SCREEN SIZE IS LESS THAN 375px */
 @media only screen and (max-width: 374px){
     
     body{

@@ -1,6 +1,5 @@
 @media only screen and (min-width: 375px) and (max-width: 599px) {
 
-
     body {
         display: grid;
         grid-template-areas:
@@ -50,6 +49,10 @@
         width: 100%;
     }
 
+    .main-task-cards {
+        gap: 7px;
+    }
+
     .list-view .task-card-container {
         width: 100%;
         max-width: 800px;
@@ -77,7 +80,7 @@
     }
 
     .task-status {
-      padding-left: 0px;
+        padding-left: 0px;
     }
 
 

@@ -1,30 +1,34 @@
-import { DisplayData } from "./data.js";
+// This file mainly contains:
+// 1) Functions that don't use data from IDB: 
+// ThemeToggle(), ViewToggle(), BurgerMenuToggle(), DisplayView(), ScrollTop() and etc.
 
+
+import { DisplayData } from "./data.js";
+import { RetriveTasks } from "./data.js";
 
 const viewToggleChkBx = document.getElementById("view-toggle");
 const aside = document.querySelector(".aside")
 const burgerMenuOverlay = document.getElementById("burger-menu-overlay");
 const burgerMenuChkBox = document.getElementById("burger-menu-toggle");
-let windowWidth = window.innerWidth;
-
-
+let windowWidth
 
 //Theme selection functionality 
 function ThemeToggle() {
 
     const themeToggleChkBox = document.getElementById("theme-toggle");
-
-    //get 
+    //gets theme preference from local storage
     const prefTheme = localStorage.getItem("theme-preference");
 
-    //check 
+    //apply value from localStorage
     if (prefTheme === "true") {
         themeToggleChkBox.checked = true;
     } else {
         themeToggleChkBox.checked = false;
     }
 
+    //triggers when checkbox value changes
     themeToggleChkBox.addEventListener("change", function () {
+        //saves new value to localStorage
         localStorage.setItem("theme-preference", themeToggleChkBox.checked)
     })
 
@@ -33,10 +37,11 @@ function ThemeToggle() {
 //Task view(column or list) functionality
 function ViewTasksToggle() {
 
+    const taskWindow = document.querySelector(".main-task-cards");
+    //gets theme preference from local storage
     const viewPref = localStorage.getItem("view-preference");
 
-    const taskWindow = document.querySelector(".main-task-cards");
-
+    //apply value from local storage
     if (viewPref === "true") {
         viewToggleChkBx.checked = true;
         taskWindow.classList.add("list-view")
@@ -45,8 +50,12 @@ function ViewTasksToggle() {
         taskWindow.classList.add("column-view")
     }
 
+    //initial calling of DisplayView
+    //DisplayView calculates number of columns based on user selection and window width
     DisplayView(viewToggleChkBx.checked)
 
+
+    //triggers when checkbox value changes
     viewToggleChkBx.addEventListener("change", function () {
 
         if (viewToggleChkBx.checked) {
@@ -57,17 +66,20 @@ function ViewTasksToggle() {
             taskWindow.classList.add("column-view")
         }
 
+        //saves new value to localStorage
         localStorage.setItem("view-preference", viewToggleChkBx.checked);
 
+        //call DisplayView everytime when checkbox value changes
         DisplayView(viewToggleChkBx.checked)
     });
 
 }
 
-function BurgerMenu() {
+//
+function BurgerMenuToggle() {
 
     const prefState = localStorage.getItem("burger-menu-preference");
-
+    windowWidth = window.innerWidth;
     if (prefState === "true") {
         burgerMenuChkBox.checked = true;
         aside.classList.remove("burger-menu-inactive");
@@ -86,10 +98,12 @@ function BurgerMenu() {
 
     }
 
-
     burgerMenuChkBox.addEventListener("change", function () {
 
+        windowWidth = window.innerWidth;
+
         if (burgerMenuChkBox.checked) {
+
             aside.classList.remove("burger-menu-inactive");
 
             if (windowWidth < 600) {
@@ -112,30 +126,36 @@ function BurgerMenu() {
     })
 }
 
+
+//clsoe burger menu
 function CloseBurgerMenu() {
-    burgerMenuChkBox.checked = false;
-    localStorage.setItem("burger-menu-preference", burgerMenuChkBox.checked);
+    burgerMenuChkBox.checked = false; // convert checkbox value to false
+    localStorage.setItem("burger-menu-preference", burgerMenuChkBox.checked); // store new checkbox value in localStorage
     aside.classList.add("burger-menu-inactive");// hide/close burger menu
-    burgerMenuOverlay.classList.add("hidden");
+    burgerMenuOverlay.classList.add("hidden"); // hide burger menu overlay
 }
 
 
+//Create New Task Form functionality
 function CreateTaskForm() {
 
     const taskForm = document.getElementById("new-task-form")
     const errorMessageNewForm = document.getElementById("new-task-form-error");
 
+    //make new task form active when user focuses on description input
+    //opens up whole form
     taskForm.addEventListener("focusin", function () {
         taskForm.classList.add("new-task-form-active");
         taskForm.classList.remove("new-task-form-inactive");
     })
 
+    //form disapperes when user focuses out form the the form 
     taskForm.addEventListener("focusout", function () {
         setTimeout(() => {
             if (!taskForm.contains(document.activeElement)) {
                 taskForm.classList.remove("new-task-form-active");
                 taskForm.classList.add("new-task-form-inactive");
-                errorMessageNewForm.classList.add("hidden");
+                errorMessageNewForm.classList.add("hidden"); //hide error when user focusses out from the form
             }
         }, 0);
     })
@@ -145,23 +165,22 @@ function CreateTaskForm() {
 
 function DisplayView(viewPref) {
 
-
     const taskWindow = document.querySelector(".main-task-cards");
     let numOfColumnns;
+    windowWidth = window.innerWidth;
 
     if (viewPref === true) {
         numOfColumnns = 1;
     } else {
         if (windowWidth >= 600) {
-            const windowWidth = taskWindow.offsetWidth;
-            numOfColumnns = Math.floor(windowWidth / 300);
+            const taskWindowWidth = taskWindow.offsetWidth;
+            numOfColumnns = Math.floor(taskWindowWidth / 300);
         } else {
             numOfColumnns = 2; //2 columns for small screens
         }
     }
 
     taskWindow.style.setProperty('--columns', numOfColumnns)
-
 
     DisplayData();
 }
@@ -178,7 +197,7 @@ function ConvertDate(date) {
             day = day.toString().slice(1);
         }
 
-        switch (day) {
+        switch (day.toString()) {
             case "1": return "st";
             case "2": return "nd";
             case "3": return "rd";
@@ -225,7 +244,23 @@ function UpdateURLState() {
 
 }
 
+function loadStateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    const search = params.get("search");
+    const status = params.get("status");
+    const sort = params.get("sort");
+
+    if (search) document.getElementById("search").value = search;
+    if (status)
+        document.querySelector(`input[name="task-status"][value="${status}"]`)?.click();
+    if (sort) document.querySelector(`input[name="sort-order"][value="${sort}"]`)?.click();
+
+    // You can call your display logic here:
+    RetriveTasks();
+}
+
 window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
-export { ThemeToggle, ViewTasksToggle, BurgerMenu, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState, CloseBurgerMenu };
+export { ThemeToggle, ViewTasksToggle, BurgerMenuToggle, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState, CloseBurgerMenu, loadStateFromURL };
