@@ -643,7 +643,6 @@ function CreateNoTaskMessage() {
     const noTaskMessage = document.createElement("h3");
     noTaskMessage.innerText = "No tasks to display";
     noTaskMessage.id = "no-tasks";
-
     tasksFragment.appendChild(noTaskMessage);
 }
 

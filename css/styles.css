@@ -246,12 +246,15 @@
 /* **************** */
 
 #no-tasks {
+    position: absolute;
+    margin-top:6%;
+    left: 50%;
+    transform: translateX(-50%);
     color: #999999;
-    text-align: center;
-    margin-top: 5%;
     font-size: 2em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
 html {
     scroll-behavior: smooth;
 }
@@ -616,13 +619,13 @@ main {
     /* display: grid;
     grid-template-columns: repeat(var(--columns), 1fr); */
     column-count: var(--columns);
-    padding-top: 40px;
 }
 
 .task-card-container {
     border: 0.05rem #999999 solid;
     border-radius: 1rem;
     display: block;
+    width: 100%;
     margin-bottom: 15px;
     height: fit-content;
     color: var(--task-card-color);

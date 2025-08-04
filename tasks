@@ -22,11 +22,12 @@ UI:
 -drag and drop DONE
 -url state DONE
 -add "no tasks" message for a user  DONE
+-add error handling to IDB Requests  DONE
+-fix database opening in safari DONE
 
 После проверки добавлю: 
 add tooltips for filtering and sorting 
 responsive design
-add error handling to IDB Requests 
 multiple selection 
 add comments
 add README.md
@@ -37,7 +38,6 @@ resolve issues with hover in mobile
 Bugs: 
 fix burger menu overlay wheen screen size increases
 fix drag and drop on mobile devices 
-fix database opening in safari 
 
 
 

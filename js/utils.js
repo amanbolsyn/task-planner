@@ -150,7 +150,7 @@ function CreateTaskForm() {
     })
 
     //form disapperes when user focuses out form the the form 
-    taskForm.addEventListener("click", function () {
+    taskForm.addEventListener("focusout", function () {
         setTimeout(() => {
             if (!taskForm.contains(document.activeElement)) {
                 taskForm.classList.remove("new-task-form-active");
@@ -166,11 +166,10 @@ function CreateTaskForm() {
 function DisplayView(viewPref) {
 
     const taskWindow = document.querySelector(".main-task-cards");
-    const noTaskMessage = document.getElementById("no-tasks");
     let numOfColumnns;
     windowWidth = window.innerWidth;
 
-    if (viewPref === true || noTaskMessage !== null) {
+    if (viewPref === true) {
         numOfColumnns = 1;
     } else {
         if (windowWidth >= 600) {
