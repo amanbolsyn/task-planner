@@ -1,6 +1,6 @@
 import { ThemeToggle } from "./utils.js";
 import { ViewTasksToggle } from "./utils.js";
-import { BurgerMenuToggle } from "./utils.js";
+import { BurgerMenuToggle} from "./utils.js";
 import { CreateTaskForm } from "./utils.js";
 import { ScrollTop } from "./utils.js";
 import { UpdateURLState } from "./utils.js";
@@ -41,10 +41,10 @@ const burgerMenuOverlay = document.getElementById("burger-menu-overlay");
 
 
 
-//Web Applicaiton starts here
+
 document.addEventListener("DOMContentLoaded", async () => {
 
-  await CreateDB();
+   await CreateDB();
 
   //View selection functionality 
   ViewTasksToggle();
@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   editTaskForm.addEventListener("submit", function (e) {
     e.preventDefault();
   });
-
 
   searchInput.addEventListener("input", function () {
     UpdateURLState();
@@ -126,7 +125,7 @@ ThemeToggle();
 //Burger menu functionality for large window sizes
 BurgerMenuToggle();
 
-
+// Scroll top
 ScrollTop();
 
 

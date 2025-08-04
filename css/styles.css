@@ -135,7 +135,7 @@
     --task-status-completed-color: #d8d8d8;
     --complete-card-button-hover: #5a995a;
 
-       --selected-task-card: #ffffff;
+    --selected-task-card: #ffffff;
 
     /* FOOTER COLORS */
     --footer-text-color: #FFFFFF;
@@ -165,7 +165,7 @@
 }
 
 .task-checkbox-label>.tooltip-text {
-    top:90%;
+    top: 90%;
     right: -110%;
 }
 
@@ -207,8 +207,8 @@
 }
 
 /* ************************ */
- /* OVERLAY GENERAL STYLING */
- /* ************************ */
+/* OVERLAY GENERAL STYLING */
+/* ************************ */
 
 .overlay {
     width: 100vw;
@@ -241,7 +241,17 @@
     border: 0.063rem #999999 solid;
 }
 
+/* **************** */
+/* NO TASKS MESSAGE */
+/* **************** */
 
+#no-tasks {
+    color: #999999;
+    text-align: center;
+    margin-top: 5%;
+    font-size: 2em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 html {
     scroll-behavior: smooth;
 }
@@ -284,6 +294,13 @@ body {
     grid-template-columns: auto 5fr auto;
 }
 
+@media only screen and (min-width:600px) {
+    .header-shadow {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        border: none;
+    }
+}
+
 .header-col-1 {
     grid-area: header-col-1;
     margin-right: 10px;
@@ -299,7 +316,7 @@ body {
 }
 
 /* ~ selects next sibling */
-.header-col-1 input:checked~#close-icon { 
+.header-col-1 input:checked~#close-icon {
     display: inline-block;
 }
 
@@ -437,7 +454,7 @@ aside {
 }
 
 .aside label {
-    display:block;
+    display: block;
     margin-right: 15px;
     padding: 12px 0px 20px 30px;
     font-size: 1.1em;
@@ -453,7 +470,7 @@ aside {
     margin-right: 10px;
 }
 
-label p{
+label p {
     display: inline;
     padding-right: 25px;
 }
@@ -471,7 +488,7 @@ label p{
     padding-right: 15px;
 }
 
-.burger-menu-inactive p{
+.burger-menu-inactive p {
     display: none;
 }
 
@@ -598,7 +615,8 @@ main {
     grid-area: main-task-cards;
     /* display: grid;
     grid-template-columns: repeat(var(--columns), 1fr); */
-    column-count: var(--columns); 
+    column-count: var(--columns);
+    padding-top: 40px;
 }
 
 .task-card-container {
@@ -629,29 +647,34 @@ main {
     margin-bottom: 15px;
 }
 
-.task-checkbox-label{
+.task-checkbox-label {
     display: none;
     position: absolute;
     top: -10px;
     left: -10px;
 }
 
-.task-checkbox{
-    display:none;
+.task-checkbox {
+    display: none;
 }
 
 .task-checkbox-label svg {
     fill: var(--page-background)
 }
 
-.task-checkbox:checked+svg path{
-    stroke:var(--selected-task-card);
+.task-checkbox:checked+svg path {
+    stroke: var(--selected-task-card);
 }
 
 .task-title {
     margin-top: 0px;
     font-size: 1.2em;
     font-weight: 700;
+}
+
+.task-description {
+    overflow-wrap: anywhere;
+    width: inherit;
 }
 
 .card-bottom-container {
@@ -895,11 +918,11 @@ main {
         background-color: var(--complete-card-button-hover);
     }
 
-    .task-card-container:hover .task-checkbox-label{
-        display:block;
+    .task-card-container:hover .task-checkbox-label {
+        display: block;
     }
 
-    .task-checkbox-label svg:hover path{
+    .task-checkbox-label svg:hover path {
         cursor: pointer;
         stroke: var(--selected-task-card);
     }
@@ -933,9 +956,9 @@ main {
 }
 
 /* SHOW NOTHING IF SCREEN SIZE IS LESS THAN 375px */
-@media only screen and (max-width: 374px){
-    
-    body{
-        display:none
+@media only screen and (max-width: 349px) {
+
+    body {
+        display: none
     }
 }

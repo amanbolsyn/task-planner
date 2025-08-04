@@ -150,7 +150,7 @@ function CreateTaskForm() {
     })
 
     //form disapperes when user focuses out form the the form 
-    taskForm.addEventListener("focusout", function () {
+    taskForm.addEventListener("click", function () {
         setTimeout(() => {
             if (!taskForm.contains(document.activeElement)) {
                 taskForm.classList.remove("new-task-form-active");
@@ -166,10 +166,11 @@ function CreateTaskForm() {
 function DisplayView(viewPref) {
 
     const taskWindow = document.querySelector(".main-task-cards");
+    const noTaskMessage = document.getElementById("no-tasks");
     let numOfColumnns;
     windowWidth = window.innerWidth;
 
-    if (viewPref === true) {
+    if (viewPref === true || noTaskMessage !== null) {
         numOfColumnns = 1;
     } else {
         if (windowWidth >= 600) {
@@ -211,6 +212,7 @@ function ConvertDate(date) {
 function ScrollTop() {
 
     const scrollTopBttn = document.getElementById("scroll-top");
+    const header = document.querySelector(".header");
 
 
     window.addEventListener("scroll", function () {
@@ -221,6 +223,13 @@ function ScrollTop() {
         } else {
             scrollTopBttn.style.display = "none";
         }
+
+        if((document.documentElement.scrollTop > 0 ||
+            document.body.scrollTop > 0)){
+                header.classList.add("header-shadow");
+            } else {
+               header.classList.remove("header-shadow");
+            }
     });
 
     scrollTopBttn.addEventListener("click", function () {

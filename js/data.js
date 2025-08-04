@@ -25,6 +25,7 @@ const editStatusInput = document.getElementById("edit-task-status");
 const errorMessageEditForm = document.getElementById("edit-task-form-error");
 const errorMessageNewForm = document.getElementById("new-task-form-error");
 
+
 // 
 function CreateDB() {
 
@@ -32,9 +33,10 @@ function CreateDB() {
 
         const openRequest = window.indexedDB.open("tasks_db", 1);
 
+        //failed to open db error with promise rejection
         openRequest.addEventListener("error", () => {
-            console.log("Database failed to open");
-            reject();
+            console.error("Database failed to open:", openRequest.error);
+            reject(new Error("Database failed to open"));
         })
 
         openRequest.addEventListener("success", async () => {
@@ -47,10 +49,10 @@ function CreateDB() {
             //Initial card creation 
             CreateTaskCards(dbTasks);
             resolve();
+
         })
 
         openRequest.addEventListener("upgradeneeded", (e) => {
-
 
             db = e.target.result;
 
@@ -72,7 +74,8 @@ function CreateDB() {
     });
 }
 
-async function ReadData() {
+async function AddTask() {
+  
 
     let taskCreationDate = new Date();
 
@@ -86,6 +89,7 @@ async function ReadData() {
     };
 
 
+    //error handelling for new tasks
     if (newTask.title === "") {
         errorMessageNewForm.innerText = "Tittle cannot be empty";
         errorMessageNewForm.classList.remove("hidden");
@@ -95,36 +99,45 @@ async function ReadData() {
     if (newTask.body.split("\n").length > 4) {
         errorMessageNewForm.innerText = "Line limit exceeded";
         errorMessageNewForm.classList.remove("hidden");
-        return
+        return;
     }
 
     if (newTask.body.length > 200) {
-        errorMessageEditForm.innerText = "Character limit exceeded";
-        errorMessageEditForm.classList.remove("hidden");
-        return
+        errorMessageNewForm.innerText = "Character limit exceeded";
+        errorMessageNewForm.classList.remove("hidden");
+        return;
     }
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
+
+    transaction.addEventListener("error", function (e) {
+        console.error("Transaction failed accessing 'tasks_os':", e.target.error)
+    })
+
     const objectStore = transaction.objectStore("tasks_os");
     const countRequest = objectStore.count();
 
-    countRequest.onsuccess = () => {
+    countRequest.addEventListener("success", function () {
+
         newTask.position = Number(countRequest.result) + 1;
-        console.log("Total records in tasks_os: " + newTask.position)
+        // console.log("Total records in tasks_os:" + newTask.position)
 
         const addRequest = objectStore.add(newTask);
 
         addRequest.addEventListener("success", function () {
             ClearNewTaskForm();
+            console.log("Task was successfully added")
         })
 
-        //add error message. Crucial!
-    }
+        addRequest.addEventListener("error", function () {
+            console.error("Failed to add task:", addRequest.error);
+        })
 
-    countRequest.onerror = () => {
-        console.log("Failed to count records: " + countRequest.error);
-    }
+    })
 
+    countRequest.addEventListener("error", function () {
+        console.error("Failed to count records: " + countRequest.error);
+    })
 
     transaction.addEventListener("complete", function () {
         console.log("Transaction completed: database modification finished.");
@@ -140,19 +153,21 @@ function CreateTaskCards(tasksData) {
 
     tasksContainer.innerHTML = "";
 
-    for (let i = 0; i < tasksData.length; i++) {
-        const taskCardContainer = document.createElement("section");
-        taskCardContainer.id = tasksData[i].id
-        taskCardContainer.draggable = true;
-        taskCardContainer.classList.add("task-card-container");
+    if (tasksData.length === 0) {
+        CreateNoTaskMessage();
+    } else {
 
-        const taskCard = document.createElement("article");
-        taskCard.classList.add("task-card")
-        taskCardContainer.appendChild(taskCard);
+        for (let i = 0; i < tasksData.length; i++) {
+            const taskCardContainer = document.createElement("section");
+            taskCardContainer.id = tasksData[i].id
+            taskCardContainer.draggable = true;
+            taskCardContainer.classList.add("task-card-container");
 
+            const taskCard = document.createElement("article");
+            taskCard.classList.add("task-card")
+            taskCardContainer.appendChild(taskCard);
 
-
-        taskCard.insertAdjacentHTML("beforeend", `
+            taskCard.insertAdjacentHTML("beforeend", `
             <label class = "task-checkbox-label">
                 <input type = "checkbox" class = "task-checkbox" name=${tasksData[i].id}>
         <svg class ="tooltip" width="26px" height="26px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -162,73 +177,67 @@ function CreateTaskCards(tasksData) {
 <span class = "tooltip-text">Select note</span></label>`)
 
 
-        const taskTitle = document.createElement("h3");
-        taskTitle.innerText = tasksData[i].title;
-        taskTitle.classList.add("task-title");
-        taskCard.appendChild(taskTitle);
+            const taskTitle = document.createElement("h3");
+            taskTitle.innerText = tasksData[i].title;
+            taskTitle.classList.add("task-title");
+            taskCard.appendChild(taskTitle);
 
-        const taskDescription = document.createElement("p");
-        taskDescription.innerText = tasksData[i].body;
-        taskDescription.classList.add("task-description");
-        taskCard.appendChild(taskDescription);
-
-
-        const cardBottomContainer = document.createElement("div");
-        cardBottomContainer.classList.add("card-bottom-container");
-        taskCard.appendChild(cardBottomContainer);
-
-        // const taskStatus = document.createElement("a");
-        // taskStatus.innerText = tasksData[i].status
-        // taskStatus.classList.add("task-status");
-        // cardBottomContainer.appendChild(taskStatus);
+            const taskDescription = document.createElement("p");
+            taskDescription.innerText = tasksData[i].body;
+            taskDescription.classList.add("task-description");
+            taskCard.appendChild(taskDescription);
 
 
-        cardBottomContainer.insertAdjacentHTML("beforeend", `      
+            const cardBottomContainer = document.createElement("div");
+            cardBottomContainer.classList.add("card-bottom-container");
+            taskCard.appendChild(cardBottomContainer);
+
+
+            cardBottomContainer.insertAdjacentHTML("beforeend", `      
         <select class="task-status" name="task-status" autofocus="off">
           <option value="Completed">Completed</option>
           <option value="In progress">In progress</option>
           <option value="Not started">Not started</option>
           <option value="On hold">On hold</option>
         </select>`)
-        cardBottomContainer.querySelector(".task-status").value = tasksData[i].status;
-        if (tasksData[i].status === "Completed") {
-            taskCardContainer.classList.add("completed")
-        }
+            cardBottomContainer.querySelector(".task-status").value = tasksData[i].status;
+            if (tasksData[i].status === "Completed") {
+                taskCardContainer.classList.add("completed")
+            }
 
-        const taskCreated = document.createElement("a")
+            const taskCreated = document.createElement("a")
 
-        if (tasksData[i].edited === true) {
-            taskCreated.innerText = "Edited "
-        }
+            if (tasksData[i].edited === true) {
+                taskCreated.innerText = "Edited "
+            }
 
-        taskCreated.innerText += ConvertDate(tasksData[i].created);
-
-
-        taskCreated.classList.add("task-date");
-        cardBottomContainer.appendChild(taskCreated);
+            taskCreated.innerText += ConvertDate(tasksData[i].created);
 
 
-        // const taskDeleteBttn = document.createElement("button");
-        // taskDeleteBttn.innerText = "delete";
-        // taskDeleteBttn.classList.add("card-delete-button");
-        // taskCard.appendChild(taskDeleteBttn);
+            taskCreated.classList.add("task-date");
+            cardBottomContainer.appendChild(taskCreated);
 
-        cardBottomContainer.insertAdjacentHTML("beforeend",
-            `<svg  class = "card-delete-button tooltip" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            cardBottomContainer.insertAdjacentHTML("beforeend",
+                `<svg  class = "card-delete-button tooltip" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path opacity="0.15" d="M18 18V6H6V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18Z" fill="#999999"/>
 <path d="M10 10V16M14 10V16M18 6V18C18 19.1046 17.1046 20 16 20H8C6.89543 20 6 19.1046 6 18V6M4 6H20M15 6V5C15 3.89543 14.1046 3 13 3H11C9.89543 3 9 3.89543 9 5V6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`)
 
-        const deleteToolTip = document.createElement("span");
-        deleteToolTip.innerText = "Delete";
-        deleteToolTip.classList.add("tooltip-text")
-        cardBottomContainer.appendChild(deleteToolTip);
+            const deleteToolTip = document.createElement("span");
+            deleteToolTip.innerText = "Delete";
+            deleteToolTip.classList.add("tooltip-text")
+            cardBottomContainer.appendChild(deleteToolTip);
 
-        tasksFragment.appendChild(taskCardContainer);
+            tasksFragment.appendChild(taskCardContainer);
+
+        }
 
     }
 
     DisplayData();
+
+    //add events to elements in task card after creation
     SelectCardEvent();
     EditTaskFormEvent();
     DeleteBttnEvent();
@@ -267,7 +276,13 @@ tasksContainer.addEventListener("drop", (e) => {
 
 
 function ChangeTaskPositions() {
+
     const transaction = db.transaction(["tasks_os"], "readwrite");
+
+    transaction.addEventListener("error", function (e) {
+        console.error("Transaction failed accessing 'tasks_os':", e.target.error)
+    })
+
     const objectStore = transaction.objectStore("tasks_os");
     const taskCards = document.querySelectorAll(".task-card-container");
     let positionNum = taskCards.length;
@@ -276,7 +291,7 @@ function ChangeTaskPositions() {
 
         const requestTask = objectStore.get(Number(taskCards[i].id));
 
-        requestTask.onsuccess = (e) => {
+        requestTask.addEventListener("success", function (e) {
 
             let taskData = e.target.result;
             taskData.position = positionNum;
@@ -285,13 +300,20 @@ function ChangeTaskPositions() {
 
             const updatePosition = objectStore.put(taskData);
 
-            updatePosition.onsuccess = () => {
-                console.log("")
-            }
 
-        }
+            updatePosition.addEventListener("error", function () {
+                console.error("Failed to change task position:", updatePosition.error);
+            })
+        })
+
+        requestTask.addEventListener("error", function () {
+            console.error("Failed to retrive task data from db:", requestTask.error);
+        })
+
+        transaction.addEventListener("complete", function () {
+            console.log("Task position was successfully changed");
+        })
     }
-
 }
 
 function iterateCursor() {
@@ -312,17 +334,14 @@ function iterateCursor() {
 
                 cursor.continue()
             } else {
-
-                if(dbTasks.length === 0){
-                    console.log("No entries in db")
-                }
                 // No more entries — resolve the promise
                 resolve();
             }
         });
 
         request.addEventListener("error", () => {
-            reject("Cursor failed");
+            console.error("Cursor failed:", request.error)
+            reject(new Error("Cursor failed"));
         });
     });
 }
@@ -333,7 +352,7 @@ function DisplayData() {
 }
 
 function SaveNewTaskForm() {
-    ReadData();
+    AddTask();
 }
 
 function ClearNewTaskForm() {
@@ -343,9 +362,6 @@ function ClearNewTaskForm() {
     taskStatusInput.selectedIndex = 0;
 
 }
-
-
-
 
 //Dynamically check textarea input
 // function CheckDescriptionLimit(e){
@@ -367,14 +383,12 @@ function ClearNewTaskForm() {
 //     }
 // }
 
-
 function EditTaskFormEvent() {
 
     const tasks = document.querySelectorAll(".task-card-container");
     const editTitleInput = document.getElementById("edit-task-title");
     const editDescriptionInput = document.getElementById("edit-task-description");
     const editStatusInput = document.getElementById("edit-task-status");
-
 
     tasks.forEach((task) => {
         task.addEventListener("click", function () {
@@ -470,17 +484,32 @@ function DeleteTask(e) {
     const currentTask = document.getElementById(taskId)
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
-    const objectStore = transaction.objectStore("tasks_os");
-    objectStore.delete(taskId);
 
-    transaction.addEventListener("complete", async () => {
+    transaction.addEventListener("error", function (e) {
+        console.error("Transaction failed accessing 'tasks_os':", e.target.error)
+    })
+
+    const objectStore = transaction.objectStore("tasks_os");
+    const deleteTask = objectStore.delete(taskId);
+
+    deleteTask.addEventListener("success", async function () {
 
         currentTask.remove();
         CloseEditTaskForm();
         await iterateCursor();
-        console.log(`Task with id:${taskId} was succesfully deleted`)
 
+        if (dbTasks.length === 0) {
+            CreateNoTaskMessage();
+            DisplayData();
+        }
+
+        console.log(`Task with id:${taskId} was succesfully deleted`)
     });
+
+    deleteTask.addEventListener("error", function () {
+        console.error(`Failed to delete the task with id:${taskId}:`, deleteTask.error);
+    })
+
 }
 
 function SaveEditTask(e) {
@@ -490,13 +519,17 @@ function SaveEditTask(e) {
     let taskId = Number(taskIdElement.id);
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
+
+    transaction.addEventListener("error", function (e) {
+        console.error("Transaction failed accessing 'tasks_os':", e.target.error)
+    })
+
     const objectStore = transaction.objectStore("tasks_os");
     const requestTask = objectStore.get(taskId);
 
-    requestTask.onsuccess = (e) => {
+    requestTask.addEventListener("success", function (e) {
 
         const taskData = e.target.result;
-
 
 
         if (taskIdElement.tagName === "DIV") {
@@ -534,16 +567,14 @@ function SaveEditTask(e) {
             taskData.status = taskIdElement.querySelector(".task-status").value;
         }
 
-
         taskData.created = new Date();
         taskData.edited = true;
 
 
         const updateTask = objectStore.put(taskData)
 
-        updateTask.onsuccess = () => {
+        updateTask.addEventListener("success", function () {
 
-            console.log(`Task with id:${taskId} was succesfully updated`)
             const currentTaskCard = document.getElementById(taskId);
             currentTaskCard.querySelector(".task-title").innerText = taskData.title;
             currentTaskCard.querySelector(".task-description").innerText = taskData.body;
@@ -558,8 +589,13 @@ function SaveEditTask(e) {
             }
 
             CloseEditTaskForm();
-        }
-    }
+            console.log(`Task with id:${taskId} was succesfully updated`)
+        })
+
+        updateTask.addEventListener("error", function(){
+            console.error("Failed to update the task:", updateTask.error);
+        })
+    });
 }
 
 
@@ -603,5 +639,14 @@ function RetriveTasks() {
 }
 
 
+function CreateNoTaskMessage() {
+    const noTaskMessage = document.createElement("h3");
+    noTaskMessage.innerText = "No tasks to display";
+    noTaskMessage.id = "no-tasks";
 
-export { CreateDB, ReadData, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask, RetriveTasks }
+    tasksFragment.appendChild(noTaskMessage);
+}
+
+
+
+export { CreateDB, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask, RetriveTasks }
