@@ -619,6 +619,7 @@ main {
     /* display: grid;
     grid-template-columns: repeat(var(--columns), 1fr); */
     column-count: var(--columns);
+    position: relative;
 }
 
 .task-card-container {

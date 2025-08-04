@@ -161,30 +161,30 @@ function CreateTaskForm() {
     })
 }
 
-
-
 function DisplayView(viewPref) {
 
     const taskWindow = document.querySelector(".main-task-cards");
     let numOfColumnns;
     windowWidth = window.innerWidth;
 
-    if (viewPref === true) {
+    if (viewPref === true) { //list view = 1 column
         numOfColumnns = 1;
     } else {
-        if (windowWidth >= 600) {
+        if (windowWidth >= 600) {  // column view and medium/large screens = compute number of columns
             const taskWindowWidth = taskWindow.offsetWidth;
             numOfColumnns = Math.floor(taskWindowWidth / 300);
-        } else {
+        } else { //columns view and small screens = 2 columns
             numOfColumnns = 2; //2 columns for small screens
         }
     }
 
+    //update --columns global variable with calculated columns
     taskWindow.style.setProperty('--columns', numOfColumnns)
 
     DisplayData();
 }
 
+//converts date into readiable string
 function ConvertDate(date) {
 
     let days = date.getDate();
@@ -208,21 +208,25 @@ function ConvertDate(date) {
     return `${month} ${days}${GetOrdinal(days)}`
 }
 
+//handles logic of scrool top button and header shodow styling
 function ScrollTop() {
 
     const scrollTopBttn = document.getElementById("scroll-top");
     const header = document.querySelector(".header");
 
 
-    window.addEventListener("scroll", function () {
-        if (document.documentElement.scrollTop > 400 ||
+    window.addEventListener("scroll", function () { 
+        if (document.documentElement.scrollTop > 400 || //user scolled more than 400 pixels 
             document.body.scrollTop > 400
         ) {
+            //display scroll top button
             scrollTopBttn.style.display = "block";
         } else {
+            //hide scroll top button
             scrollTopBttn.style.display = "none";
         }
 
+        //if user scrolled down add header shadow styling to header element
         if((document.documentElement.scrollTop > 0 ||
             document.body.scrollTop > 0)){
                 header.classList.add("header-shadow");
@@ -231,11 +235,13 @@ function ScrollTop() {
             }
     });
 
+    //scrools to top 
     scrollTopBttn.addEventListener("click", function () {
         scrollTo(0, 0);
     })
 }
 
+//helps to save web page state using urls
 function UpdateURLState() {
 
     const searchValue = document.getElementById("search").value.trim();
@@ -252,6 +258,7 @@ function UpdateURLState() {
 
 }
 
+//helps to save web page state using urls
 function loadStateFromURL() {
     const params = new URLSearchParams(window.location.search);
 
@@ -264,11 +271,11 @@ function loadStateFromURL() {
         document.querySelector(`input[name="task-status"][value="${status}"]`)?.click();
     if (sort) document.querySelector(`input[name="sort-order"][value="${sort}"]`)?.click();
 
-    // You can call your display logic here:
     RetriveTasks();
 }
-
-window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked));
+//fire DisplayView function everytime when windown resizes or loads 
+//in order to calculate and update number of columns accrodingly 
+window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked)); 
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
 export { ThemeToggle, ViewTasksToggle, BurgerMenuToggle, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState, CloseBurgerMenu, loadStateFromURL };

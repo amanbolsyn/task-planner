@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   editOverlay.addEventListener("click", CloseEditTaskForm);
   burgerMenuOverlay.addEventListener("click", CloseBurgerMenu);
 
-  CreateTaskForm();
+  CreateTaskForm();//new task form logic
 
   loadStateFromURL();
 });
