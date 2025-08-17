@@ -31,14 +31,14 @@
           <input type="checkbox" id="burger-menu-toggle">
           <!-- burger menu icon -->
           <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg"
-            id="burger-menu">
+            id="open-burger-menu">
             <path d="M1 7H19M1 1H19M1 13H19" stroke="#999999" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" />
           </svg>
           <span class="tooltip-text">Main menu</span>
           <!-- close icon -->
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"
-            id="close-icon">
+            id="close-burger-menu">
             <path d="M13 1L1 13M1 1L13 13" stroke="#999999" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" />
           </svg>
@@ -75,7 +75,7 @@
 
       <!-- view, theme toggles -->
       <div class="header-col-3">
-        <div id="nav-left">
+        <section id="toggle-section">
           <!-- view toggle -->
           <label class="tooltip">
             <input type="checkbox" id="view-toggle">
@@ -150,9 +150,24 @@
                 stroke="#999999" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" />
             </svg>
             <span class="tooltip-text">Light theme</span>
-
           </label>
-        </div>
+        </section>
+        <section id="selected-tasks-section" class="hidden">
+          <button id="delete-selected" class="button-header">Delete</button>
+          <select id="header-status-selecter" name="selected-tasks-status">
+            <option value="none" selected disabled>Change status</option>
+            <option value="Completed">Completed</option>
+            <option value="In progress">In progress</option>
+            <option value="Not started">Not started</option>
+            <option value="On hold">On hold</option>
+          </select>
+          <p id="selected-tasks-num">1 Selected</p>
+          <svg class = "tooltip" id = "close-selected-header" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 1L1 13M1 1L13 13" stroke="#999999" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+         <span class = "tooltip-text">Close</span>
+        </section>
       </div>
     </div>
   </header>

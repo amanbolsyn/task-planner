@@ -7,6 +7,7 @@
 
     /* HEADER COLORS */
     --header-backgound: #ffffff;
+    --header-hover-background: #000000;
 
     --burger-menu-hover-background: #000000;
 
@@ -18,10 +19,8 @@
     --logo-hover-background-2: #999999;
 
     --list-view-background: #000000;
-    --list-view-hover-background: #000000;
 
     --column-view-background: #000000;
-    --column-view-hover-background: #000000;
 
 
     --search-background: hsl(0, 0%, 89%);
@@ -81,6 +80,7 @@
 
     /* HEADER COLORS */
     --header-backgound: #202124;
+    --header-hover-background: #FFFFFF;
 
     --burger-menu-hover-background: #ffffff;
 
@@ -92,10 +92,8 @@
     --logo-hover-background-2: #999999;
 
     --list-view-background: #FFFFFF;
-    --list-view-hover-background: #FFFFFF;
 
     --column-view-background: #FFFFFF;
-    --column-view-hover-background: #FFFFFF;
 
     --search-background: #7a7a7a;
     --search-placehoder-color: white;
@@ -192,6 +190,11 @@
     left: -200%
 }
 
+#selected-tasks-section .tooltip-text {
+  top: 120%;
+  right: -1%;
+}
+
 /* ********************* */
 /* ERROR GENERAL STYLING */
 /* ********************* */
@@ -247,7 +250,7 @@
 
 #no-tasks {
     position: absolute;
-    margin-top:6%;
+    margin-top: 6%;
     left: 50%;
     transform: translateX(-50%);
     color: #999999;
@@ -278,7 +281,7 @@ body {
 
 .header {
     grid-area: header;
-    padding: 5px 30px 25px;
+    padding: 5px 30px 20px;
     margin-bottom: 0px;
     border-bottom: 1px var(--border-color) solid;
     /* box-shadow:  rgba(50, 47, 47, 0.35) 0px 5px 40px; */
@@ -294,7 +297,7 @@ body {
     display: grid;
     grid-template-areas:
         "header-col-1 header-col-2 header-col-3";
-    grid-template-columns: auto 5fr auto;
+    grid-template-columns: auto 7fr 4fr;
 }
 
 @media only screen and (min-width:600px) {
@@ -313,17 +316,17 @@ body {
     display: none;
 }
 
-#close-icon {
+#close-burger-menu {
     display: none;
     margin: 0px 3px;
 }
 
 /* ~ selects next sibling */
-.header-col-1 input:checked~#close-icon {
+.header-col-1 input:checked~#close-burger-menu {
     display: inline-block;
 }
 
-.header-col-1 input:checked~#burger-menu {
+.header-col-1 input:checked~#open-burger-menu {
     display: none;
 }
 
@@ -377,7 +380,7 @@ body {
 }
 
 .header-col-2 input {
-    width: 60%;
+    width: 70%;
     height: 40%;
     padding: 0.7rem;
     font-size: 1.1em;
@@ -397,7 +400,8 @@ body {
     margin-left: 10px;
 }
 
-#nav-left {
+#toggle-section,
+#selected-tasks-section {
     float: right;
 }
 
@@ -439,6 +443,39 @@ body {
 
 .header-col-3 label:nth-of-type(2) input:checked~#dark-theme {
     display: none;
+}
+
+#selected-tasks-section {
+    position: relative;
+    top: 20px;
+}
+
+.button-header {
+    border: none;
+    font-size: 1.2em;
+    margin-right: 0.6em;
+    border-radius: 0.4rem;
+    background-color: var(--new-task-button-background);
+    color: var(--new-task-button-color);
+}
+
+#header-status-selecter {
+    font-size: 1.2em;
+    border-radius: 0.4rem;
+    margin-right: 0.6em;
+    appearance: none;
+    outline: none;
+    border: none;
+    background-color: var(--new-task-status-background);
+    color: var(--new-task-status-color);
+}
+
+#selected-tasks-num {
+    display: inline;
+    margin-right: 0.6em;
+    font-size: 1.2em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: var(--new-task-status-color);
 }
 
 /* ************* */
@@ -652,14 +689,9 @@ main {
 }
 
 .task-checkbox-label {
-    display: none;
     position: absolute;
     top: -10px;
     left: -10px;
-}
-
-.task-checkbox {
-    display: none;
 }
 
 .task-checkbox-label svg {
@@ -715,8 +747,20 @@ main {
 }
 
 .selected-card {
-    border: 1.2px var(--selected-task-card) solid;
+    /* animation-name: selected; */
+    /* animation-duration: 2s; */
+    border: 0.1rem var(--selected-task-card) solid;
 }
+
+/* @keyframes selected {
+    from {
+        border: 0.05rem #999999 solid;
+    }
+
+    to {
+        border: 0.1rem var(--selected-task-card) solid;
+    }
+} */
 
 .card-delete-button {
     float: right;
@@ -840,13 +884,9 @@ main {
     }
 
     /* LIST VIEW ICON HOVER */
-    #list-view:hover path {
-        fill: var(--list-view-hover-background);
-    }
-
-    /* COLUMN VIEW ICON HOVER */
+    #list-view:hover path,
     #column-view:hover path {
-        fill: var(--column-view-hover-background)
+        fill: var(--header-hover-background);
     }
 
 
@@ -859,6 +899,10 @@ main {
     /* LIGHT THEME ICON HOVER */
     #light-theme:hover path {
         stroke: white;
+    }
+
+    #close-selected-header:hover path{
+        stroke: var(--header-hover-background);
     }
 
     .aside label:hover {
@@ -888,11 +932,15 @@ main {
         background-color: var(--new-task-button-background-hover);
     }
 
-    #new-task-status:hover {
+    .button-header:hover,
+    #header-status-selecter:hover {
+        transform: scale(1.08);
         cursor: pointer;
-        background-color: var(--new-task-status-background-hover);
+        color: var(--header-hover-background)
     }
 
+    /* task status selecter hovers */
+    #new-task-status:hover,
     #edit-task-status:hover {
         cursor: pointer;
         background-color: var(--new-task-status-background-hover);

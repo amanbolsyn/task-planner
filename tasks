@@ -24,12 +24,12 @@ UI:
 -add "no tasks" message for a user  DONE
 -add error handling to IDB Requests  DONE
 -fix database opening in safari DONE
+-add comments DONE
 
 После проверки добавлю: 
 add tooltips for filtering and sorting 
 responsive design
 multiple selection 
-add comments
 add README.md
 remove svg files from main html tree НЕ ЗНАЮ КАК ДЕЛАТЬ И НАВЕРНОЕ НЕ ПОЛУЧИТСЯ
 resolve issues with hover in mobile

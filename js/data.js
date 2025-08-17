@@ -8,6 +8,12 @@
 import { ConvertDate } from "./utils.js";
 
 let db, dbTasks = [];
+let selectedTasks = []
+
+const toogleSection = document.getElementById("toggle-section");
+const selectedTasksSection = document.getElementById("selected-tasks-section");
+const closeSelectHeaderBttn = document.getElementById("close-selected-header");
+
 const tasksFragment = document.createDocumentFragment();
 const tasksContainer = document.querySelector(".main-task-cards");
 const editOverlay = document.getElementById("edit-screen-overlay")
@@ -181,8 +187,8 @@ function CreateTaskCards(tasksData) {
 
             //task checkbox. used for multiple selection feature
             taskCard.insertAdjacentHTML("beforeend", `
-            <label class = "task-checkbox-label">
-                <input type = "checkbox" class = "task-checkbox" name=${tasksData[i].id}>
+            <label class = "task-checkbox-label hidden">
+                <input type = "checkbox" class = "task-checkbox hidden" name=${tasksData[i].id}>
         <svg class ="tooltip" width="26px" height="26px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" fill="#ffffff"/>
 <path d="M17.0001 9L10 16L7 13M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -421,7 +427,7 @@ function EditTaskFormEvent() {
         task.addEventListener("click", function () {
 
             editTaskForm.style.display = "block";
-            editTaskForm.id = task.getAttribute("id")
+            editTaskForm.id = task.getAttribute("id");
 
             //populates edit form inputs with clicked card data
             editTitleInput.value = task.querySelector(".task-title").innerText;
@@ -442,7 +448,12 @@ function DeleteBttnEvent() {
     deleteBttns.forEach((deleteBttn) => {
         deleteBttn.addEventListener("click", function (e) {
             e.stopPropagation();//Prevents event bubling to parent elements 
-            DeleteTask(e);//fire delete function
+
+            //retrives closest element with id attribute 
+            let taskIdElement = e.target.closest("section[id]");
+            let taskId = Number(taskIdElement.id);//retrives an id which is an id of task card
+
+            DeleteTask(taskId);//fire delete function
         })
     })
 }
@@ -458,7 +469,12 @@ function StatusSelectEvent() {
 
         //attaching changing event to every status selecter on a card
         statusSelect.addEventListener("change", function (e) {
-            SaveEditTask(e);//fires edit function
+
+            //retrives closest element with id attribute 
+            let taskIdElement = e.target.closest("section[id]");
+            let taskId = Number(taskIdElement.id);//retrives an id which is an id of task card
+
+            SaveEditTask(e, taskId);
         })
     });
 }
@@ -467,6 +483,7 @@ function StatusSelectEvent() {
 function SelectCardEvent() {
 
     const selectCheckBoxes = document.querySelectorAll(".task-checkbox-label");
+    const selectedNumText = document.getElementById("selected-tasks-num")
 
     selectCheckBoxes.forEach((selectCheckBox) => {
         selectCheckBox.addEventListener("click", function (e) {
@@ -479,11 +496,34 @@ function SelectCardEvent() {
 
             if (e.target.checked === true) {
                 currentTaskCard.classList.add("selected-card");
-                selectCheckBox.style.display = "block";
+                selectCheckBox.classList.remove("hidden");
+                let taskId = Number(e.target.closest('section[id]').id);
+                selectedTasks.push(taskId)
+
             } else {
                 currentTaskCard.classList.remove("selected-card");
-                selectCheckBox.removeAttribute("style");
+                selectCheckBox.classList.add("hidden")
+
+                let taskId = Number(e.target.closest('section[id]').id)
+                let idx = selectedTasks.indexOf(taskId)
+                if (idx !== -1) {
+                    selectedTasks.splice(idx, 1);
+                }
+
             }
+
+            if (selectedTasks.length > 0) {
+                selectedTasksSection.classList.remove("hidden");
+                toogleSection.classList.add("hidden");
+
+                //update the number of selected tasks text
+                selectedNumText.innerText = "";
+                selectedNumText.innerText = `${selectedTasks.length} selected`;
+
+            } else {
+                CloseSelectHeader();
+            }
+
         })
     })
 }
@@ -502,18 +542,51 @@ function ClearEditTaskForm() {
 
 function CloseEditTaskForm() {
 
+    editTaskForm.removeAttribute("id");
     editTaskForm.style.display = "none";
     editOverlay.classList.add("hidden");
     errorMessageEditForm.classList.add("hidden");
 
 }
 
+function DeleteSelectedTasks() {
+    for (let i = 0; i < selectedTasks.length; i++) {
+        DeleteTask(selectedTasks[i]);
+    }
+    CloseSelectHeader();
+}
 
-function DeleteTask(e) {
+function ChangeStatusSelected(e) {
 
-    //retrives closest element with id attribute 
-    let taskIdElement = e.target.closest("section[id], div[id]");
-    let taskId = Number(taskIdElement.id);//retrives an id which is an id of task card
+    for (let i = 0; i < selectedTasks.length; i++) {
+        SaveEditTask(e, selectedTasks[i]);
+    }
+
+    CloseSelectHeader();
+}
+
+
+closeSelectHeaderBttn.addEventListener("click", CloseSelectHeader);
+
+function CloseSelectHeader() {
+
+    const selectedCards = document.querySelectorAll(".selected-card");
+
+    selectedTasksSection.classList.add("hidden");
+    toogleSection.classList.remove("hidden");
+    selectedTasks = [];
+
+    selectedCards.forEach((selectedCard) => {
+          const selectCheckboxLabel = selectedCard.querySelector(".task-checkbox-label")
+          const selectCheckbox = selectedCard.querySelector(".task-checkbox")
+          selectCheckboxLabel.classList.add("hidden");
+          selectCheckbox.checked = false;
+          selectedCard.classList.remove("selected-card");
+    })
+
+}
+
+function DeleteTask(taskId) {
 
     const currentTask = document.getElementById(taskId)
 
@@ -548,11 +621,9 @@ function DeleteTask(e) {
 
 }
 
-function SaveEditTask(e) {
+function SaveEditTask(event, taskId) {
 
-    //retrives closest element with id attribute 
-    let taskIdElement = e.target.closest("section[id], div[id]");
-    let taskId = Number(taskIdElement.id);//retrives an id which is an id of task card
+    const taskIdElement = document.getElementById(taskId);
 
     const transaction = db.transaction(["tasks_os"], "readwrite");
 
@@ -569,7 +640,7 @@ function SaveEditTask(e) {
 
         //doesn't save anything even though "save" button was clicked because initail input values didn't change
         //it is needed for "edited" entry
-        if (taskIdElement.tagName === "DIV") {
+        if (event.target.tagName === "BUTTON") {
             if (taskData.title === editTitleInput.value.trim() && taskData.body === editDescriptionInput.value.trim() && taskData.status === editStatusInput.value.trim()) {
                 CloseEditTaskForm();
                 return;
@@ -602,8 +673,7 @@ function SaveEditTask(e) {
             taskData.status = editStatusInput.value;
 
         } else {
-
-            taskData.status = taskIdElement.querySelector(".task-status").value;
+            taskData.status = event.target.value;
         }
 
         taskData.created = new Date();
@@ -641,6 +711,8 @@ function SaveEditTask(e) {
 //handles searching, filtering and sorting in one function
 function RetriveTasks() {
 
+    CloseSelectHeader();
+    
     let processedTasks = [...dbTasks]
     const searchStr = document.getElementById("search").value.trim().toLowerCase();
 
@@ -691,4 +763,4 @@ function CreateNoTaskMessage() {
 
 
 
-export { CreateDB, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask, RetriveTasks }
+export { CreateDB, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask, RetriveTasks, DeleteSelectedTasks, ChangeStatusSelected }

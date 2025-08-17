@@ -16,6 +16,10 @@
         z-index: 4;
     }
 
+    .header-container {
+       grid-template-columns: auto 7fr auto;
+    }
+
     .aside {
         position: fixed;
         background-color: var(--page-background);
@@ -38,7 +42,7 @@
     }
 
     .header-col-2 input {
-        width: 79%;
+        width: 76.5%;
     }
 
 
@@ -53,6 +57,13 @@
 
     .main-task-cards {
         gap: 7px;
+    }
+
+    #no-tasks {
+        display: inline-block;
+        width: max-content;
+        margin-top: 0%;
+        top: 40%;
     }
 
     .list-view .task-card-container {

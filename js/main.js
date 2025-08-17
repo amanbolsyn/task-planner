@@ -1,6 +1,6 @@
 import { ThemeToggle } from "./utils.js";
 import { ViewTasksToggle } from "./utils.js";
-import { BurgerMenuToggle} from "./utils.js";
+import { BurgerMenuToggle } from "./utils.js";
 import { CreateTaskForm } from "./utils.js";
 import { ScrollTop } from "./utils.js";
 import { UpdateURLState } from "./utils.js";
@@ -10,6 +10,9 @@ import { loadStateFromURL } from "./utils.js";
 import { CreateDB } from "./data.js";
 import { SaveNewTaskForm } from "./data.js";
 import { ClearNewTaskForm } from "./data.js";
+
+import { DeleteSelectedTasks } from "./data.js";
+import { ChangeStatusSelected } from "./data.js";
 
 import { CloseEditTaskForm } from "./data.js";
 import { DeleteTask } from "./data.js";
@@ -28,6 +31,9 @@ const searchInput = document.getElementById("search");
 const statusOptions = document.querySelectorAll('input[name="task-status"]');
 const sortOptions = document.querySelectorAll('input[name="sort-order"]');
 
+const deleteSelectedBttn = document.getElementById("delete-selected")
+const headerStatusSelecter = document.getElementById("header-status-selecter")
+
 const clearNewFormBttn = document.getElementById("new-task-clear-button");
 const saveNewFormBttn = document.getElementById("new-task-save-button");
 
@@ -44,7 +50,7 @@ const burgerMenuOverlay = document.getElementById("burger-menu-overlay");
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-   await CreateDB();
+  await CreateDB();
 
   //View selection functionality 
   ViewTasksToggle();
@@ -99,15 +105,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
   })
 
+  deleteSelectedBttn.addEventListener("click", DeleteSelectedTasks);
+  headerStatusSelecter.addEventListener("input", ChangeStatusSelected);
+
   // new form buttons
   saveNewFormBttn.addEventListener("click", SaveNewTaskForm);
   clearNewFormBttn.addEventListener("click", ClearNewTaskForm);
 
   // edit form buttons
   closeEditFormBttn.addEventListener("click", CloseEditTaskForm);
-  deleteTaskBttn.addEventListener("click", DeleteTask);
+
+  deleteTaskBttn.addEventListener("click", function (e) {
+    DeleteTask(Number(e.target.closest("div[id]").id));
+  });
+
   clearEditFormBttn.addEventListener("click", ClearEditTaskForm);
-  saveEditFormBttn.addEventListener("click", SaveEditTask);
+  saveEditFormBttn.addEventListener("click", function (e) {
+    SaveEditTask(e, Number(e.target.closest("div[id]").id));
+  });
 
   // overlay event listeners
   editOverlay.addEventListener("click", CloseEditTaskForm);
