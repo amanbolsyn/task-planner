@@ -80,6 +80,7 @@ function BurgerMenuToggle() {
 
     const prefState = localStorage.getItem("burger-menu-preference");
     windowWidth = window.innerWidth;
+
     if (prefState === "true") {
         burgerMenuChkBox.checked = true;
         aside.classList.remove("burger-menu-inactive");
@@ -105,14 +106,13 @@ function BurgerMenuToggle() {
         if (burgerMenuChkBox.checked) {
 
             aside.classList.remove("burger-menu-inactive");
-
             if (windowWidth < 600) {
                 burgerMenuOverlay.classList.remove("hidden");
             }
 
         } else {
-            aside.classList.add("burger-menu-inactive");
 
+            aside.classList.add("burger-menu-inactive");
             if (windowWidth < 600) {
                 burgerMenuOverlay.classList.add("hidden");
             }
@@ -215,7 +215,7 @@ function ScrollTop() {
     const header = document.querySelector(".header");
 
 
-    window.addEventListener("scroll", function () { 
+    window.addEventListener("scroll", function () {
         if (document.documentElement.scrollTop > 400 || //user scolled more than 400 pixels 
             document.body.scrollTop > 400
         ) {
@@ -227,12 +227,12 @@ function ScrollTop() {
         }
 
         //if user scrolled down add header shadow styling to header element
-        if((document.documentElement.scrollTop > 0 ||
-            document.body.scrollTop > 0)){
-                header.classList.add("header-shadow");
-            } else {
-               header.classList.remove("header-shadow");
-            }
+        if ((document.documentElement.scrollTop > 0 ||
+            document.body.scrollTop > 0)) {
+            header.classList.add("header-shadow");
+        } else {
+            header.classList.remove("header-shadow");
+        }
     });
 
     //scrools to top 
@@ -268,14 +268,25 @@ function loadStateFromURL() {
 
     if (search) document.getElementById("search").value = search;
     if (status)
-        document.querySelector(`input[name="task-status"][value="${status}"]`)?.click();
-    if (sort) document.querySelector(`input[name="sort-order"][value="${sort}"]`)?.click();
+        document.querySelector(`input[name="task-status"][value="${status}"]`).click();
+    if (sort) document.querySelector(`input[name="sort-order"][value="${sort}"]`).click();
 
     RetriveTasks();
 }
 //fire DisplayView function everytime when windown resizes or loads 
 //in order to calculate and update number of columns accrodingly 
-window.addEventListener("resize", () => DisplayView(viewToggleChkBx.checked)); 
+window.addEventListener("resize", () => {
+    DisplayView(viewToggleChkBx.checked);
+
+    //removes burger menu overlay dinamically according to window size
+    if (599 < window.innerWidth) {
+        burgerMenuOverlay.classList.add("hidden");
+    } else if (burgerMenuChkBox.checked) {
+        burgerMenuOverlay.classList.remove("hidden");
+    }
+    
+});
+
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
 
 export { ThemeToggle, ViewTasksToggle, BurgerMenuToggle, CreateTaskForm, DisplayView, ConvertDate, ScrollTop, UpdateURLState, CloseBurgerMenu, loadStateFromURL };

@@ -23,6 +23,7 @@ import { RetriveTasks } from "./data.js";
 
 let lastSelectedFilter = null;
 let lastSelectedOrder = null;
+
 const searchForm = document.getElementById("search-form");
 const newTaskForm = document.getElementById("new-task-form");
 const editTaskForm = document.querySelector(".edit-task-form");
@@ -45,16 +46,12 @@ const saveEditFormBttn = document.getElementById("edit-task-save-button");
 const editOverlay = document.getElementById("edit-screen-overlay");
 const burgerMenuOverlay = document.getElementById("burger-menu-overlay");
 
-
-
-
 document.addEventListener("DOMContentLoaded", async () => {
 
   await CreateDB();
 
   //View selection functionality 
   ViewTasksToggle();
-
 
   //preventing forms from submitting and reloding page by default 
   searchForm.addEventListener("submit", function (e) {
@@ -72,10 +69,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   searchInput.addEventListener("input", function () {
     UpdateURLState();
     RetriveTasks();
+
   });
 
   statusOptions.forEach((option) => {
-    option.addEventListener("click", function () {
+    option.addEventListener("click", function (e) {
 
       // gives uncheck functionality for radio buttons
       if (lastSelectedFilter === this) {
@@ -85,13 +83,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         lastSelectedFilter = this;
       }
 
-      UpdateURLState();
-      RetriveTasks();
+       //isTrusted checks if it was the actual user who clicked
+      if (e.isTrusted) {
+        UpdateURLState();
+        RetriveTasks();
+      }
     })
   });
 
   sortOptions.forEach((option) => {
-    option.addEventListener("click", function () {
+    option.addEventListener("click", function (e) {
+
       // gives uncheck functionality for radio buttons
       if (lastSelectedOrder === this) {
         this.checked = false;
@@ -100,8 +102,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         lastSelectedOrder = this;
       }
 
-      UpdateURLState();
-      RetriveTasks();
+      //isTrusted checks if it was the actual user who clicked
+      if (e.isTrusted) {
+        UpdateURLState();
+        RetriveTasks();
+      }
+
     })
   })
 

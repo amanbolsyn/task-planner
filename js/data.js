@@ -577,12 +577,15 @@ function CloseSelectHeader() {
     selectedTasks = [];
 
     selectedCards.forEach((selectedCard) => {
-          const selectCheckboxLabel = selectedCard.querySelector(".task-checkbox-label")
-          const selectCheckbox = selectedCard.querySelector(".task-checkbox")
-          selectCheckboxLabel.classList.add("hidden");
-          selectCheckbox.checked = false;
-          selectedCard.classList.remove("selected-card");
+        const selectCheckboxLabel = selectedCard.querySelector(".task-checkbox-label")
+        const selectCheckbox = selectedCard.querySelector(".task-checkbox")
+        selectCheckboxLabel.classList.add("hidden");
+        selectCheckbox.checked = false;
+        selectedCard.classList.remove("selected-card");
     })
+
+    //change this after learning asynchronous code 
+    setTimeout( function(){document.getElementById("header-status-selecter").selectedIndex = 0;}, 1000)
 
 }
 
@@ -709,10 +712,11 @@ function SaveEditTask(event, taskId) {
 }
 
 //handles searching, filtering and sorting in one function
-function RetriveTasks() {
+async function RetriveTasks() {
 
-    CloseSelectHeader();
-    
+    CloseSelectHeader();//closes selected header when searching/filtering/sorting happens
+    await iterateCursor();//update dbTasks if some of the tasks were edited before searching/filtering/sorting
+
     let processedTasks = [...dbTasks]
     const searchStr = document.getElementById("search").value.trim().toLowerCase();
 
