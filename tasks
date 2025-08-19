@@ -26,17 +26,18 @@ UI:
 -fix database opening in safari DONE
 -add comments DONE
 -multiple selection DONE
+-responsive design DONE
+-fix burger menu overlay wheen screen size increases DONE
+-add README.md DONE
+
 
 После проверки добавлю: 
 add tooltips for filtering and sorting 
-responsive design
-add README.md
 add animations 
 remove svg files from main html tree НЕ ЗНАЮ КАК ДЕЛАТЬ И НАВЕРНОЕ НЕ ПОЛУЧИТСЯ
 resolve issues with hover in mobile
 
 Bugs: 
-fix burger menu overlay wheen screen size increases
 fix drag and drop on mobile devices 
 
 
