@@ -1,4 +1,4 @@
-@media only screen and (min-width: 600px) and (max-width:1399px) {
+@media only screen and (min-width: 700px) and (max-width:1399px) {
 
     .header-col-1 label {
         position: relative;
@@ -12,5 +12,28 @@
     .header-col-2 input{
        max-width: 800px;
     }
+
    
+}
+
+
+@media only screen and (min-width:700px) and (max-width:1000px){
+
+    .edit-task-form {
+        width: 70%;
+        left: 15%;
+    }
+
+    #new-task-form{
+        width: 80%;
+    }
+
+    .list-view .task-card-container {
+        width: 80%;
+        /* max-width: 800px;
+        margin: auto;
+        margin-bottom: 7px; */
+    }
+
+
 }

@@ -162,11 +162,12 @@
             <option value="On hold">On hold</option>
           </select>
           <p id="selected-tasks-num">1 Selected</p>
-          <svg class = "tooltip" id = "close-selected-header" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="tooltip" id="close-selected-header" width="14" height="14" viewBox="0 0 14 14" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
             <path d="M13 1L1 13M1 1L13 13" stroke="#999999" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" />
           </svg>
-         <span class = "tooltip-text">Close</span>
+          <span class="tooltip-text">Close</span>
         </section>
       </div>
     </div>
@@ -300,14 +301,13 @@
       <form id="new-task-form" class="new-task-form-inactive">
         <input type="text" placeholder="Title" maxlength="70" id="new-task-title" autocomplete="off">
         <textarea rows="1" placeholder="Write a task..." id="new-task-description" autocomplete="off"></textarea>
-
+        <a id="new-task-form-error" class="error hidden"></a>
         <select id="new-task-status" name="new-task-status">
           <option value="Completed">Completed</option>
           <option value="In progress">In progress</option>
           <option value="Not started">Not started</option>
           <option value="On hold">On hold</option>
         </select>
-        <a id="new-task-form-error" class="error hidden"></a>
         <button type="button" id="new-task-save-button" class="button-form">save</button>
         <button type="button" id="new-task-clear-button" class="button-form">clear</button>
       </form>
@@ -328,13 +328,13 @@
     <form>
       <input type="text" placeholder="Title" maxlength="70" id="edit-task-title" autocomplete="off">
       <textarea rows="1" placeholder="Take a task..." id="edit-task-description" autocomplete="off"></textarea>
+      <a id="edit-task-form-error" class="error hidden"></a>
       <select id="edit-task-status" name="edit-task-status">
         <option value="Completed">Completed</option>
         <option value="In progress">In progress</option>
         <option value="Not started">Not started</option>
         <option value="On hold">On hold</option>
       </select>
-      <a id="edit-task-form-error" class="error hidden"></a>
       <button type="button" id="edit-task-close-button" class="button-form">close</button>
       <button type="button" id="edit-task-save-button" class="button-form">save</button>
       <button type="button" id="edit-task-clear-button" class="button-form">clear</button>

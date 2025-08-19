@@ -85,7 +85,7 @@ function BurgerMenuToggle() {
         burgerMenuChkBox.checked = true;
         aside.classList.remove("burger-menu-inactive");
 
-        if (windowWidth < 600) {
+        if (windowWidth < 700) {
             burgerMenuOverlay.classList.remove("hidden");
         }
 
@@ -93,7 +93,7 @@ function BurgerMenuToggle() {
         burgerMenuChkBox.checked = false;
         aside.classList.add("burger-menu-inactive");
 
-        if (windowWidth < 600) {
+        if (windowWidth < 700) {
             burgerMenuOverlay.classList.add("hidden");
         }
 
@@ -106,14 +106,14 @@ function BurgerMenuToggle() {
         if (burgerMenuChkBox.checked) {
 
             aside.classList.remove("burger-menu-inactive");
-            if (windowWidth < 600) {
+            if (windowWidth < 700) {
                 burgerMenuOverlay.classList.remove("hidden");
             }
 
         } else {
 
             aside.classList.add("burger-menu-inactive");
-            if (windowWidth < 600) {
+            if (windowWidth < 700) {
                 burgerMenuOverlay.classList.add("hidden");
             }
 
@@ -170,7 +170,7 @@ function DisplayView(viewPref) {
     if (viewPref === true) { //list view = 1 column
         numOfColumnns = 1;
     } else {
-        if (windowWidth >= 600) {  // column view and medium/large screens = compute number of columns
+        if (windowWidth >= 900) {  // column view and medium/large screens = compute number of columns
             const taskWindowWidth = taskWindow.offsetWidth;
             numOfColumnns = Math.floor(taskWindowWidth / 300);
         } else { //columns view and small screens = 2 columns
@@ -279,12 +279,12 @@ window.addEventListener("resize", () => {
     DisplayView(viewToggleChkBx.checked);
 
     //removes burger menu overlay dinamically according to window size
-    if (599 < window.innerWidth) {
+    if (699 < window.innerWidth) {
         burgerMenuOverlay.classList.add("hidden");
     } else if (burgerMenuChkBox.checked) {
         burgerMenuOverlay.classList.remove("hidden");
     }
-    
+
 });
 
 window.addEventListener("load", () => DisplayView(viewToggleChkBx.checked));
