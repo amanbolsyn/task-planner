@@ -550,15 +550,24 @@ function CloseEditTaskForm() {
 }
 
 function SelectAllTasks(){
+    selectedTasks = [];
     const taskCards = document.querySelectorAll(".task-card-container");
     const selectCheckBoxes = document.querySelectorAll(".task-checkbox-label");
+    const selectedNumText = document.getElementById("selected-tasks-num")
 
     for(let i=0; i<taskCards.length; i++){
         taskCards[i].classList.add("selected-card");
         selectCheckBoxes[i].classList.remove("hidden");
+        selectCheckBoxes[i].querySelector(".task-checkbox").checked = true;
         selectedTasks.push(Number(taskCards[i].id));
     }
+
+    selectedNumText.innerText = '';
+    selectedNumText.innerText = `${taskCards.length} Selected`;
+
 }
+
+
 
 function DeleteSelectedTasks() {
     for (let i = 0; i < selectedTasks.length; i++) {

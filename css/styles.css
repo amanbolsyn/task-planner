@@ -227,7 +227,7 @@
     z-index: 5;
 }
 
-#burger-menu-overlay{
+#burger-menu-overlay {
     z-index: 2;
 }
 
@@ -591,7 +591,6 @@ main {
 
 .button-form {
     border: none;
-    float: right;
     margin: 0.7em 0em;
     padding: 0.4em 0.8em;
     font-size: 1em;
@@ -600,9 +599,12 @@ main {
     color: var(--new-task-button-color);
 }
 
-.button-form:first-of-type {
-    margin-right: 0.7em;
+.button-form:nth-of-type(1) {
     margin-left: 0.7em;
+}
+
+.button-form:last-of-type {
+    margin-right: 0.7em;
 }
 
 .new-task-form-active #new-task-tittle {
@@ -626,6 +628,18 @@ main {
     background-position-x: 10px;
     padding-left: 35px;
     resize: none;
+}
+
+.new-bottom-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.new-button-container {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
 .new-task-form-active #new-select-wrapper {
@@ -800,7 +814,6 @@ main {
 /* EDIT TASK FORM STYLING */
 /* ********************** */
 
-
 .edit-task-form {
     position: fixed;
     left: 27.5%;
@@ -841,10 +854,22 @@ main {
     resize: none;
 }
 
+.edit-bottom-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.edit-button-container {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
 #edit-select-wrapper {
     position: relative;
     float: left;
-    margin:0.7em
+    margin: 0.7em;
 }
 
 #edit-select-wrapper::after {
