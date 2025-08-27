@@ -67,7 +67,7 @@
     --footer-text-color: #000000;
 
     /* IMAGE URLS */
-    --search-image-url: url("../assets/header-images/search-icon-light-theme.svg");
+    --search-image-url: url("../assets/favicon/search-icon-light-theme.svg");
 
 }
 
@@ -139,7 +139,7 @@
     --footer-text-color: #FFFFFF;
 
     /* IMAGE URLS */
-    --search-image-url: url("../assets/header-images/search-icon-dark-theme.svg");
+    --search-image-url: url("../assets/favicon/search-icon-dark-theme.svg");
 
 }
 
@@ -622,7 +622,7 @@ main {
 }
 
 .new-task-form-inactive #new-task-description {
-    background-image: url('../assets/header-images/pencil-icon.svg');
+    background-image: url('../assets/favicon/pencil-icon.svg');
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 10px;
