@@ -18,6 +18,7 @@ Browser application called task-planner is capable of:
 ## Dark/Light theme and List/Column view toggles 
 ![Alt text](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXFmYnkyOWNpMjkyOTcxeXFsamNtMHZqMTBrcnRlN3RoNTVraGkwMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1rh2S8Z98NkZql7xRc/giphy.gif)
 
+
 ## Installation
 
 Open up your terminal and run this command 

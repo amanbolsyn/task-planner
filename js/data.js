@@ -214,7 +214,7 @@ function CreateTaskCards(tasksData) {
             taskCard.appendChild(cardBottomContainer);
 
             //task status selector element
-            cardBottomContainer.insertAdjacentHTML("beforeend", `      
+            cardBottomContainer.insertAdjacentHTML("beforeend", `     
         <select class="task-status" name="task-status" autofocus="off">
           <option value="Completed">Completed</option>
           <option value="In progress">In progress</option>
@@ -549,6 +549,17 @@ function CloseEditTaskForm() {
 
 }
 
+function SelectAllTasks(){
+    const taskCards = document.querySelectorAll(".task-card-container");
+    const selectCheckBoxes = document.querySelectorAll(".task-checkbox-label");
+
+    for(let i=0; i<taskCards.length; i++){
+        taskCards[i].classList.add("selected-card");
+        selectCheckBoxes[i].classList.remove("hidden");
+        selectedTasks.push(Number(taskCards[i].id));
+    }
+}
+
 function DeleteSelectedTasks() {
     for (let i = 0; i < selectedTasks.length; i++) {
         DeleteTask(selectedTasks[i]);
@@ -585,7 +596,7 @@ function CloseSelectHeader() {
     })
 
     //change this after learning asynchronous code 
-    setTimeout( function(){document.getElementById("header-status-selecter").selectedIndex = 0;}, 1000)
+    setTimeout(function () { document.getElementById("header-status-selecter").selectedIndex = 0; }, 1000)
 
 }
 
@@ -767,4 +778,4 @@ function CreateNoTaskMessage() {
 
 
 
-export { CreateDB, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask, RetriveTasks, DeleteSelectedTasks, ChangeStatusSelected }
+export { CreateDB, DisplayData, SaveNewTaskForm, ClearNewTaskForm, CloseEditTaskForm, DeleteTask, ClearEditTaskForm, SaveEditTask, RetriveTasks, SelectAllTasks, DeleteSelectedTasks, ChangeStatusSelected }

@@ -11,6 +11,7 @@ import { CreateDB } from "./data.js";
 import { SaveNewTaskForm } from "./data.js";
 import { ClearNewTaskForm } from "./data.js";
 
+import {SelectAllTasks} from "./data.js"
 import { DeleteSelectedTasks } from "./data.js";
 import { ChangeStatusSelected } from "./data.js";
 
@@ -32,6 +33,7 @@ const searchInput = document.getElementById("search");
 const statusOptions = document.querySelectorAll('input[name="task-status"]');
 const sortOptions = document.querySelectorAll('input[name="sort-order"]');
 
+const selectAllBttn = document.getElementById("select-all-bttn");
 const deleteSelectedBttn = document.getElementById("delete-selected")
 const headerStatusSelecter = document.getElementById("header-status-selecter")
 
@@ -111,6 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
   })
 
+  selectAllBttn.addEventListener("click", SelectAllTasks)
   deleteSelectedBttn.addEventListener("click", DeleteSelectedTasks);
   headerStatusSelecter.addEventListener("input", ChangeStatusSelected);
 

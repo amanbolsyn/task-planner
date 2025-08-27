@@ -153,6 +153,7 @@
           </label>
         </section>
         <section id="selected-tasks-section" class="hidden">
+          <button id="select-all-bttn" class="button-header">Select All</button>
           <button id="delete-selected" class="button-header">Delete</button>
           <select id="header-status-selecter" name="selected-tasks-status">
             <option value="none" selected disabled>Change status</option>
@@ -302,12 +303,14 @@
         <input type="text" placeholder="Title" maxlength="70" id="new-task-title" autocomplete="off">
         <textarea rows="1" placeholder="Write a task..." id="new-task-description" autocomplete="off"></textarea>
         <a id="new-task-form-error" class="error hidden"></a>
-        <select id="new-task-status" name="new-task-status">
+        <div  id = "new-select-wrapper">
+        <select id="new-task-status"  name="new-task-status">
           <option value="Completed">Completed</option>
           <option value="In progress">In progress</option>
           <option value="Not started">Not started</option>
           <option value="On hold">On hold</option>
         </select>
+        </div>
         <button type="button" id="new-task-save-button" class="button-form">save</button>
         <button type="button" id="new-task-clear-button" class="button-form">clear</button>
       </form>
@@ -329,12 +332,14 @@
       <input type="text" placeholder="Title" maxlength="70" id="edit-task-title" autocomplete="off">
       <textarea rows="1" placeholder="Take a task..." id="edit-task-description" autocomplete="off"></textarea>
       <a id="edit-task-form-error" class="error hidden"></a>
+      <div id = "edit-select-wrapper">
       <select id="edit-task-status" name="edit-task-status">
         <option value="Completed">Completed</option>
         <option value="In progress">In progress</option>
         <option value="Not started">Not started</option>
         <option value="On hold">On hold</option>
       </select>
+      </div>
       <button type="button" id="edit-task-close-button" class="button-form">close</button>
       <button type="button" id="edit-task-save-button" class="button-form">save</button>
       <button type="button" id="edit-task-clear-button" class="button-form">clear</button>
