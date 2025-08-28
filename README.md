@@ -18,15 +18,8 @@ Browser application called task-planner is capable of:
 ## Dark/Light theme and List/Column view toggles 
 ![Alt text](./assets/gifs/toggle.gif)
 
-## Searching, filtering, sorting tasks
-![Alt text](./assets/gifs/sort-filter-search.gif)
-
 ## Multiple selection 
 ![Alt text](./assets/gifs/multiple-select.gif)
-
-## Task creation and editting 
-![Alt text](./assets/gifs/creation-and-editing.gif)
-
 
 ## Installation
 
